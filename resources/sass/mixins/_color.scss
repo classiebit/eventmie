@@ -1,0 +1,24 @@
+@mixin hex-to-rgba($color, $alpha: 1){
+  $hex-to-rgba-red: red($color);
+  $hex-to-rgba-green: green($color);
+  $hex-to-rgba-blue: blue($color);
+  $rgba: rgba($hex-to-rgba-red, $hex-to-rgba-green, $hex-to-rgba-blue, $alpha);
+}
+
+@mixin bg-rgba($color, $alpha: 1){
+  background: rgba( red($color), green($color), blue($color), $alpha);
+}
+
+
+@mixin bg-image($color, $path){
+    background:$color url($path) center center no-repeat;
+    background-size: cover;
+}
+
+@mixin bg-fixed($color, $path){
+    background:$color url($path) center center no-repeat fixed;
+    background-size: cover;
+}
+
+
+

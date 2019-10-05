@@ -1,0 +1,115 @@
+
+.lgx-speakers2 {
+  background: $black-color;
+  
+  .lgx-inner {
+    @include bg-rgba($black-color, 1);
+  }
+}
+.lgx-single-speaker {
+  @include bg-rgba($white-color, 1);
+  padding: 1.6rem;
+  border-radius: 16px;
+  margin-bottom: 2.6rem;
+  @include transition-duration($duration: 0.3s);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 1px 15px 1px rgba(52, 40, 104, 0.1);
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -136%;
+    height: 150%;
+    width: 150%;
+    background: $black-color;
+    transition: all .5s ease-in-out;
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    @include transition-duration($duration: 0.3s);
+    z-index: 0;
+    opacity: 0;
+  }
+  figure {
+    position: relative;
+    a.profile-img {
+      img {
+        //border-radius: 50%;
+        @include transition-duration($duration: 0.3s);
+      }
+    }
+    figcaption {
+      @include bg-rgba($brand-color, 0.9);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 90%;
+      height: 90%;
+      text-align: center;
+      border-radius: 8px;
+      opacity: 0;
+      padding: .8rem 0;
+      transition: all .3s ease-in-out .3s;
+      z-index: 3;
+      a {
+        @include font-size(26);
+        color: $brand-color;
+        padding: 0 .3rem;
+      }
+    }
+  }
+  .social-group {
+    text-align: right;
+    padding: 1rem 2rem;
+    a {
+      color: $white-color;
+    }
+  }
+  .speaker-info {
+    position: absolute;
+    bottom: 5px;
+    z-index: 99;
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem 2rem;
+    .title {
+      @include font-size(26);
+      font-weight: 700;
+      margin: 0;
+      color: $brand-color3;
+      a {
+        font-size: inherit;
+        color: inherit;
+      }
+    }
+    .subtitle {
+      font-family: $lgx-base-font;
+      @include font-size(14);
+      font-weight: 400;
+      
+      margin: 0;
+      color: $white-color;
+      opacity: .7;
+    }
+  }
+  &:hover {
+    background: $brand-color;
+    overflow: hidden;
+    &:after {
+      left: 42%;
+      opacity: .7;
+    }
+    figure {
+      a.profile-img img {
+        transform: scale(1.2);
+      }
+      figcaption {
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        img {
+
+        }
+      }
+    }
+  }
+}

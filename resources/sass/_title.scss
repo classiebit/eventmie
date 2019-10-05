@@ -1,0 +1,50 @@
+.lgx-heading {
+  text-align: center;
+  margin-bottom: 4rem;
+  overflow: hidden;
+  display: block;
+  margin-top: 0;
+  .heading {
+    font-family: $lgx-base-font;
+    @include font-size(36);
+    color: $black-color;
+    font-weight: 600;
+    margin: 0;
+  }
+  .subheading {
+    font-family: $lgx-heading-font;
+    @include font-size(20);
+    color: $black-color;
+    color: rgba(50, 51, 51, 0.8);
+    font-weight: 400;
+    margin: 0;
+    //opacity: .4;
+  }
+}
+.lgx-heading-white {
+  .heading {
+    color: $white-color;
+  }
+  .subheading {
+    color: $border-color;
+  }
+}
+.lgx-content-white {
+  .title {
+    color: $white-color;
+  }
+  i, .info {
+    color: $border-color;
+  }
+}
+
+
+.lgx-subheading {
+  font-family: $lgx-heading-font;
+  @include font-size(24);
+  text-align: center;
+  color: $brand-color;
+  
+  margin-bottom: 3.9rem;
+  margin-top: 0;
+}

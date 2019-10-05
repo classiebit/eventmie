@@ -1,0 +1,393 @@
+.lgx-schedule {
+  background: $brand-color;
+  a {
+    cursor: pointer;
+  }
+  .lgx-inner {
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 100% auto, cover;
+  }
+}
+
+.lgx-schedule-dark {
+    background: #00192f;
+}
+
+.lgx-tab-content-event {
+    .panel-heading {
+        min-height: 80vh;
+    }
+    .form-control {
+        border: 1px solid #dcdcdc;
+    }
+}
+.lgx-tab {
+  .nav > li > a:focus, .nav > li > a:hover {
+    background-color: transparent;
+  }
+  .lgx-nav,
+  .lgx-tab-content {
+    float: left;
+  }
+  .lgx-nav {
+    width: 25%;
+    //margin-right: 3%;
+    padding: 3rem 0;
+  }
+  .lgx-nav-nogap {
+    width: 25%;
+    margin-right: 0;
+  }
+  .lgx-nav-colorful {
+    padding: 0;
+    li {
+      margin: 0 !important;
+      padding: 1rem 5px !important;
+      &:nth-child(1) {
+        background: $brand-color3;
+      }
+      &:nth-child(2) {
+        background: #ff8a00;
+      }
+      &:nth-child(3) {
+        background: #00b9ff;
+      }
+      &:nth-child(4) {
+        background: #8dc63f;
+      }
+      &:nth-child(5) {
+        background: #6ba229;
+      }
+    }
+    .active {
+      background: $brand-color !important;
+      a:focus,
+      a:hover {
+        background: transparent;
+        margin-right: .6rem;
+      }
+    }
+  }
+
+
+  .lgx-tab-content {
+    width: 75%;
+  }
+  .nav-pills {
+    background: $black-color;
+    border-radius: 16px 0 0 16px;
+    text-align: right;
+    display: inline-block;
+    margin-bottom: 2.6rem;
+    box-shadow: 0 13px 35px rgba(0,0,0,0.1);
+    li {
+      padding: 5px;
+      margin: 0 .4rem;
+      float: none;
+      a {
+        padding: 1.6rem 2rem;
+        h3 {
+          @include font-size(20);
+          font-weight: 400;
+          line-height: 2.6rem;
+          color: $white-color;
+          margin: 0;
+          letter-spacing: 1px;
+        }
+        p {
+          //font-style: italic;
+          @include font-size(14);
+          font-weight: 300;
+          margin: 0;
+          color: $white-color;
+          opacity: .7;
+        }
+      }
+    }
+
+    .active {
+      position:relative;
+      border-radius: 0;
+      background: transparent;
+      a:focus
+      a:hover {
+        background: transparent;
+        margin-right: .6rem;
+      }
+      a {
+        background: transparent;
+        border-radius: 0;
+        h3 {
+          color: $brand-color;
+        }
+      }
+      h3 {
+            color: $brand-color;
+        }
+    }
+  }
+
+}
+
+.panel-group .panel + .panel {
+  margin-top: 0;
+}
+.panel-group {
+  margin-bottom: 0;
+}
+
+.panel-group .panel {
+  //background: $body-bg-deep;
+  @include bg-rgba($white-color, 1);
+  margin-bottom: 5px;
+  border-radius: 16px;
+  box-shadow: 0 8px 6px -6px rgba(50, 51, 51, 0.1);
+}
+
+.lgx-tab-content {
+  @include bg-rgba($black-color, 1);
+  border: 2px solid $black-color;
+  border-radius: 0 16px 16px 16px;
+  padding: 1rem;
+  padding-bottom: .5rem;
+  box-shadow: 0 13px 35px rgba(0,0,0,.1);
+  overflow: hidden;
+  .active.in {
+    animation-name: fadeInUp;
+    transform-origin: center;
+    animation-duration: 400ms;
+    animation-timing-function: linear;
+  }
+}
+
+.lgx-panel {
+  border: none;
+  box-shadow: none;
+  .panel-heading {
+    background: transparent;
+    padding: 3rem;
+  }
+
+  .collapsed {
+    background: $white-color;
+    border-radius: 8px;
+    display: block;
+    .author {
+      img {
+        border: 2px solid transparent !important;
+      }
+    }
+    .schedule-info {
+      background: transparent !important;
+    }
+  }
+  .panel-collapse .panel-body {
+    border: none !important;
+  }
+  .panel-body {
+    padding: 0 2rem 2rem;
+    margin-left: 120px;
+    display: block;
+  }
+  .lgx-single-schedule {
+    display: flex;
+    padding: 2rem 1.5rem;
+    .author {
+      max-width: 100px;
+      margin-right: 1rem;
+      margin-top: 2rem;
+      img {
+        border-radius: 50%;
+        margin-bottom: .4rem;
+        border: 2px solid $brand-color3;
+      }
+    }
+    .author-multi {
+      img {
+        width: 48%;
+        margin-right: 1%;
+        float: left;
+      }
+    }
+    .schedule-info {
+      width: 100%;
+        background: #fff;
+        border: 3px solid $black-color;
+        padding: 2.6rem 3rem;
+        border-radius: 8px;
+        box-shadow: 0 8px 7px -9px rgba(50, 51, 51, 0.4);
+      .time {
+        //background: $brand-color3;
+        @include bg-rgba($brand-color, 1);
+        font-family: $lgx-heading-font;
+        @include font-size(16);
+        color: $white-color;
+        font-weight: 600;
+        display: inline-block;
+        margin: 0;
+        padding: .2rem 1rem;
+        margin-bottom: .5rem;
+        border-radius: 25px;
+        span {
+          color: $brand-color3;
+        }
+      }
+      .title {
+        font-family: $lgx-base-font;
+        @include font-size(26);
+        font-weight: 900;
+        line-height: 3.4rem;
+        margin: 0;
+      }
+      .author-info {
+        @include font-size(16);
+        font-weight: 400;
+        margin-bottom: 0;
+        span {
+          color: $brand-color2;
+        }
+      }
+    }
+  }
+    .schedule-row {
+        margin-bottom: 2rem;
+        background: #f7f7f7;
+        border-top: 3px solid $brand-color;
+        padding: 1rem 2rem 1rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 7px -9px rgba(50, 51, 51, 0.4);
+    }
+    .schedule-number {
+        padding: 1rem 0 1rem 0;
+        
+        .schedule-info {
+            width: 100%;
+            background: $brand-color;
+            padding: 0;
+            border-radius: 16px;
+
+            .time {
+                margin: 0;
+                background: $brand-color;
+                line-height: 2.4rem;
+                color: $white-color;
+                font-weight: 600;
+                display: inline-block;
+                padding: 0.3rem 3rem;
+                border-radius: 16px;
+            }
+        }
+  }
+  .panel-body, .panel-heading {
+    .text {
+      margin-bottom: 1.6rem;
+    }
+    .location {
+      font-family: $lgx-heading-font;
+      @include font-size(16);
+      font-weight: 400;
+      margin-bottom: 1.6rem;
+      strong {
+        font-weight: 700;
+        color: $brand-color;
+      }
+      span {
+        color: $brand-color;
+      }
+    }
+  }
+  &:last-child {
+    border-bottom: 1px solid transparent;
+  }
+
+}
+
+@media (max-width : $screen-md-max) {
+  /************** 991 GLOBAl USE***********/
+
+  .lgx-tab {
+    .lgx-nav,
+    .lgx-tab-content {
+      float: left;
+    }
+    .lgx-nav {
+      width: 100%;
+      margin-right: 0;
+      padding: 1.5rem 0;
+    }
+    .lgx-tab-content {
+      width: 100%;
+      border-radius: 0 0 16px 16px;
+    }
+    .nav-pills {
+      text-align: center;
+        margin-bottom: 0;
+        display: inline-block;
+        border-radius: 16px 16px 0 0;
+      li {
+        flex: 1;
+        float: none;
+        a {
+          padding: 1rem ;
+          h3 {
+            @include font-size(20);
+            font-weight: 400;
+            line-height: 2.6rem;
+            color: $white-color;
+            margin: 0;
+            letter-spacing: 1px;
+          }
+          p {
+            //font-style: italic;
+            @include font-size(14);
+            font-weight: 300;
+            margin: 0;
+            color: $white-color;
+            opacity: .7;
+          }
+        }
+      }
+      .active::before {
+        display: none;
+
+      }
+    }
+  }
+  
+  /************** 991 GLOBAl USE END***********/
+
+}
+
+
+/* ----------------------------------------------------------------
+      Custom, iPhone Retina  UP TO 480px
+-------------------------------------------------------------------*/
+@media (max-width : 480px) {
+  /************** 480 GLOBAl USE***********/
+  .lgx-panel .lgx-single-schedule {
+    display: block;
+  }
+  .lgx-panel .lgx-single-schedule .author {
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0 1.5rem;
+    margin-bottom: .5rem;
+  }
+  .lgx-panel .lgx-single-schedule {
+    padding: 2rem 0;
+  }
+  .lgx-panel .lgx-single-schedule .author img {
+    max-height: 80px;
+  }
+  .lgx-panel .lgx-single-schedule .author-multi img {
+    width: auto;
+  }
+  /************** 480 GLOBAl USE***********/
+
+}
+
+
+
+
+

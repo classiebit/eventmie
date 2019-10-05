@@ -1,0 +1,50 @@
+.lgx-inner-breadcrumb {
+    padding: 16rem 0rem 0rem 0rem;
+}
+
+.breadcrumb-area {
+    .breadcrumb-heading-area {
+        .breadcrumb-heading {
+            color: darken($white-color, 10%);
+            text-align: center;
+            font-weight: 600;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+        }
+    }
+    .breadcrumb {
+        padding: 1rem 2rem;
+        list-style: none;
+        background-color: $brand-color;
+        border-radius: 16px;
+        margin-bottom: 0;
+        box-shadow: 0 15px 35px rgba($brand-color, 0.4), 0 5px 15px rgba($brand-color, 0.2);
+        
+        li {
+            @include font-size(14);
+            font-weight: 500;
+            color: $white-color;
+            a {
+                color: inherit;
+                font-size: inherit;
+                font-weight: inherit;
+                i {
+                    margin-right: .5rem;
+                    color: $brand-color2;
+                }
+            }
+        }
+        .active {
+            color: #cecece;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+    }
+}
+
+
+.breadcrumb>li+li:before {
+    padding: 0 0.2rem 0 0.5rem;
+    color: $white-color;
+    content: "/\00a0";
+}

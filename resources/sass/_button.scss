@@ -1,0 +1,120 @@
+.section-btn-area {
+  text-align: center;
+  display: block;
+  margin-top: 2.6rem;
+}
+
+.lgx-btn {
+  overflow: hidden;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  color: $white-color;
+  font-weight: 400;
+  font-size: 14px;
+  background: $white-color;
+  margin: 0 auto;
+  font-family: $lgx-heading-font;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  letter-spacing: .1rem;
+  background: $brand-color;
+
+  @include transition-duration($duration: 0.3s);
+  box-shadow: 0 8px 6px -6px rgba(50, 51, 51, 0.4);
+
+  &:hover {
+    color: $white-color;
+    border-radius: 16px;
+    @include transition-duration($duration: 0.3s);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.lgx-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.lgx-btn:after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 14px;
+  //height: 490%;
+  height: 200px;
+  //height: 879%;
+  //width: 152%;
+  width: 200px;
+  background: $black-color;
+  transition: all .5s ease-in-out;
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  opacity: .15;
+  //border-radius: 25%;
+}
+
+.lgx-btn:hover:after {
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  height: 604%;
+  width: 300px;
+  left: 43px;
+  border-radius: 100%;
+}
+
+
+
+.lgx-btn-sm {
+  padding: .8rem 2.6rem;
+  font-size: 12px;
+}
+.lgx-btn-red {
+  background: $brand-color2;
+}
+.lgx-btn-yellow {
+  background: $brand-color3;
+}
+.lgx-btn-success {
+  background: $green;
+}
+.lgx-btn-danger {
+  background: $red;
+}
+.lgx-btn-black {
+  background: $black-color;
+}
+.section-btn-area {
+  .lgx-btn {
+    margin-right: .5rem;
+  }
+}
+
+
+.lgx-btn-white {
+  background: $white-color;
+  color: $brand-color;
+  &:after {
+    background: $border-color;
+    opacity: .3;
+  }
+  &:hover {
+    color: $brand-color;
+  }
+}
+
+
+/* ---------------------------------------------------------------------
+    Extra small devices (phones, less UP TO 767px)
+ ----------------------------------------------------------------------*/
+@media (max-width : $screen-xs-max) {
+  /************** 767 GLOBAl USE***********/
+  .lgx-btn {
+    font-size: 12px;
+    padding: .6rem 2rem;
+    letter-spacing: 0rem;
+  }
+  /************** 767 GLOBAl USE END***********/
+
+}/*767 END*/

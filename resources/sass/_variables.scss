@@ -1,0 +1,98 @@
+
+@import "mixins.scss";
+
+//== DEFAULT BRAND  COLORS
+// $brand-color:#554bb9; // original
+$brand-color:#1b89ef; // good
+$brand-color2: #ec398b;
+
+//== BRAND BLUE COLORS
+$brand-blue:#1976d2;
+
+//== BRAND Olive COLORS
+$brand-olive:#86bc42;
+
+//== BRAND Violet COLORS
+$brand-violet:#7e24e6;
+
+//== BRAND ORANGE COLORS
+$brand-orange:#FFBB33;
+
+//== BRAND pink COLORS
+$brand-pink:#ca396a;
+
+//== BRAND Teal COLORS
+$brand-teal: #00695c;
+
+//== BRAND RED COLORS
+$brand-red:#e62b4c;
+
+
+
+//== OTHERS COLORS
+$brand-light: lighten($brand-color, 10%);
+$brand-dark:  darken($brand-color, 7%);
+
+
+//$brand-color2: #dd3333;
+// $brand-color3: #fac400;
+//$brand-color3: #ff8400;
+$brand-color3: #efa506;
+$brand-color4: #00acee;
+
+
+$black-color: #00192f;
+$body-bg: #f9f9f9;
+$body-bg-deep: #f1f1f1;
+$white-color: #fff;
+$text-ash: #999;
+$border-color: #ddd;
+$footer-text: #999;
+
+
+// other matching color combinations
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+
+
+//== Typography Variable
+$lgx-heading-font: 'Noto Sans', sans-serif;
+//$lgx-heading-font2: 'Playfair Display', serif;
+
+/* Theme font */
+$lgx-base-font: 'Noto Sans', sans-serif;
+$font-size-base: 16;
+$line-height-base: 1.6;
+
+
+/* ==========================================================================
+1. State colors
+========================================================================== */
+
+$red: #FF7273;
+$blue: #039BE5;
+$green: #00b289;
+$orange: #eda514;
+
+
+/* ==========================================================================
+2. Box shadows
+========================================================================== */
+
+$light-blue-grey: #98a9c3;
+$base-shadow: rgba(0, 0, 0, 0.12);
+
+// Grey box shadow
+$grey-shadow-from: rgba($light-blue-grey, 0.42);
+$grey-shadow-to: rgba($light-blue-grey, 0.2);
+$grey-box-shadow:  0 14px 26px -12px $grey-shadow-from, 0 4px 23px 0px $base-shadow, 0 8px 10px -5px $grey-shadow-to !important;

@@ -1,0 +1,671 @@
+.lgx-header {
+  background: $body-bg-deep;
+  .lgx-inner {
+    margin:  0 auto;
+  }
+  .lgx-toggle {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    z-index: 99;
+    color: $white-color;
+    i {
+      font-size: 26px;
+    }
+
+  }
+
+.navbar-collapse.collapse.in {
+    min-height: 100vh;
+    background: $black-color;
+}
+
+  //DROPDOWN MENU HOVER EFFECT
+  .navbar-nav li:hover > ul{
+    display:block;
+    animation:fadeIn  .3s ease-in ;
+  }
+
+  .navbar-nav ul li:hover > ul{
+    display:block;
+    animation: fadeIn .3s ease-in;
+  }
+  //DROPDOWN MENU HOVER EFFECT
+
+
+  // MULTI LEVEL DROPDOWN
+  .dropdown-submenu {
+    position: relative;
+  }
+  .dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+  }
+  .dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+  }
+  .dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    margin-top: 5px;
+    margin-right: -10px;
+  }
+  .dropdown-submenu:hover>a:after {
+  }
+  .dropdown-submenu.pull-left {
+    float: none;
+  }
+  .dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+  }
+  // MULTI LEVEL DROPDOWN
+  .lgx-navbar {
+    margin-bottom: 0;
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    .container {
+      padding-right: 0;
+      padding-left: 0;
+    }
+    .lgx-nav {
+      position: relative;
+      animation-name: fadeInRight;
+      transform-origin: center;
+      animation-duration: 400ms;
+      animation-timing-function: linear;
+      li {
+        a {
+          font-family: $lgx-heading-font;
+          @include font-size(15);
+          font-weight: 500;
+          opacity: .9;
+          padding: 32px 11px;
+          color: $black-color;
+          &:hover {
+            background: transparent;
+            color: $white-color;
+            opacity: 1;
+          }
+        }
+      }
+      .active {
+        a {
+          background: transparent;
+        //   color: $brand-color;
+        }
+      }
+
+      //Dropdown
+      .dropdown-menu {
+        background: $white-color;
+        border: 0;
+        border-radius: 8px;
+        padding: 1rem;
+        min-width: 200px;
+        li {
+          a {
+            font-family: $lgx-base-font;
+            color: $brand-color !important;
+            padding: .6rem 1.5rem !important;
+            @include font-size(13);
+            font-weight: 500;
+            opacity: 1;
+            letter-spacing: normal;
+            @include transition-duration($duration: 0.3s);
+            border-left: 2px solid $brand-color;
+            b {
+              color: $brand-color;
+            }
+            &:hover {
+              opacity: 1;
+              @include bg-rgba($white-color, .2);
+              margin-left: 5px;
+            }
+            &:focus {
+              opacity: 1;
+              @include bg-rgba($white-color, .7);
+              color: $brand-color;
+            }
+          }
+        }
+      }//Dropdown End
+
+    }
+
+    //LOGO
+    .lgx-logo {
+      animation-name: fadeInRight;
+      transform-origin: center;
+      animation-duration: 400ms;
+      animation-timing-function: linear;
+      margin-top: .5rem;
+      display: inline-block;
+      a {
+        img {
+          float: left;
+          transition: all .4s ease-in-out 0s;
+          height: 74px;
+        }
+      }
+    }
+
+
+    .lgx-collapse {
+      display: flex !important;
+      justify-content: flex-end;
+    }
+  }
+
+  // NAV RIGHT
+  .lgx-nav-right {
+    overflow: hidden;
+    margin-top: 15px;
+    margin-left: 2rem;
+    display: flex;
+    .lgx-search,
+    .lgx-cart-area {
+    }
+    .lgx-cart {
+      position: relative;
+      .notification {
+        font-family: $lgx-heading-font;
+        position: absolute;
+        top: -10px;
+        left: 24px;
+        background: $border-color;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        font-weight: 700;
+        line-height: 23px;
+      }
+    }
+    .lgx-search {
+      @include font-noline(2.6);
+      margin-right: 1rem;
+      color: $black-color;
+      display: inline-block;
+      a {
+        color: inherit;
+        &:hover {
+          color: $brand-color;
+        }
+      }
+    }
+  }//. NAV RIGHT END
+  .lgx-container {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .lgx-container-fluid {
+    max-width: 100%;
+    margin: 0 3rem;
+  }
+}
+
+
+
+// Menu Position End
+.lgx-header-position {
+  width: 100%;
+}
+.lgx-header-position-fixed {
+  position: fixed;
+  z-index: 9;
+  margin-top: 2rem;
+  .lgx-header-cart {
+    margin-top: 46px;
+  }
+}
+
+.lgx-header-position-white {
+  .lgx-navbar .lgx-nav li a {
+    color: $white-color;
+  }
+  .lgx-nav-right .lgx-search a {
+    color: $white-color;
+  }
+}
+
+.lgx-header-fixed-container {
+  background: transparent;
+  margin-top: 0;
+  .navbar-collapse {
+    margin-top: 0;
+  }
+  .lgx-navbar {
+    @include bg-rgba($white-color, 1);
+    padding: 16px 2rem;
+    .lgx-logo-default {
+      margin-top: 6px;
+    }
+
+  }
+}
+
+.lgx-header-fixed-container-gap {
+  .navbar-collapse {
+    margin-top: 0;
+  }
+
+  .lgx-navbar {
+    @include bg-rgba($white-color, 1);
+    padding: 16px 2rem;
+  }
+}
+
+.lgx-header-background-tr {
+  @include bg-rgba($white-color, .1);
+  margin-top: 0;
+  padding: 1rem 0;
+}
+.lgx-header-background-brand {
+  .lgx-navbar {
+    @include bg-rgba($brand-color, 1);
+  }
+}
+
+.lgx-header-background-brand-full {
+  @include bg-rgba($brand-color, 1);
+}
+
+.lgx-header-background-black {
+  @include bg-rgba($black-color, 1);
+}
+
+.brand-name {
+    position: absolute;
+    top: 18px;
+    left: 90px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: $white-color;
+}
+.brand-slogan {
+    position: absolute;
+    top: 42px;
+    left: 90px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #dadada;
+}
+
+
+
+
+
+.lgx-header .menu-onscroll {
+  @include bg-rgba($black-color, 0.95);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  animation-name: fadeInDown;
+  transform-origin: center;
+  animation-duration: 200ms;
+  animation-timing-function: linear;
+  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
+  .lgx-nav-right {
+
+    .lgx-search {
+      color: $white-color;
+      a {
+        color: inherit;
+        &:hover {
+          color: $brand-color;
+        }
+      }
+    }
+  }
+  .lgx-toggle {
+    color: $brand-color;
+    top: 15px;
+  }
+  .lgx-navbar {
+    .lgx-logo-fixed {
+      width: 130px;
+      a img {
+        padding: 1.6rem 2.6rem 2.6rem;
+        max-width: 130px;
+      }
+    }
+    .lgx-logo-fixed-tpmenu {
+      margin-top: 0;
+    }
+
+    .lgx-logo-default {
+      margin-top: .6rem;
+    }
+    .lgx-nav {
+      li {
+        a {
+          color: $white-color;
+          &:hover {
+            background: transparent;
+            opacity: 1;
+          }
+        }
+      }
+      .active {
+        a {
+          background: transparent;
+          color: $brand-color;
+          opacity: 1;
+        }
+      }
+    }
+    .lgx-logo {
+      display: block;
+      a {
+        img {
+          margin-top: 0;
+          height: 74px;
+          transition: all .2s ease-in-out 0s;
+          max-width: 145px;
+        }
+      }
+    }
+  }
+}
+
+.lgx-header-position-fixed.menu-onscroll {
+  margin-top: 0;
+  .navbar-collapse {
+    margin-top: 0;
+  }
+}
+
+.lgx-header-fixed-container.menu-onscroll {
+  .lgx-navbar {
+    background: transparent;
+    padding: 0;
+  }
+}
+
+.lgx-header-fixed-container-gap.menu-onscroll {
+  .lgx-navbar {
+    background: transparent;
+    padding: 0 0;
+    margin-top: 0;
+  }
+}
+
+.lgx-header .menu-onscroll.lgx-header-background-tr {
+  padding: 0;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+//HEADER RESPONSIVE
+/* ----------------------------------------------------------------------
+     Small devices (tablets, UP TO 991px~768px)
+ -----------------------------------------------------------------------*/
+@media (max-width : $screen-sm-max) {
+  /************** 991 GLOBAl USE***********/
+  .lgx-header .lgx-navbar .lgx-nav li a {
+    font-size: 13px;
+    padding: 30px 7px;
+  }
+
+  .lgx-header .lgx-navbar .lgx-logo-fixed a img {
+    padding: 2.6rem 1.5rem 3rem;
+    max-width: 100px;
+    left: 3rem;
+  }
+  .lgx-header .lgx-navbar .lgx-logo-fixed {
+    width: 100px;
+  }
+
+
+  .lgx-navbar .lgx-nav li a.lgx-btn {
+    padding: .8rem 1rem !important;
+  }
+  .lgx-header .lgx-nav-right,
+  .lgx-header .menu-onscroll .lgx-nav-right {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+
+  .lgx-header .menu-onscroll {
+    .lgx-navbar .lgx-nav li a {
+      font-size: 13px;
+      padding: 30px 7px;
+    }
+    .lgx-navbar .lgx-logo-fixed a img {
+      padding: 2.6rem 1.5rem 3rem;
+      max-width: 100px;
+    }
+  }
+
+  .lgx-header-fixed-container-gap .lgx-navbar,
+  .lgx-header-fixed-container .lgx-navbar {
+    padding: 10px 0;
+  }
+  .lgx-header .lgx-navbar .lgx-logo a img {
+    max-width: 150px;
+  }
+
+  .lgx-header .lgx-navbar .lgx-nav li a,
+  .lgx-header .menu-onscroll .lgx-navbar .lgx-nav li a {
+    font-size: 12px;
+    padding: 30px 5px;
+  }
+
+  .lgx-header .lgx-nav-right, .lgx-header .menu-onscroll .lgx-nav-right {
+    padding-left: 1rem;
+  }
+
+  .lgx-header-position-fixed {
+    .navbar-collapse {
+      margin-top: 8px;
+    }
+  }
+
+  .lgx-header-fixed-container-gap,
+  .lgx-header-fixed-container {
+    .navbar-collapse {
+      margin-top: 0;
+    }
+  }
+
+  .lgx-header .lgx-navbar .lgx-logo {
+    margin-left: 10px;
+  }
+
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-prev,
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-next {
+    height: 60px !important;
+    width: 60px !important;
+    bottom: -50px !important;
+  }
+
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-next {
+    margin-left: 50px !important;
+  }
+  .lgx-slider-navbottom .owl-nav [class*="owl-"] {
+    line-height: 60px !important;
+  }
+
+  /************** 991 GLOBAl USE END ***********/
+
+}
+
+
+
+
+/* ---------------------------------------------------------------------
+    Extra small devices (phones, less UP TO 767px)
+ ----------------------------------------------------------------------*/
+@media (max-width : $screen-xs-max) {
+  /************** 767 GLOBAl USE***********/
+
+  .lgx-header .lgx-navbar .lgx-nav li a,
+  .lgx-header .menu-onscroll .lgx-navbar .lgx-nav li a {
+    padding: 10px 7px;
+  }
+  .lgx-header-position {
+    background: transparent;
+  }
+  .lgx-header-position-fixed {
+    position: fixed;
+    margin-top: 0;
+  }
+
+  .lgx-header .lgx-navbar .lgx-logo-default,
+  .lgx-header .lgx-navbar .lgx-logo {
+    margin-top: 0;
+  }
+
+  .lgx-navbar .lgx-nav li a.lgx-btn {
+    display: inline-block;
+  }
+
+  .lgx-header .lgx-navbar .lgx-logo a img,
+  .lgx-header .menu-onscroll .lgx-navbar .lgx-logo a img {
+    max-width: 100px;
+    height: 45px;
+    margin-top: 4px;
+  }
+  .brand-name {
+    top: 10px;
+    left: 60px;
+    font-size: 1.6rem;
+  }
+  .brand-slogan {
+    top: 26px;
+    left: 60px;
+    font-size: 1.2rem;
+  }
+
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+    margin-top: 11px;
+    span {
+      background-color: #dedede !important;
+      width: 26px;
+      height: 3px;
+    }
+  }
+  .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: transparent;
+    span {
+      background-color: $white-color !important;
+    }
+  }
+
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    margin: 0 15px;
+  }
+
+  .lgx-header .lgx-container-fluid {
+    margin: 0 15px;
+  }
+
+  .section-gap {
+    padding: 0 0 !important;
+  }
+
+  .lgx-header .lgx-navbar .lgx-logo-fixed a img,
+  .lgx-header .menu-onscroll .lgx-navbar .lgx-logo-fixed a img {
+    padding: 1.5rem;
+    max-width: 80px;
+    left: 1rem;
+  }
+
+  .lgx-header-position-fixed .navbar-collapse,
+  .lgx-header-position-fixed .navbar-default .navbar-form {
+    margin-top: 5px;
+  }
+
+  .lgx-header .lgx-navbar .lgx-nav {
+    margin-top: 3rem;
+  }
+
+
+  .lgx-header-fixed-container {
+    .lgx-navbar {
+      background: transparent;
+      padding: 10px 0;
+      .lgx-logo-default {
+        margin-top: 0;
+      }
+
+    }
+  }
+
+  .lgx-header-fixed-container-gap {
+    .navbar-collapse {
+      margin-top: 0;
+    }
+    .lgx-navbar {
+      background: transparent;
+      padding: 10px 0;
+      margin-top: 0;
+      .lgx-logo-default {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .header-top {
+    .contact {
+      text-align: center;
+      ul li {
+        margin-top: 4px;
+      }
+    }
+    .header-top-inner .right-menu {
+      text-align: center;
+    }
+  }
+
+  .lgx-header .lgx-nav-right, .lgx-header .menu-onscroll .lgx-nav-right {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .lgx-header .lgx-nav-right {
+    margin: 19px 0 30px 0;
+    padding-left: 0;
+  }
+
+
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-prev,
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-next {
+    bottom: -55px !important;
+  }
+
+  .lgx-header .lgx-navbar .lgx-nav {
+    margin-top: 1.6rem;
+    margin-bottom: 2.6rem;
+  }
+  .lgx-header .lgx-nav-right {
+    margin-bottom: -10px;
+    margin-left: -6px;
+  }
+
+  /************** 767 GLOBAl USE END***********/
+
+
+}/*767 END*/

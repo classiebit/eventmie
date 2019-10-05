@@ -1,0 +1,18 @@
+.pagination > li > a, 
+.pagination > li > span {
+    border: none;
+    padding: 1rem 1.5rem;
+    color: $brand-color;
+    font-size: 1.5rem;
+}
+.pagination > li > a.active, 
+.pagination > li > span.active {
+    background: $brand-color;
+    color: $white-color;
+}
+.pagination > li:first-child a {
+    border-radius: 8px 0 0 8px;
+}
+.pagination > li:last-child a {
+    border-radius: 0 8px 8px 0;
+}

@@ -1,0 +1,39 @@
+{
+    "name": "classiebit/eventmie",
+    "version": "1.0.0",
+    "description": "Eventmie Lite",
+    "keywords": ["laravel", "admin", "panel"],
+    "license": "MIT",
+    "homepage": "https://classiebit.com/eventmie",
+    "support": {
+        "issues": "https://github.com/classiebit/eventmie/issues",
+        "source": "https://github.com/classiebit/eventmie"
+    },
+    "authors": [
+        {
+            "name": "Classiebit",
+            "email": "info@classiebit.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "*",
+        "tightenco/ziggy": "*",
+        "davejamesmiller/laravel-breadcrumbs": "*",
+        "tcg/voyager": "*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Classiebit\\Eventmie\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Classiebit\\Eventmie\\EventmieServiceProvider"
+            ]
+        }
+    }
+}

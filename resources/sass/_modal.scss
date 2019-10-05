@@ -1,0 +1,114 @@
+.lgx-modal-box {
+    
+    padding: 3rem;
+    border: none;
+
+    .modal-header {
+        padding: 0;
+        border: none;
+    }
+    
+    .title {
+        @include font-size(32);
+        color: $black-color;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    label {
+        color: rgba($black-color, .85);
+    }
+
+    input.wpcf7-form-control,
+    input.form-control {
+        margin-bottom: 1.5rem;
+        display: block;
+        width: 100%;
+        height: 60px;
+        color: rgba($black-color, .85);
+        border-radius: 4px;
+
+        &:focus {
+            color: $black-color;
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    select.wpcf7-select,
+    select.lgx-select {
+        color: rgba($black-color, .85);
+        display: block;
+        width: 100%;
+        border: none;
+        padding: 15px 20px;
+        margin-bottom: 2rem;
+        outline: none;
+
+        option {
+            
+        }
+    }
+
+    .wpcf7-form-control.wpcf7-submit,
+    .wpcf7-form-control.lgx-submit,
+    .wpcf7-submit,
+    .lgx-submit {
+        display: block;
+        width: 100%;
+        background: $brand-color3;
+        margin-top: 2rem;
+        color: $brand-color;
+
+        &:hover {
+            background: $brand-color2;
+            color: $white-color;
+        }
+    }
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .1);
+    display: flex;
+    transition: opacity .3s ease;
+    overflow: auto;
+
+    .modal-header {
+        padding: 0 0 1rem 0;
+        border: none;
+    }
+    .modal-content {
+        padding: 2rem;
+
+        .list-group-item {
+            border: none;
+            text-align: left;
+
+            .badge {
+                font-size: 1.6rem;
+                margin-top: 0.4rem;
+                padding: 0.8rem;
+            }
+        }
+    }
+
+}
+
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    transform: scale(1.1);
+}

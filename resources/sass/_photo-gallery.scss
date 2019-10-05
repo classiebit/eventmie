@@ -1,0 +1,95 @@
+.lgx-photo-gallery {
+  overflow: hidden;
+  margin-bottom: -11px;
+  .lgx-inner {
+    padding-bottom: 0;
+  }
+}
+.lgx-gallery-area {
+  margin-right: -15px;
+  margin-left: -15px;
+  display: block;
+  overflow: hidden;
+}
+
+.lgx-gallery-single {
+  background: transparent;
+  float: left;
+  width: 100%;
+  figure {
+    position: relative;
+    overflow: hidden;
+    img {
+      transition: 0.4s ease;
+    }
+    figcaption {
+      @include bg-rgba($brand-color, .9);
+      position: absolute;
+      left: 5%;
+      top: 5%;
+      width: 90%;
+      height: 90%;
+      opacity: 0;
+      transition: all .3s ease-in-out 0s;
+      .lgx-hover-link {
+        display: table;
+        height: 100%;
+        width: 100%;
+        .lgx-vertical {
+          display: table-cell;
+          text-align: center;
+          vertical-align: middle;
+          a {
+            color: $white-color;
+            @include font-size(26);
+            transition: all 0.3s linear;
+            i {
+              padding: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  &:hover {
+    figure {
+      img {
+        transform: scale(1.2);
+      }
+      figcaption {
+        opacity:  1;
+        .lgx-hover-link {
+          .lgx-vertical {
+            a {
+              color: $white-color;
+              animation-name: zoomIn;
+              transform-origin: center;
+              animation-duration: 600ms;
+              animation-timing-function: linear;
+              display: block;
+              &:hover {
+                color: $brand-color3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.lgx-photo-gallery-black {
+  background: $black-color;
+  
+  .lgx-inner {
+    @include bg-rgba($black-color, 1);
+  }
+}
+
+
+.lgx-gallery-area {
+  .lgx-gallery-single {
+    width: 33.33%;
+  }
+}

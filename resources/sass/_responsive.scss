@@ -1,0 +1,382 @@
+/* -----------------------------------------------------------------------
+     Medium devices (desktops, UP TO 1199px~992px)
+ ------------------------------------------------------------------------*/
+@media (max-width : $screen-md-max) {
+    /************** 1199 GLOBAl USE***********/
+    html {
+        font-size: 55%;
+    }
+
+    .lgx-banner-info-circle {
+        margin-right: 2rem;
+    }
+    .lgx-banner-info-circle .info-circle-inner {
+        width: 350px;
+        height: 350px;
+    }
+    .lgx-banner-info-circle .info-circle-inner .date {
+        padding-top: 8rem;
+    }
+    .lgx-about-content-area {
+        padding-top: 8rem;
+    }
+
+    /************** 1199 GLOBAl USE END***********/
+
+}
+
+/* ----------------------------------------------------------------------
+     Small devices (tablets, UP TO 991px~768px)
+ -----------------------------------------------------------------------*/
+@media (max-width : $screen-sm-max) {
+    /************** 991 GLOBAl USE***********/
+    html {
+        font-size: 53%;
+    }
+
+    .lgx-banner-info-circle .info-circle-inner {
+        width: 350px;
+        height: 350px;
+    }
+
+    .lgx-cart-area {
+        .lgx-btn {
+            padding: 1.2rem 2rem;
+        }
+    }
+
+    .lgx-about {
+        background: $white-color;
+    }
+
+
+    .sponsors-area .single {
+        width: 32%;
+    }
+
+    .lgx-single-news {
+        margin-bottom: 4.2rem;
+    }
+
+    .lgx-registration-area {
+        display: block;
+    }
+
+    .lgx-registration-area .lgx-single-registration {
+        width: 50%;
+        float: left;
+    }
+
+    .lgx-registration-area2 .lgx-single-registration {
+        width: 47%;
+        float: left;
+        margin-bottom: 2rem;
+    }
+  
+  .lgx-registration-area .lgx-single-registration {
+    width: 48%;
+    margin-bottom: 2.6rem;
+  }
+
+
+  /************** 991 GLOBAl USE END ***********/
+
+}
+
+
+
+/* ---------------------------------------------------------------------
+    Extra small devices (phones, less UP TO 767px)
+ ----------------------------------------------------------------------*/
+@media (max-width : $screen-xs-max) {
+    /************** 767 GLOBAl USE***********/
+    html {
+        font-size: 52%;
+    }
+    .lgx-slider .slider-text-single figure figcaption .lgx-container .lgx-hover-link .lgx-vertical {
+        vertical-align: bottom;
+    }
+
+    .xs-text-center{
+        text-align: center;
+    }
+    .xs-text-right {
+        text-align: right;
+    }
+
+    .xs-text-left {
+        text-align: left;
+    }
+    .xs-float-none {
+        float: none;
+    }
+
+    .sm-text-center {
+        text-align: center;
+    }
+
+    /*Typography*/
+    h1, .h1 {
+        @include font-size(42);
+        line-height: 4.8rem;
+    }
+
+    h2, .h2 {
+        @include font-size(42);
+        line-height: 4.8rem;
+    }
+
+    h3, .h3 {
+        font-size: 16px;
+        line-height: 2.4rem;
+        font-weight: 400;
+    }
+    .lgx-btn {
+        padding: 1rem 2.6rem;
+    }
+
+    .lgx-banner-info-circle .info-circle-inner .date {
+        padding-top: 6rem;
+        font-weight: 700;
+    }
+    .lgx-about-content-area {
+        padding-top: 3rem;
+    }
+    .lgx-banner-info-circle {
+        background: transparent;
+        .info-circle-inner {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+    }
+    .lgx-banner-info-area {
+        display: block;
+    }
+    .lgx-banner-info-circle {
+        margin-right: 0;
+        display: inline-block;
+    }
+    .lgx-banner-info .title span {
+        display: inline-block;
+    }
+
+    .lgx-info-circle {
+        .info-circle-inner {
+            margin-bottom: 4.2rem;
+            #lgx-countdown {
+                i {
+                    color: $black-color;
+                }
+
+                .lgx-days {
+                    color: #fd56a3;
+                }
+                .lgx-hr {
+                    color: #9e1881;
+                }
+                .lgx-min {
+                    color: #00acee;
+                }
+                .lgx-sec {
+                    color: #8478fd;
+                }
+            }
+        }
+    }
+
+    .lgx-banner-info .action-area {
+        margin-top: 2rem;
+    }
+
+    .banner-info-margin {
+        margin-top: 0;
+    }
+
+    .lgx-registration-form-box.lgx-registration-banner-box {
+        margin-top: 2.6rem;
+    }
+
+    .lgx-registration-form-box input.form-control, .lgx-registration-form-box input.wpcf7-form-control {
+        margin-bottom: 1rem;
+        height: 45px;
+    }
+
+    .lgx-banner-info .action-area .video-area {
+        top: -9px;
+    }
+    .lgx-banner-info .action-area .video-area a i {
+        height: 50px;
+        width: 50px;
+        line-height: 53px;
+    }
+
+    .lgx-inner {
+        padding: 8rem 0;
+    }
+
+    .lgx-countdowns4 .lgx-inner {
+        padding: 2.6rem 0;
+    }
+
+
+
+    .lgx-video-area figure figcaption .video-icon i {
+        height: 55px;
+        width: 55px;
+        line-height: 55px;
+        padding-left: 4px;
+    }
+
+    .lgx-countdowns-banner-bottom #lgx-countdown {
+        margin-bottom: 0;
+    }
+
+    .sponsors-area .single {
+        width: 48%;
+    }
+
+    .lgx-gallery-area .lgx-gallery-single {
+        width: 50%;
+    }
+
+    .lgx-heading {
+        margin-bottom: 4.2rem;
+    }
+
+    .lgx-travelinfo-content {
+        display: block;
+    }
+    .lgx-travelinfo-single {
+        margin-bottom: 4.2rem;
+    }
+
+    .lgx-video .lgx-inner {
+        padding: 12rem 0 18rem;
+    }
+
+    .lgx-milestone-about .lgx-inner {
+        padding: 10rem 0 8rem;
+    }
+
+    .lgx-banner-info-date {
+        padding-right: 0;
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+    .lgx-banner-info-date .date span {
+        left: 30%;
+    }
+    .lgx-banner-info-xscenter .action-area {
+        text-align: center;
+        display: block;
+    }
+
+    .lgx-banner-info-date .location {
+        @include font-size(20);
+        line-height: 3.5rem;
+    }
+
+    .lgx-instagram-area .insta-text .lgx-hover-link .lgx-vertical .text {
+        font-size: 1.6rem;
+        line-height: 2.8rem;
+        padding: .5rem 2rem;
+    }
+    .lgxmapcanvas {
+        min-height: 200px;
+    }
+  .lgx-leftright-area, .lgx-travelinfo-content {
+    display: block;
+  }
+
+  .lgx-leftright-area .lgx-leftright-info .lgx-leftright-info-inner {
+    padding: 1rem 2rem;
+  }
+  .lgx-leftright-area {
+    &:last-child {
+      .lgx-leftright-info .lgx-leftright-info-inner {
+        padding-bottom: 8rem;
+      }
+    }
+    &:first-child {
+      .lgx-leftright-info .lgx-leftright-info-inner {
+        padding-top: 8rem;
+      }
+    }
+  }
+  
+  .lgx-countdown-simple #lgx-countdown span {
+    margin-right: 3rem;
+  }
+
+  .lgx-banner-info-christmas .lgx-countdown-area,
+  .lgx-banner-info-comingsoon .lgx-countdown-area {
+    margin-top: 2rem;
+  }
+
+  .lgxmapcanvas {
+    height: 250px;
+  }
+
+  .lgx-registration-area .lgx-single-registration {
+    width: 98%;
+  }
+
+
+    .modal-dialog {
+        width: 100%;
+    }
+
+    /************** 767 GLOBAl USE END***********/
+
+
+}/*767 END*/
+
+
+/* ----------------------------------------------------------------
+      Custom, iPhone Retina  UP TO 480px
+-------------------------------------------------------------------*/
+@media (max-width : 480px) {
+    /************** 480 GLOBAl USE***********/
+
+    html {
+        font-size: 50%;
+    }
+
+    .lgx-heading .heading {
+        font-size: 3rem;
+        line-height: 4rem;
+    }
+    .lgx-video-area figure figcaption .video-icon i {
+        height: 45px;
+        width: 45px;
+        line-height: 45px;
+        padding-left: 4px;
+    }
+
+    .lgx-footer-area {
+        display: block;
+    }
+    .lgx-footer-single {
+        text-align: center;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+    .lgx-footer-area {
+        padding: 4.2rem 0 2.6rem;
+    }
+
+    .lgx-registration-area .lgx-single-registration {
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .lgx-video .lgx-inner {
+        padding: 9.5rem 0 15rem;
+    }
+ 
+    /************** 480 GLOBAl USE***********/
+
+}
+

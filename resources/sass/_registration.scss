@@ -1,0 +1,92 @@
+
+.lgx-registration {
+  background: $brand-color;
+}
+
+.login-wrapper {
+    min-height: 70vh;
+    margin-top: 2rem;
+}
+
+.form-check {
+    &-label {
+        color: $white-color;
+        margin-left: 6px;
+        font-size: 1.4rem;
+    }
+}
+.lgx-links {
+    margin-top: .5rem;
+    a {
+        color: $white-color;
+        text-decoration: none !important;
+        font-size: 1.5rem;
+        opacity: 0.9;
+        font-weight: 500;
+        &:hover {
+            opacity: 1;
+            color: $white-color !important;
+        }
+    }
+}
+
+.lgx-registration-form-box {
+  ::placeholder { /* Most modern browsers support this now. */
+    color:    $white-color;
+  }
+}
+
+.lgx-registration-form-box {
+  padding: 4.2rem 3rem;
+  text-align: center;
+  .title {
+    @include font-size(42);
+    color: $white-color;
+    margin-bottom: 2.6rem;
+    margin-top: 0;
+  }
+  input.wpcf7-form-control,
+  input.form-control{
+    margin-bottom: 1.5rem;
+    display: block;
+    border-radius: 4px;
+    width: 100%;
+    height: 60px;
+    @include bg-rgba($white-color, .2);
+    color: $white-color;
+    &:focus {
+      @include bg-rgba($white-color, .7);
+      color: $white-color;
+      outline: 0;
+      box-shadow: none;
+    }
+  }
+  select.wpcf7-select,
+  select.lgx-select {
+    @include bg-rgba($white-color, .2);
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 15px 20px;
+    margin-bottom: 2rem;
+    color: $white-color;
+    outline: none;
+    option {
+      background: $brand-color;
+    }
+  }
+  .wpcf7-form-control.wpcf7-submit,
+  .wpcf7-form-control.lgx-submit,
+  .wpcf7-submit,
+  .lgx-submit {
+    display: block;
+    width: 100%;
+    background: $brand-color3;
+    margin-top: 2rem;
+    color: $brand-color;
+    &:hover {
+      background: $brand-color2;
+      color: $white-color;
+    }
+  }
+}

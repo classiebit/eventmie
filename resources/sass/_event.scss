@@ -1,0 +1,208 @@
+.lgx-event {
+    
+    margin-bottom: 2.6rem;
+    @include bg-rgba($white-color, 1);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 1px 15px 1px rgba(52, 40, 104, 0.1);
+
+    &__image {
+        position: relative;
+        overflow: hidden;
+        
+        img {
+            transition: all .4s;
+            filter: contrast(80%) brightness(80%);
+        }
+    }
+
+    &__info {
+        position: relative;
+        z-index: 2;
+        margin-top: 1.6rem;
+        padding: 2rem 2rem 0rem 2rem;
+    }
+
+    &__tag {
+        position: absolute;
+        z-index: 99;
+        top: 1.2rem;
+        right: 0;
+
+        & span {
+            display: flex;
+            color: $white-color;
+        }
+        
+        & span:nth-child(1n) {
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0rem .6rem 0rem .6rem;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 12px;
+            background: rgba($black-color,.6);
+        }
+
+        & span:nth-child(2n) {
+            font-size: 1.2rem;
+            font-weight: 400;
+            padding: .4rem .1rem .4rem 1rem;
+            background: rgba($brand-color2, .8);
+            border-bottom-left-radius: 12px;
+            border-top-left-radius: 0;
+        }
+        
+    }
+
+    &__trend {
+        position: absolute;
+        z-index: 99;
+        top: 0;
+        left: 0;
+
+        & span {
+            display: flex;
+            color: $white-color;
+            background: rgba($brand-color4, .8);
+            
+            padding: 2.6rem 1rem 1rem 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+        
+    }
+
+    &__featured {
+        position: absolute;
+        z-index: 99;
+        top: -1.6rem;
+        right: 0;
+
+        & span {
+            display: flex;
+            color: $white-color;
+            background: $brand-color;
+            
+
+            font-size: 1.2rem;
+            padding: 0.2rem 1rem .2rem 1rem;
+            border-bottom-left-radius: 1rem;
+        }
+        
+    }
+
+    &__featured-left {
+        position: absolute;
+        z-index: 99;
+        top: -4.6rem;
+        left: 0;
+
+        & span {
+            display: flex;
+            color: $white-color;
+            background: $brand-color;
+
+            font-size: 1.2rem;
+            padding: 0.2rem 1rem .2rem 1rem;
+            border-top-right-radius: 1rem;
+        }
+        
+    }
+
+    &__category {
+        position: relative;
+
+        span {
+            position: absolute;
+            color: $text-ash;
+            bottom: 0px;
+            background: $body-bg;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            opacity: 1;
+            transition: all .4s;
+            transform: translate(0%,0%);
+        }
+    }
+
+    &__footer {
+        display: flex;
+        opacity: 0;
+        transition: all .4s;
+        transform: translate(0%,50%);
+
+        & div {
+            padding: 1rem;
+            flex: 1;
+            text-align: center;
+            color: $text-ash;
+            font-weight: 100;
+            font-size: 1.4rem;
+        }
+
+        & div:nth-child(1n) {
+            background: $body-bg;
+        }
+
+        & div:nth-child(2n) {
+            background: $body-bg-deep;
+        }
+    }
+    
+    .meta-wrapper span:after {
+        content: '|';
+        display: inline-block;
+        margin: 3px 6px 3px 7px;
+        color: $border-color;
+    }
+    
+    .meta-wrapper span {
+        font-size: 14px;
+        color: $brand-color;
+        
+        &:last-child:after {
+            display: none;
+        }
+    }
+    
+    .title {
+        @include font-size(20);
+        font-weight: 700;
+        line-height: 2.6rem;
+        margin-top: .5rem;
+        transition: all .3s ease-out;
+    }
+
+    .sub-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        max-height: 40px;
+        color: #9E9E9E;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+    }
+
+    &:hover {
+        
+        & .lgx-event__image img {
+            transform: scale(1.2);
+            filter: contrast(100%) brightness(100%);
+        }
+
+        & .title {
+            color: $brand-color;
+            transition: all .2s ease-in;
+        }
+
+        & .lgx-event__footer {
+            opacity: 1;
+            transform: translate(0%,0%);
+        }
+
+        & .lgx-event__category span {
+            opacity: 0;
+            transform: translate(0%,100%);
+        }
+    }
+}

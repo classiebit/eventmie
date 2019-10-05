@@ -1,0 +1,143 @@
+
+#lgx-countdown {
+  margin-top: -15px;
+  span {
+    text-align: center;
+    font-family: $lgx-heading-font;
+    @include font-size(68);
+    font-weight: 900;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 6.8rem;
+    letter-spacing: .16rem;
+    position: relative;
+    bottom: -15px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  i {
+    font-family: $lgx-base-font;
+    @include font-size(20);
+    color: $white-color;
+    font-weight: 300;
+    letter-spacing: normal;
+    transform: rotate(-90deg) ;
+    font-style: normal;
+    display: inline-block;
+    position: absolute;
+    bottom: 32px;
+    right: -35px;
+  }
+  .lgx-days {
+    color: #fff200;
+  }
+  .lgx-hr {
+    color: #ff8a00;
+  }
+  .lgx-min {
+    color: #00b9ff;
+  }
+  .lgx-sec {
+    color: #8dc63f;
+  }
+}
+
+
+
+
+.lgx-banner-info-circle #lgx-countdown {
+  span {
+    text-align: center;
+    font-family: $lgx-heading-font;
+    @include font-size(42);
+    font-weight: 900;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 2rem;
+    position: relative;
+    bottom: 0px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  i {
+    font-family: $lgx-base-font;
+    @include font-size(14);
+    color: $white-color;
+    font-weight: 300;
+    letter-spacing: normal;
+    transform: rotate(0deg) ;
+    font-style: normal;
+    display: inline-block;
+    position: absolute;
+    bottom: -15px;
+    right: 0;
+    left: 0;
+    opacity: .7;
+  }
+  .lgx-days {
+    color: #fff;
+  }
+  .lgx-hr {
+    color: #fff;
+  }
+  .lgx-min {
+    color: #fff;
+  }
+  .lgx-sec {
+    color: #fff;
+  }
+}
+
+
+@media (max-width : $screen-md-max) {
+  /************** 1199 GLOBAl USE***********/
+  #lgx-countdown {
+    display: inline-block;
+    margin-bottom: 2.6rem;
+    span {
+      @include font-size(42);
+      bottom: 0;
+      margin-right: 2rem;
+    }
+    i {
+      @include font-size(16);
+      transform: rotate(0deg) ;
+      font-style: normal;
+      display: inline-block;
+      position: absolute;
+      bottom: -15px;
+      right: 0;
+      left: 0;
+    }
+  }
+
+  /************** 1199 GLOBAl USE END***********/
+
+}
+
+
+
+
+@media (max-width : $screen-xs-max) {
+  /************** 767 GLOBAl USE***********/
+
+  #lgx-countdown {
+    display: inline-block;
+    span {
+      @include font-size(26);
+    }
+    i {
+      @include font-size(14);
+    }
+  }
+  .lgx-about-service {
+    display: block;
+  }
+  .lgx-about-service .lgx-single-service-white {
+    margin-bottom: 2rem;
+  }
+
+  /************** 767 GLOBAl USE END***********/
+}/*767 END*/

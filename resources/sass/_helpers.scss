@@ -1,0 +1,55 @@
+// Custom offset
+.custom-offset-1 {
+    width: 3%;
+    float: left;
+}
+
+// background color 
+.bg-red {
+    background-color: $red !important;
+}
+.bg-blue {
+    background-color: $blue !important;
+}
+.bg-green {
+    background-color: $green !important;
+}
+.bg-orange {
+    background-color: $orange !important;
+}
+
+// text color 
+.col-white {
+    color: $white-color !important;
+}
+.col-grey {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+// cursor pointer
+.pointer {
+    cursor: pointer;
+}
+
+// margin
+.mr-5 {
+    margin-right: 5px;
+}
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mt-30 {
+    margin-top: 50px;
+}
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+// padding
+.pt-20 {
+    padding-top: 20px;
+}
+.pl-30 {
+    padding-left: 30px;
+}

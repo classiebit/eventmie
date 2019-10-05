@@ -1,0 +1,313 @@
+.lgx-sponsors {
+  .lgx-inner {
+    @include bg-rgba($white-color, 0.88);
+  }
+}
+
+.lgx-sponsors-black {
+  .lgx-inner {
+    @include bg-rgba($black-color, 1);
+  }
+}
+
+.sponsors-area {
+  text-align: center;
+    .single-name {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        line-height: 6.8;
+        left: 0;
+        right: 0;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+    }
+  .single {
+    //background: $white-color;
+    position: relative;
+    overflow: hidden;
+    margin: 0 .5%;
+    padding: 0;
+    border-radius: 16px;
+    width: 23%;
+    display: inline-block;
+    margin-bottom: .6rem;
+    transition: all .3s ease-in-out 0s;
+    box-shadow: 0 1px 15px 1px rgba(52, 40, 104, 0.05);
+    a {
+      display: block;
+      //padding: 1.5rem 1rem;
+      //border-radius: 4px;
+      text-align: center;
+      img {
+        width: 100%;
+        border-radius: 8px;
+      }
+    }
+    &:hover {
+      //background: $brand-color;
+      opacity: 1;
+      a {
+        img {
+        //   animation-name: fadeInUp;
+        //   transform-origin: center;
+        //   animation-duration: 400ms;
+        //   animation-timing-function: linear;
+        }
+      }
+    }
+  }
+
+}
+
+
+//
+.sponsors-area-colorfull {
+  .single {
+    background: $brand-color;
+    img {
+      filter: grayscale(40%);
+    }
+    &:nth-child(1) {
+      background: #ff6600;
+    }
+    &:nth-child(2) {
+      background: #ff9400;
+    }
+    &:nth-child(3) {
+      background: #ffc600;
+    }
+    &:nth-child(4) {
+      background: #8cc700;
+    }
+    &:nth-child(5) {
+      background: #0fad00;
+    }
+    &:nth-child(6) {
+      background: #00a3c1;
+    }
+    &:nth-child(7) {
+      background: #0061b5;
+    }
+    &:nth-child(8) {
+      background: #6300a4;
+    }
+    &:nth-child(9) {
+      background: #ff0000;
+    }
+    &:nth-child(10) {
+      background: #ff6600;
+    }
+    &:nth-child(11) {
+      background: #ff9400;
+    }
+    &:nth-child(12) {
+      background: #ffc600;
+    }
+    &:nth-child(13) {
+      background: #8cc700;
+    }
+    &:nth-child(14) {
+      background: #0fad00;
+    }
+    &:nth-child(15) {
+      background: #00a3c1;
+    }
+    &:nth-child(16) {
+      background: #0061b5;
+    }
+    &:nth-child(17) {
+      background: #6300a4;
+    }
+    &:nth-child(18) {
+      background: #ff0000;
+    }
+
+    &:nth-child(19) {
+      background: #ff6600;
+    }
+    &:nth-child(20) {
+      background: #ff9400;
+    }
+    &:nth-child(21) {
+      background: #ffc600;
+    }
+    &:nth-child(22) {
+      background: #8cc700;
+    }
+    &:nth-child(23) {
+      background: #0fad00;
+    }
+    &:nth-child(24) {
+      background: #00a3c1;
+    }
+    &:nth-child(25) {
+      background: #0061b5;
+    }
+    &:nth-child(26) {
+      background: #6300a4;
+    }
+    &:nth-child(27) {
+      background: #ff0000;
+    }
+    &:nth-child(28) {
+      background: #ff6600;
+    }
+    &:nth-child(29) {
+      background: #ff9400;
+    }
+    &:nth-child(30) {
+      background: #ffc600;
+    }
+    &:nth-child(31) {
+      background: #8cc700;
+    }
+    &:nth-child(32) {
+      background: #0fad00;
+    }
+    &:nth-child(33) {
+      background: #00a3c1;
+    }
+    &:nth-child(34) {
+      background: #0061b5;
+    }
+    &:nth-child(35) {
+      background: #6300a4;
+    }
+    &:nth-child(36) {
+      background: #ff0000;
+    }
+    &:hover {
+      //background: white;
+      img {
+        filter: grayscale(0);
+      }
+    }
+  }
+}
+
+
+.sponsors-area-colorfull-border {
+  .single {
+    background: $white-color;
+    &:nth-child(1) {
+      border: 8px solid #ff6600;
+    }
+    &:nth-child(2) {
+      border: 8px solid #ff9400;
+    }
+    &:nth-child(3) {
+      border: 8px solid #ffc600;
+    }
+    &:nth-child(4) {
+      border: 8px solid #8cc700;
+    }
+    &:nth-child(5) {
+      border: 8px solid #0fad00;
+    }
+    &:nth-child(6) {
+      border: 8px solid #00a3c1;
+    }
+    &:nth-child(7) {
+      border: 8px solid #0061b5;
+    }
+    &:nth-child(8) {
+      border: 8px solid #6300a4;
+    }
+    &:nth-child(9) {
+      border: 8px solid #ff0000;
+    }
+    &:nth-child(10) {
+      border: 8px solid #ff6600;
+    }
+    &:nth-child(11) {
+      border: 8px solid #ff9400;
+    }
+    &:nth-child(12) {
+      border: 8px solid #ffc600;
+    }
+    &:nth-child(13) {
+      border: 8px solid #8cc700;
+    }
+    &:nth-child(14) {
+      border: 8px solid #0fad00;
+    }
+    &:nth-child(15) {
+      border: 8px solid #00a3c1;
+    }
+    &:nth-child(16) {
+      border: 8px solid #0061b5;
+    }
+    &:nth-child(17) {
+      border: 8px solid #6300a4;
+    }
+    &:nth-child(18) {
+      border: 8px solid #ff0000;
+    }
+
+    &:nth-child(19) {
+      border: 8px solid #ff6600;
+    }
+    &:nth-child(20) {
+      border: 8px solid #ff9400;
+    }
+    &:nth-child(21) {
+      border: 8px solid #ffc600;
+    }
+    &:nth-child(22) {
+      border: 8px solid #8cc700;
+    }
+    &:nth-child(23) {
+      border: 8px solid #0fad00;
+    }
+    &:nth-child(24) {
+      border: 8px solid #00a3c1;
+    }
+    &:nth-child(25) {
+      border: 8px solid #0061b5;
+    }
+    &:nth-child(26) {
+      border: 8px solid #6300a4;
+    }
+    &:nth-child(27) {
+      border: 8px solid #ff0000;
+    }
+    &:nth-child(28) {
+      border: 8px solid #ff6600;
+    }
+    &:nth-child(29) {
+      border: 8px solid #ff9400;
+    }
+    &:nth-child(30) {
+      border: 8px solid #ffc600;
+    }
+    &:nth-child(31) {
+      border: 8px solid #8cc700;
+    }
+    &:nth-child(32) {
+      border: 8px solid #0fad00;
+    }
+    &:nth-child(33) {
+      border: 8px solid #00a3c1;
+    }
+    &:nth-child(34) {
+      border: 8px solid #0061b5;
+    }
+    &:nth-child(35) {
+      border: 8px solid #6300a4;
+    }
+    &:nth-child(36) {
+      border: 8px solid #ff0000;
+    }
+    &:hover {
+      background: white;
+      border: 8px solid $white-color;
+      img {
+        filter: grayscale(0);
+      }
+    }
+  }
+}

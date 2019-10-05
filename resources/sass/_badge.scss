@@ -1,0 +1,41 @@
+.lgx-badge {
+    border: none;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    color: $black-color;
+    font-weight: 600;
+    font-size: 12px;
+    background: $white-color;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: inline-block;
+    
+    @include transition-duration($duration: 0.3s);
+    box-shadow: 0 8px 6px -6px rgba(50, 51, 51, 0.4);
+
+    &-primary {
+        color: $brand-color;
+        background: lighten($brand-color, 25%);
+    }
+
+    &-info {
+        color: $blue;
+        background: lighten($blue, 25%);
+    }
+
+    &-success {
+        color: $green;
+        background: lighten($green, 25%);
+    }
+
+    &-danger {
+        color: $red;
+        background: lighten($red, 25%);
+    }
+
+    &-warning {
+        color: $orange;
+        background: lighten($orange, 25%);
+    }
+}

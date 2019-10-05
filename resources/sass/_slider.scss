@@ -1,0 +1,313 @@
+
+.lgx-slider {
+  color: $white-color;
+  position: relative;
+  .lgx-inner {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+  .lgx-item-center {
+    text-align: center;
+    .text {
+      margin: 0 auto;
+    }
+  }
+  .lgx-item-left {
+    text-align: left;
+    /*.banner-btn {
+      .lgx-btn {
+        margin-right: .5rem;
+      }
+    }*/
+  }
+  .lgx-item-right {
+    text-align: right;
+    .text {
+      float: right;
+    }
+    .banner-btn {
+      float: right;
+    }
+  }
+  .owl-controls .owl-nav [class*=owl-]{
+    height: 60px;
+    width: 60px;
+    @include bg-rgba($black-color, .5);
+    color: $white-color;
+    box-shadow: 1px 2px 10px rgba(52,61,71,.3);
+    i {
+      font-size: 39px;
+      line-height: 49px;
+    }
+    &:hover {
+      background: $brand-color;
+    }
+  }
+  .owl-prev, .owl-next {
+    position: absolute;
+    top: 45%;
+    opacity: .8;
+
+  }
+
+  .owl-prev {
+    left: 0;
+    transition: .5s;
+  }
+  .owl-next {
+    right: 0;
+    transition: .5s;
+  }
+  .owl-prev, .owl-next {
+    opacity: 0;
+  }
+
+  &:hover {
+    .owl-prev, .owl-next {
+      opacity: 1;
+    }
+    .owl-prev {
+      left: 15px;
+    }
+    .owl-next {
+      right: 15px;
+    }
+  }
+
+  .lgx-brand {
+    background: transparent;
+    padding-top: 2rem;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    transition: all 0.3s linear;
+
+    .lgx-logo {
+      max-width: 180px;
+      transition: all 0.3s linear;
+    }
+  }
+
+  .slider-text-single {
+    figure {
+      position: relative;
+      figcaption {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        .lgx-container {
+          max-width: 1170px;
+          display: block;
+          margin: 0 auto;
+          height: 100%;
+          padding-left: 20px;
+          padding-right: 20px;
+          .lgx-hover-link {
+            width: 100%;
+            height: 100%;
+            display: table;
+            .lgx-vertical {
+              display: table-cell;
+              vertical-align: middle;
+            }
+          }
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          //.bg-rgba($black-color, .2);
+          top: -38px;
+          left: 0;
+          width: 100%;
+          height: 20%;
+          filter: blur(30px);
+        }
+
+      }
+    }
+  }
+
+
+
+  .owl-theme .owl-controls {
+    margin-top: 0;
+    text-align: center;
+  }
+
+}
+
+
+.lgx-slider-navbottom {
+
+  .owl-controls {
+    max-width: 1173px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    .owl-nav .owl-prev {
+      @include bg-rgba($white-color, 1);
+      height: 120px;
+      width: 120px;
+      position: absolute;
+      top: auto;
+      bottom: -17px;
+      left: 0;
+      border-radius: 0;
+      opacity: 1;
+      color: $black-color !important;
+    }
+    .owl-nav .owl-next {
+      @include bg-rgba($black-color, .8);
+      height: 120px;
+      width: 120px;
+      position: absolute;
+      top: auto;
+      bottom: -17px;
+      right: auto;
+      left: 0;
+      border-radius: 0;
+      margin-left: 102px;
+      opacity: 1;
+    }
+  }
+  .owl-nav [class*="owl-"] {
+    line-height: 120px;
+    //color: $ !important;
+    box-shadow: none !important;
+  }
+}
+
+
+.lgx-banner-info {
+  .lgx-delay:first-child {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    animation-delay: .9s;
+
+  }
+  .lgx-delay:nth-child(2) {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    animation-delay: 1.5s;
+  }
+
+
+  .lgx-delay:nth-child(3) {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    animation-delay: 2.1s;
+  }
+  .lgx-delay:nth-child(4) {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    animation-delay: 2.7s;
+  }
+  .lgx-delay:nth-child(5) {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    animation-delay: 3.1s;
+  }
+  .lgx-delay:nth-child(6) {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+
+    animation-delay: 3.7s;
+  }
+}
+
+
+#lgx-main-slider,
+.owl-carousel {
+  .active {
+
+    .lgx-slideInLeft {
+      animation-name: slideInLeft;
+    }
+    .lgx-slideInRight {
+      animation-name: slideInRight;
+    }
+    .lgx-slideOutRight {
+      animation-name: slideOutRight;
+    }
+  }
+}
+
+#lgx-main-slider .item img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+[dir=rtl] .VueCarousel-wrapper {
+    direction: ltr;
+}
+[dir=rtl] .VueCarousel-slide {
+    direction: rtl;
+}
+
+
+
+
+
+//HEADER RESPONSIVE
+/* ----------------------------------------------------------------------
+     Small devices (tablets, UP TO 991px~768px)
+ -----------------------------------------------------------------------*/
+@media (max-width : $screen-sm-max) {
+  /************** 991 GLOBAl USE***********/
+
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-prev,
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-next {
+    height: 60px !important;
+    width: 60px !important;
+    bottom: -50px !important;
+  }
+
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-next {
+    margin-left: 50px !important;
+  }
+  .lgx-slider-navbottom .owl-nav [class*="owl-"] {
+    line-height: 60px !important;
+  }
+
+  .lgx-banner-info-bg {
+    background: transparent;
+  }
+
+
+
+  /************** 991 GLOBAl USE END ***********/
+
+}
+
+
+
+
+/* ---------------------------------------------------------------------
+    Extra small devices (phones, less UP TO 767px)
+ ----------------------------------------------------------------------*/
+@media (max-width : $screen-xs-max) {
+  /************** 767 GLOBAl USE***********/
+
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-prev,
+  .lgx-slider-navbottom .owl-controls .owl-nav .owl-next {
+    bottom: -55px !important;
+  }
+
+  .lgx-slider .owl-next, .lgx-slider .owl-prev,
+  .lgx-slider .owl-next, .lgx-slider .owl-next {
+    top: 36%;
+  }
+  /************** 767 GLOBAl USE END***********/
+
+
+}/*767 END*/

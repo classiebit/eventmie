@@ -1,0 +1,47 @@
+.lgx-milestone {
+  .lgx-counter-area {
+    margin-bottom: 4.2rem;
+    color: $white-color;
+    position: relative;
+    border-radius: 6px;
+    text-align: center;
+    min-height: 75px;
+    img {
+      opacity: .4;
+    }
+    i {
+      @include font-size(102);
+      margin: 0;
+      color: $brand-color;
+      opacity: .4;
+
+    }
+    .counter-text {
+      text-align: center;
+      position: absolute;
+      z-index: 1;
+      bottom: -60px;
+      width: 100%;
+      left: 0;
+      .lgx-counter {
+        font-family: $lgx-heading-font;
+        display: block;
+        @include font-noline(6.8);
+        font-weight: 900;
+        margin-bottom: 1rem;
+        color: $white-color;
+      }
+      small {
+        font-family: $lgx-base-font;
+        color: $white-color;
+        @include font-size(20);
+        font-weight: 400;
+        display: block;
+        margin: 2.6rem 0 0;
+      }
+    }
+    &:hover {
+
+    }
+  }
+}

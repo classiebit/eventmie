@@ -1,0 +1,84 @@
+.lgx-about {
+  background: $white-color;
+}
+
+.lgx-about-content {
+  text-align: left;
+  .section-btn-area {
+    text-align: left;
+    .lgx-btn {
+      margin: 0 .3rem;
+    }
+  }
+}
+
+.lgx-about-content-area {
+  .lgx-heading {
+    margin-bottom: 2.6rem;
+    text-align: left;
+    .heading {
+      margin: 0;
+    }
+    .subheading {
+      font-family: $lgx-heading-font;
+      color: $brand-color2;
+      @include font-size(20);
+      font-weight: 400;
+      opacity: 1;
+    }
+  }
+}
+
+.lgx-about-service {
+  margin-top: 4.2rem;
+  display: flex;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  .lgx-single-service-color {
+    background: $brand-color;
+    background-image: linear-gradient(to right top, #1b89ef, #7c7ae8, #b165d3, #d64eb3, #ec398b);
+    ox-shadow: 0 15px 35px rgba(27, 137, 239, 0.3), 0 5px 15px rgba(227, 65, 154, 0.2);
+    flex: 1;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 2rem 3rem;
+    border-radius: 18px;
+    .icon {
+      @include font-noline(6.8);
+      color: #e2e2e2;
+    }
+    .text-area {
+    
+      .title {
+        @include font-size(26);
+        font-weight: 700;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: #ddd;
+      }
+      p {
+          color: #fff;
+      }
+    }
+  }
+  .lgx-single-service-white {
+    flex: 1;
+    background: $body-bg-deep;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 2rem 3rem;
+    border-radius: 6px;
+    .icon {
+      @include font-noline(6.8);
+      color: $brand-color2;
+      opacity: .4;
+    }
+    .text-area {
+      .title {
+        @include font-size(26);
+        font-weight: 700;
+        margin-top: 0;
+      }
+    }
+  }
+}

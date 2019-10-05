@@ -1,0 +1,310 @@
+
+
+.lgx-page-inner {
+    padding: 16rem 0 3rem;
+}
+
+.lgx-banner-inner {
+    background: $black-color;
+    .lgx-heading-area {
+        margin-bottom: 0;
+    }
+    .lgx-heading {
+        margin-bottom: 0;
+        text-align: left;
+        .heading {
+            margin-bottom: 0;
+            line-height: 5rem;
+        }
+    }
+}
+
+
+.lgx-page-wrapper {
+  *, *:before, *:after {
+    box-sizing:  border-box !important;
+  }
+ 
+  .lgx-card-single {
+    display: inline-block;
+    width:  100%;
+  }
+  .lgx-single-news {
+    display: inline-block;
+    width:  100%;
+    //margin-bottom: 4.2rem;
+    figure figcaption .date {
+      background: $body-bg-deep;
+    }
+  }
+}
+
+.lgx-post-wrapper,
+.lgx-page-wrapper {
+  padding: 5rem 0;
+  .lgx-menu {
+    background: transparent;
+  }
+
+
+  .lgx-tab-another .lgx-menu-container {
+    background: transparent;
+  }
+
+  .lgx-reservation,
+  .lgx-speacial {
+    background: $body-bg;
+  }
+
+  .lgx-single-speacial {
+    margin-bottom: 2.6rem;
+    .speacial-info {
+      padding: 1.5rem 1.5rem 3rem 1.5rem;
+      .title {
+        color: $black-color;
+        a {
+          color: inherit;
+        }
+      }
+    }
+    &:hover {
+      .speacial-info {
+        background: $black-color;
+        .title {
+          color: $white-color;
+          a {
+            color: inherit;
+          }
+          &:hover {
+            color: $brand-color;
+            a {
+              color: inherit;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .lgx-news-single-thumb .news-info .text {
+    display: block;
+  }
+
+  .lgxmapcanvas {
+    margin-bottom: 3.9rem;
+  }
+
+
+  .lgx-photo-gallery {
+    .lgx-inner {
+      padding: 10.2rem 0;
+    }
+  }
+
+}
+
+.lgx-post-wrapper {
+  .speaker-info {
+    margin-bottom: 2rem;
+    .title {
+      color: $black-color;
+      a {
+        font-size: inherit;
+        color: inherit;
+      }
+    }
+    .subtitle {
+      font-family: $lgx-base-font;
+      @include font-size(16);
+      font-weight: 400;
+      
+      margin: 0;
+      color: $brand-color3;
+      //opacity: .7;
+    }
+  }
+  article {
+    header {
+      margin-bottom: 4.2rem;
+      text-align: center;
+      .title {
+        @include font-size(42);
+        font-weight: 700;
+        line-height: 5.5rem;
+      }
+      .subtitle {
+        font-family: $lgx-base-font;
+        color: $brand-color;
+        @include font-size(26);
+        font-weight: 400;
+        //line-height: 5.5rem;
+        margin-top: .5rem;
+      }
+      .menu-price {
+        font-family: $lgx-heading-font;
+        @include font-noline(2.6);
+        
+        text-align: right;
+        margin-top: .8rem;
+        color: $brand-color;
+        font-weight: 700;
+        span {
+          font-family: $lgx-base-font;
+          color: $black-color;
+          font-weight: 300;
+          @include font-noline(1.6);
+          margin-right: .5rem;
+          opacity: .7;
+        }
+        &:before {
+          border-top: 1px dashed $border-color;
+          display: block;
+          position: relative;
+          top: 19px;
+          width: 85%;
+          content: "";
+          right: 0;
+        }
+      }
+      .social-group {
+        li {
+          a {
+            color: $border-color;
+            i {
+              @include font-size(20);
+            }
+            .fa-twitter {
+              color: #1da1f2;
+            }
+            .facebook-f,
+            .fa-facebook-f {
+              color: #3b5998;
+            }
+            .fa-linkedin {
+              color: #00a0dc;
+            }
+            .fa-youtube-play {
+              color: #cd201f;
+            }
+            .fa-instagram {
+              color: #c13584;
+            }
+            .fa-google-plus,
+            .fa-google {
+              color: #dd4b39;
+            }
+            .fa-pinterest-p {
+              color: #bd081c;
+            }
+            &:hover {
+              color: $brand-color;
+              i {
+                color: inherit;
+              }
+            }
+          }
+        }
+      }
+      .hits-area {
+        padding-top: 1.5rem;
+        .date {
+          font-family: $lgx-heading-font;
+          font-weight: 700;
+          margin-right: 2rem;
+          display: inline-block;
+          a {
+            color: $black-color;
+            margin-right: 1.5rem;
+            i {
+              color: $brand-color;
+              margin-right: 4px;
+              opacity: .5;
+            }
+          }
+        }
+        .hit-right {
+          color: $black-color;
+          opacity: .7;
+          a {
+            color: inherit;
+          }
+        }
+      }
+    }
+    section,
+    footer,
+    header .text-area {
+      max-width: 767px;
+      margin: 0 auto;
+    }
+    section {
+      margin-bottom: 4.2rem;
+      .lgx-img-left {
+        float: left;
+        padding:1rem 2rem 1.5rem 0;
+      }
+      .lgx-img-right {
+        float: right;
+        padding: 1rem 0 1.5rem 2rem ;
+      }
+      .lgx-img-center {
+        margin: 0 auto;
+        display: block;
+        padding: 1.5rem;
+      }
+    }
+    footer {
+      .title {
+        font-family: $lgx-heading-font;
+        
+        font-weight: 400;
+        color: $brand-color;
+        border-bottom: 1px solid rgba(52, 61, 71, .1);
+        background-clip: padding-box;
+      }
+      .lgx-share {
+        margin-left: 0;
+        li {
+          a {
+            height: 40px;
+            width: 40px;
+            background: $white-color;
+            color: $brand-color;
+            display: inline-block;
+            text-align: center;
+            border-radius: 50%;
+            i {
+              font-size: 16px;
+              line-height: 40px;
+            }
+            &:hover {
+              background: $brand-color;
+              color: $white-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+//Only html perpose
+.lgx-page-wrapper-none {
+  padding: 0;
+}
+
+
+/* ---------------------------------------------------------------------
+    Extra small devices (phones, less UP TO 767px)
+ ----------------------------------------------------------------------*/
+@media (max-width : $screen-xs-max) {
+  /************** 767 GLOBAl USE***********/
+    .lgx-page-inner {
+       padding: 8rem 0 2rem;
+    }   
+    .lgx-post-wrapper,
+    .lgx-page-wrapper {
+        padding: 3rem 0 6rem 0;
+    }
+}

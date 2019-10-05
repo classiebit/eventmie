@@ -1,0 +1,16 @@
+// All third-party CSS packages
+
+// Fonts Noto Sans
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:300,400,500,600,700,900');
+
+// Bootstrap 3.4.1
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+// Bootstrap 4.* Grid only (css)
+@import '~bootstrap/dist/css/bootstrap-grid.min.css';
+
+// Fortawesome
+$fa-font-path:        "eventmie-assets?path=webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";

@@ -1,0 +1,98 @@
+/* VOyager custom theme */
+
+/* Dashboard */
+.custom-dashboard .panel.widget {
+    border-radius: 18px;
+}
+.custom-dashboard .panel.widget .dimmer {
+    background: #fff;
+    border-top: 3px solid #1b89ef;
+}   
+.custom-dashboard .panel.widget i {
+    background: #1b89ef;
+}
+.custom-dashboard .panel.widget p {
+    font-size: 16px;
+    color: #bbb;
+}
+/* Sidebar */
+.voyager .side-menu .navbar-header .navbar-brand img {
+    width: 48px !important;
+    height: auto !important;
+    top: 0  !important;
+}
+.voyager .side-menu.sidebar-inverse {
+    background: #fff;
+}
+.expanded .side-menu .panel.widget .dimmer, .side-menu:hover .panel.widget .dimmer {
+    background: #fff;
+}
+.side-menu .panel.widget {
+    padding: 12px 0 18px 0;
+}
+.panel.widget h4 {
+    font-size: 18px;
+    color: #1b89ef;
+    margin-top: 18px;
+}
+.voyager .side-menu.sidebar-inverse .navbar li>a {
+    color: rgba(118, 131, 143, 0.78);
+}
+.voyager .side-menu.sidebar-inverse .navbar li.active>a {
+    color: #1b89ef;
+    border-right: 3px solid #1b89ef;
+}
+.voyager .side-menu.sidebar-inverse .navbar li>a:hover {
+    color: #1b89ef;
+    background: transparent;
+    border-right: 3px solid #1b89ef;
+}
+.voyager .navbar.navbar-default .navbar-nav>li:hover>a, .voyager .navbar .navbar-nav>li:hover>a {
+    color: #1b89ef;
+}
+.voyager .side-menu.sidebar-inverse .navbar li.dropdown>.panel-collapse {
+    background-color: #f3f3f3;
+}
+.side-menu .panel.widget {
+    background: #fff !important;
+}
+.side-menu .panel.widget h4 {
+    color: #717171;
+}
+
+/* Buttons */
+.btn-primary, .btn-info, .btn-success, .btn-danger, .btn-warning {
+    border-radius: 14px !important;
+    padding: 9px 18px;
+    box-shadow: 0 5px 7px rgba(51,52,94,.12), 0 2px 4px rgba(0,0,0,.07) !important;
+}
+.btn:hover {
+    transform: translateY(-1px);
+}
+.btn.btn-primary {
+    background: #1b89ef;
+}
+
+/* Images */
+img {
+    border-radius: 12px;
+    width: 50%;
+}
+
+/* Dropdown */
+.dropdown-menu.dropdown-menu-center {
+    right: 0;
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Users */
+form.form-edit-add label[for=additional_roles],
+form.form-edit-add select[name='user_belongstomany_role_relationship[]'],
+form.form-edit-add select[name='user_belongstomany_role_relationship[]'] + span.select2,
+form.form-edit-add label[for=locale],
+form.form-edit-add select[name=locale],
+form.form-edit-add select[name=locale] + span.select2 
+{
+    display: none;
+}

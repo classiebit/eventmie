@@ -1,0 +1,291 @@
+.lgx-banner {
+    &.event-poster {
+        min-height: 100vh;
+    }
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .lgx-inner {
+    padding: 30rem 0 10rem;
+  }
+}
+.lgx-banner-info-area {
+  display: flex;
+  justify-content: center;
+}
+.lgx-banner-info {
+  color: $white-color;
+  .circular-countdown-area {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .subtitle {
+    font-family: $lgx-base-font;
+    @include font-size(68);
+    font-weight: 500;
+    color: $brand-orange;
+    margin: 0;
+    line-height: 7.2rem;
+  }
+  .title {
+    margin: 0;
+    font-family: $lgx-heading-font;
+    @include font-size(90);
+    line-height: 12rem;
+    font-weight: 700;
+    color: $white-color;
+    margin-bottom: 2.6rem;
+    i, span {
+      font-style: normal;
+      //font-weight: 900;
+      b {
+        //font-weight: 900;
+      }
+      b:nth-child(1) {
+        color: $brand-color2;
+      }
+      b:nth-child(2) {
+        color: $brand-color3;
+      }
+      b:nth-child(3) {
+        color: $brand-color4;
+      }
+    }
+  }
+  .date {
+    font-family: $lgx-base-font;
+    @include font-size(26);
+    font-weight: 300;
+    color: $white-color;
+    margin: 0 0 .3rem;
+    i {
+      color: $brand-color3;
+    }
+  }
+  .location {
+    font-family: $lgx-base-font;
+    @include font-size(26);
+    font-weight: 300;
+    color: $brand-color3;
+    margin: 0 0 .3rem;
+    i {
+      color: $brand-color3;
+    }
+  }
+  .action-area {
+    display: flex;
+    margin-top: 4.2rem;
+    .lgx-btn {
+      margin-right: .5rem;
+    }
+    .video-area {
+      display: inline-block;
+      color: $white-color;
+      position: relative;
+      top: -18px;
+      margin-left: 1rem;
+      a {
+        margin-right: 10px;
+      }
+      a {
+        i {
+          display: inline-block;
+          @include bg-rgba($white-color, 0.2);
+          color: $white-color;
+          border-radius: 50%;
+          height: 60px;
+          width: 60px;
+          text-align: center;
+          line-height: 61px;
+          font-size: 20px;
+          padding-left: 5px;
+          @include transition-duration($duration: 0.3s);
+        }
+        &:hover {
+          i {
+            @include bg-rgba($white-color, 1);
+            color: $brand-color3;
+          }
+        }
+      }
+    }
+  }
+}
+.lgx-banner-info.lgx-banner-info-homeone {
+  margin-top: -4.2rem;
+  margin-bottom: 4.2rem;
+}
+
+
+.lgx-banner-info-circle {
+  background: transparent;
+  padding: 1.5rem;
+  border-radius: 50%;
+  margin-right: 5rem;
+  .info-circle-inner {
+      box-shadow: 0 9px 18px -4px rgba(50, 51, 51, 0.4);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 100% auto, cover;
+    background-color: $black-color;
+    text-align: center;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    .date {
+      margin-top: 0;
+      padding-top: 5rem;
+      @include font-size(166);
+      line-height: 15rem;
+      color: rgba(255, 255, 255, 0.9);
+      span {
+        font-family: $lgx-base-font;
+        color: rgba(255, 255, 255, 0.8);
+        @include font-size(42);
+        font-weight: 700;
+        display: block;
+        opacity: .8;
+      }
+    }
+  }
+}
+
+
+//RESPONSIVE
+/* ----------------------------------------------------------------------
+     Small devices (tablets, UP TO 991px~768px)
+ -----------------------------------------------------------------------*/
+@media (max-width : $screen-sm-max) {
+  /************** 991 GLOBAl USE***********/
+  .lgx-banner .lgx-inner {
+    padding: 40rem 0 10rem;
+  }
+  .lgx-banner-info .title {
+    @include font-size(68);
+    line-height: 7.8rem;
+  }
+  .lgx-banner-info .subtitle {
+    @include font-size(42);
+    line-height: 5rem;
+  }
+  .lgx-banner-info .action-area {
+    margin-top: 3rem;
+  }
+  .welcome-slider {
+        min-height: unset;
+    }
+  /************** 991 GLOBAl USE END ***********/
+}
+
+
+
+
+/* ---------------------------------------------------------------------
+    Extra small devices (phones, less UP TO 767px)
+ ----------------------------------------------------------------------*/
+@media (max-width : $screen-xs-max) {
+  /************** 767 GLOBAl USE***********/
+  .welcome-slider {
+        min-height: unset;
+    }
+  .lgx-banner-info {
+    color: $white-color;
+    .subtitle {
+      @include font-size(42);
+      line-height: 4.5rem;
+    }
+    .title {
+      @include font-size(68);
+      line-height: 7rem;
+      margin-bottom: 2rem;
+    }
+    .text {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .lgx-banner-info .date,
+  .lgx-banner-info .location {
+    @include font-size(20);
+    line-height: 2.8rem;
+  }
+
+  .lgx-banner .lgx-inner {
+    padding: 20rem 0;
+  }
+
+
+  .slider-text-single {
+    figure {
+      overflow: hidden;
+      img {
+        transform: scale(1.2);
+        transition: all 0.3s linear;
+        height: 300px;
+      }
+      figcaption {
+
+      }
+    }
+    &:hover {
+      figure {
+        img {
+          transform: scale(1.5);
+        }
+      }
+    }
+  }
+  .lgx-slider-center .lgx-banner-info .subtitle {
+    font-size: 2.6rem;
+    line-height: 3rem;
+  }
+  .lgx-slider-center .lgx-banner-info .title {
+    font-size: 2.6rem;
+    line-height: 4rem;
+  }
+
+  /************** 767 GLOBAl USE END***********/
+
+}/*767 END*/
+
+
+/* ----------------------------------------------------------------
+      Custom, iPhone Retina  UP TO 480px
+-------------------------------------------------------------------*/
+@media (max-width : 480px) {
+  /************** 480 GLOBAl USE***********/
+    .welcome-slider {
+        min-height: unset;
+    }
+  .lgx-banner-info {
+    color: $white-color;
+    .subtitle {
+      @include font-size(30);
+      line-height: 4rem;
+    }
+    .title {
+      @include font-size(34);
+      line-height: 5rem;
+      margin-bottom: 2rem;
+    }
+    .text {
+      margin-bottom: 2rem;
+    }
+  }
+  .lgx-banner .lgx-inner {
+    // padding: 8rem 0;
+  }
+
+  .slider-text-single {
+    figure {
+      img {
+        height: 280px;
+      }
+      figcaption {
+
+      }
+    }
+  }
+
+  /************** 480 GLOBAl USE***********/
+}

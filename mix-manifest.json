@@ -1,0 +1,12 @@
+{
+    "/publishable/assets/js/auth.js": "/publishable/assets/js/auth.js",
+    "/publishable/assets/css/app.css": "/publishable/assets/css/app.css",
+    "/publishable/assets/css/vendor.css": "/publishable/assets/css/vendor.css",
+    "/publishable/assets/js/bookings_customer.js": "/publishable/assets/js/bookings_customer.js",
+    "/publishable/assets/js/events_listing.js": "/publishable/assets/js/events_listing.js",
+    "/publishable/assets/js/events_manage.js": "/publishable/assets/js/events_manage.js",
+    "/publishable/assets/js/events_show.js": "/publishable/assets/js/events_show.js",
+    "/publishable/assets/js/manifest.js": "/publishable/assets/js/manifest.js",
+    "/publishable/assets/js/vendor.js": "/publishable/assets/js/vendor.js",
+    "/publishable/assets/js/welcome.js": "/publishable/assets/js/welcome.js"
+}
