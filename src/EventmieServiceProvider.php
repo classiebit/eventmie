@@ -183,6 +183,7 @@ class EventmieServiceProvider extends ServiceProvider
         // merge new config with voyager original config
         $voyager_config = dirname(__DIR__).'/publishable/config/voyager.php';
         $this->app['config']->set('voyager', require $voyager_config);
+    
         /* ================================================================================= */
         
     }

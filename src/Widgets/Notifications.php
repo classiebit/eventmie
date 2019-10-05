@@ -88,6 +88,6 @@ class Notifications extends BaseDimmer
      */
     public function shouldBeDisplayed()
     {
-        return app('VoyagerAuth')->user()->can('browse', Voyager::model('Page'));
+        return true;
     }
 }

@@ -145,6 +145,7 @@ return [
         ],
 
         'widgets' => [
+            
             'Classiebit\\Eventmie\\Widgets\\TotalEvents',
             'Classiebit\\Eventmie\\Widgets\\TotalBookings',
             'Classiebit\\Eventmie\\Widgets\\TotalUsers',

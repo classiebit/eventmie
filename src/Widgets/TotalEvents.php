@@ -7,6 +7,7 @@ use TCG\Voyager\Facades\Voyager;
 use Facades\Classiebit\Eventmie\Eventmie;
 use TCG\Voyager\Widgets\BaseDimmer;
 
+
 class TotalEvents extends BaseDimmer
 {
     /**
@@ -22,6 +23,7 @@ class TotalEvents extends BaseDimmer
      */
     public function run()
     {
+        
         $count  = \Classiebit\Eventmie\Models\Event::count();
         // $count  = Voyager::model('Page')->count();
         $string = trans_choice('Events', $count);
@@ -44,6 +46,6 @@ class TotalEvents extends BaseDimmer
      */
     public function shouldBeDisplayed()
     {
-        return app('VoyagerAuth')->user()->can('browse', Voyager::model('Page'));
+        return true;
     }
 }
