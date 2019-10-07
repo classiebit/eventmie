@@ -70,12 +70,15 @@ class EventmieServiceProvider extends ServiceProvider
             \Illuminate\Contracts\Debug\ExceptionHandler::class,
             \Classiebit\Eventmie\Exceptions\MyHandler::class
         );
+
+        if (\Schema::hasTable('settings')) {
+            // setup mail configs
+            $this->mailConfiguration(setting('mail'));
+            
+            // setup regional settings
+            $this->setRegional(setting('regional'));
+        }
         
-        // setup mail configs
-        $this->mailConfiguration(setting('mail'));
-        
-        // setup regional settings
-        $this->setRegional(setting('regional'));
         
         // load eventmie resources.views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'eventmie');
@@ -157,18 +160,18 @@ class EventmieServiceProvider extends ServiceProvider
 
         
         // common content for both cases
-        // $publishable['storage --force'] = ["{$publishablePath}/dummy_content/" => storage_path('app/public')];
+        $publishable['storage --force'] = ["{$publishablePath}/dummy_content/" => storage_path('app/public')];
         
-        // if($with_dummy_option)
-        // {
-        //     // dummmy
-        //     $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('dummy_seeds')];
+        if($with_dummy_option)
+        {
+            // dummmy
+            $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('seeds')];
 
-        // }
-        // else
-        // {
-        //     $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('seeds')];
-        // }
+        }
+        else
+        {
+            $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('seeds')];
+        }
 
         foreach ($publishable as $group => $paths) {
             $this->publishes($paths, $group);

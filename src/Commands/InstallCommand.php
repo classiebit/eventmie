@@ -73,13 +73,11 @@ class InstallCommand extends Command
         $this->info('Publishing the Eventmie assets, database, and config files');
 
         // Publish only relevant resources on install
-        // $tags = ['seeds'];
+        $tags = ['seeds'];
 
-        // $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => $tags]);
+        $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => $tags]);
         $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravel5::class]);
 
-        // $this->info('Migrating the database tables into your application');
-        // $this->call('migrate', ['--force' => $this->option('force')]);
 
         $this->info('Attempting to set Voyager User model as parent to App\User');
         if (file_exists(app_path('User.php'))) {
@@ -116,35 +114,16 @@ class InstallCommand extends Command
         //     \Voyager::routes();
         // });
 
-        // $this->info('Seeding data into the database');
-        // $this->seed('VoyagerDatabaseSeeder');
-
-        // if ($this->option('with-dummy')) {
-        //     $this->info('Publishing dummy content');
-        //     $tags = [
-        //         // 'dummy_seeds', 
-        //         'dummy_content', 
-        //         'dummy_config', 
-        //         // 'dummy_migrations'
-        //     ];
-        //     $this->call('vendor:publish', ['--provider' => EventmieDummyServiceProvider::class, '--tag' => $tags]);
-
-        //     // $this->info('Migrating dummy tables');
-        //     // $this->call('migrate');
-
-        //     // $this->info('Seeding dummy data');
-        //     // $this->seed('VoyagerDummyDatabaseSeeder');
-        // } else {
-        //     $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => ['config', 'eventmie_avatar']]);
-        // }
-
         
-        // $this->info('Migrating dummy tables');
-        // $this->call('migrate');
+        $this->info('Migrating dummy tables');
+        $this->call('migrate');
 
         $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class]);
 
+        $this->info('Seeders Run');
+        $this->call('db:seed --class="vendor\classiebit\eventmie\publishable\database\dummy_seeds"');
 
+        \Artisan::command('db:seed --class="vendor\classiebit\eventmie\publishable\database\dummy_seeds"');
         // $this->info('Setting up the hooks');
         // $this->call('hook:setup');
 

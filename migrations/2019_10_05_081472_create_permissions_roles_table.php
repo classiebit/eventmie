@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePermissionRoleTable extends Migration {
+class CreatePermissionsRolesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,21 +13,6 @@ class CreatePermissionRoleTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('permissions', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('key')->index();
-			$table->string('table_name')->nullable();
-			$table->timestamps();
-		});
-
-		Schema::create('roles', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('name')->unique();
-			$table->string('display_name');
-			$table->timestamps();
-		});
 
 		Schema::create('permission_role', function(Blueprint $table)
 		{
@@ -41,6 +26,7 @@ class CreatePermissionRoleTable extends Migration {
 			$table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('role_id')->references('id')->on('roles')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
+
 	}
 
 
