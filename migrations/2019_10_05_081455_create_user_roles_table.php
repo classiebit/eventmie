@@ -15,9 +15,16 @@ class CreateUserRolesTable extends Migration {
 	{
 		Schema::create('user_roles', function(Blueprint $table)
 		{
-			$table->integer('user_id')->unsigned()->index();
+			$table->Integer('user_id')->unsigned()->index();
 			$table->integer('role_id')->unsigned()->index();
 			$table->primary(['user_id','role_id']);
+		});
+
+		Schema::table('user_roles', function(Blueprint $table)
+		{
+			
+			$table->foreign('role_id')->references('id')->on('roles')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			$table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
 	}
 

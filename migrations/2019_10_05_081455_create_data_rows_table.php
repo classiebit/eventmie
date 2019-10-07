@@ -29,6 +29,29 @@ class CreateDataRowsTable extends Migration {
 			$table->text('details', 65535)->nullable();
 			$table->integer('order')->default(1);
 		});
+
+		Schema::create('data_types', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('name')->unique();
+			$table->string('slug')->unique();
+			$table->string('display_name_singular');
+			$table->string('display_name_plural');
+			$table->string('icon')->nullable();
+			$table->string('model_name')->nullable();
+			$table->string('policy_name')->nullable();
+			$table->string('controller')->nullable();
+			$table->string('description')->nullable();
+			$table->boolean('generate_permissions')->default(0);
+			$table->boolean('server_side')->default(0);
+			$table->text('details', 65535)->nullable();
+			$table->timestamps();
+		});
+
+		Schema::table('data_rows', function(Blueprint $table)
+		{
+			$table->foreign('data_type_id')->references('id')->on('data_types')->onUpdate('CASCADE')->onDelete('CASCADE');
+		});
 	}
 
 

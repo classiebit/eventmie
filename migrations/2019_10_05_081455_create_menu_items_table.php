@@ -28,6 +28,18 @@ class CreateMenuItemsTable extends Migration {
 			$table->string('route')->nullable();
 			$table->text('parameters', 65535)->nullable();
 		});
+
+		Schema::create('menus', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('name')->unique();
+			$table->timestamps();
+		});
+
+		Schema::table('menu_items', function(Blueprint $table)
+		{
+			$table->foreign('menu_id')->references('id')->on('menus')->onUpdate('RESTRICT')->onDelete('CASCADE');
+		});
 	}
 
 

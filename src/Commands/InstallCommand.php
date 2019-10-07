@@ -73,9 +73,9 @@ class InstallCommand extends Command
         $this->info('Publishing the Eventmie assets, database, and config files');
 
         // Publish only relevant resources on install
-        $tags = ['seeds'];
+        // $tags = ['seeds'];
 
-        $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => $tags]);
+        // $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => $tags]);
         $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravel5::class]);
 
         // $this->info('Migrating the database tables into your application');
@@ -139,12 +139,11 @@ class InstallCommand extends Command
         // }
 
         
-        $this->info('Migrating dummy tables');
-        $this->call('migrate --package="{classiebit}/{eventmie}');
+        // $this->info('Migrating dummy tables');
+        // $this->call('migrate');
 
         $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class]);
 
-        
 
         // $this->info('Setting up the hooks');
         // $this->call('hook:setup');
