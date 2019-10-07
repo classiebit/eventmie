@@ -82,13 +82,10 @@ class EventmieServiceProvider extends ServiceProvider
         // load eventmie language files publishable.lang
         $this->loadTranslationsFrom(realpath(__DIR__.'/../publishable/lang'), 'eventmie');
         
+        
         // load eventmie database migrations
         if (config('eventmie.database.autoload_migrations', true)) {
-            if (config('app.env') == 'testing') {
-                $this->loadMigrationsFrom(realpath(__DIR__.'/migrations'));
-            }
-
-            $this->loadMigrationsFrom(realpath(__DIR__.'/../migrations'));
+            $this->loadMigrationsFrom(realpath(__DIR__.'/migrations'));
         }
         
     }
@@ -146,11 +143,10 @@ class EventmieServiceProvider extends ServiceProvider
             }
         }
 
+
         $publishablePath    = dirname(__DIR__).'/publishable';
         $publishable        = [
-            'seeds --force' => [
-                "{$publishablePath}/database/seeds/" => database_path('seeds'),
-            ],
+            
             'config --force' => [
                 "{$publishablePath}/config/eventmie.php" => config_path('eventmie.php')
             ],
@@ -159,14 +155,47 @@ class EventmieServiceProvider extends ServiceProvider
             ],
         ];
 
+        // common content for both cases
+        $publishable['storage --force'] = ["{$publishablePath}/dummy_content/" => storage_path('app/public')];
+        
         if($with_dummy_option)
         {
-            $publishable['storage --force'] = ["{$publishablePath}/dummy_content/" => storage_path('app/public'),];
-            
+            // dummmy
+            $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('dummy_seeds')];
+
+        }
+        else
+        {
+            $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('seeds')];
         }
 
         foreach ($publishable as $group => $paths) {
             $this->publishes($paths, $group);
+        }
+
+        if($with_dummy_option)
+        {
+            
+            //seeders
+            // $seeders_temp = array_map('basename', \File::files("$publishablePath/database/dummy_seeds"));
+            // $seeders      = [];
+
+            // foreach($seeders_temp as $key => $seeder)
+            // {
+            //     $seeders[] = preg_replace('/\\.[^.\\s]{3,4}$/', '', $seeder);
+            // }
+
+            // if($this->app->runningInConsole()) {
+            
+            //     foreach($seeders as $key => $seeder)
+            //     {
+            //         \Artisan::call('db:seed', ['--class' => $seeder]);
+            //     }   
+            // }    
+        }
+        else
+        {
+            
         }
     }
 

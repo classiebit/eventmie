@@ -137,8 +137,14 @@ class InstallCommand extends Command
         // } else {
         //     $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => ['config', 'eventmie_avatar']]);
         // }
+
         
+        $this->info('Migrating dummy tables');
+        $this->call('migrate --package="{classiebit}/{eventmie}');
+
         $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class]);
+
+        
 
         // $this->info('Setting up the hooks');
         // $this->call('hook:setup');

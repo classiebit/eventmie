@@ -41,6 +41,23 @@ return [
         'admin_prefix'      => 'admin', // required
     ],    
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Database Config
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify voyager database settings
+    |
+    */
+
+    'database' => [
+        'autoload_migrations' => true,
+    ],
+
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Default language

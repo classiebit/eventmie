@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRolesTable extends Migration {
+class CreateCountriesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +13,11 @@ class CreateRolesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('roles', function(Blueprint $table)
+		Schema::create('countries', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->unique();
-			$table->string('display_name');
+			$table->string('country_code', 2);
+			$table->string('country_name', 128);
 			$table->timestamps();
 		});
 	}
@@ -29,7 +30,7 @@ class CreateRolesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('roles');
+		Schema::drop('countries');
 	}
 
 }
