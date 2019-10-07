@@ -65,6 +65,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 Vue.prototype.base_url = window.base_url;
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -72,7 +78,7 @@ Vue.prototype.base_url = window.base_url;
     Carousel: vue_carousel__WEBPACK_IMPORTED_MODULE_0__["Carousel"],
     Slide: vue_carousel__WEBPACK_IMPORTED_MODULE_0__["Slide"]
   },
-  props: ['banners', 'is_logged', 'is_customer', 'is_admin'],
+  props: ['banners', 'is_logged', 'is_customer', 'is_admin', 'demo_mode'],
   methods: {
     // return route with event slug
     getRoute: function getRoute(name) {
@@ -140,74 +146,133 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "action-area" }, [
-                          _c("div", { staticClass: "lgx-video-area" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "lgx-btn lgx-btn-red",
-                                attrs: {
-                                  href: _vm.getRoute("eventmie.events_index")
-                                }
-                              },
-                              [
-                                _c("i", { staticClass: "fas fa-calendar-day" }),
-                                _vm._v(
-                                  " " +
-                                    _vm._s(_vm.trans("em.browse")) +
-                                    " " +
-                                    _vm._s(_vm.trans("em.events"))
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            !_vm.is_logged
-                              ? _c(
+                          _vm.demo_mode
+                            ? _c("div", { staticClass: "lgx-video-area" }, [
+                                _c(
                                   "a",
                                   {
-                                    staticClass: "lgx-btn",
+                                    staticClass: "lgx-btn lgx-btn-white",
                                     attrs: {
-                                      href: _vm.getRoute("eventmie.register")
+                                      target: "_blank",
+                                      href: "https://classiebit.com/eventmie"
                                     }
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "fas fa-door-open"
+                                      staticClass: "fas fa-cloud-download-alt"
                                     }),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm.trans("em.register")) +
-                                        "\n                                            "
-                                    )
+                                    _vm._v(" Download FREE ")
                                   ]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.is_logged && _vm.is_admin
-                              ? _c(
+                                ),
+                                _vm._v(" "),
+                                _c(
                                   "a",
                                   {
-                                    staticClass: "lgx-btn",
+                                    staticClass: "lgx-btn lgx-btn-success",
+                                    attrs: {
+                                      target: "_blank",
+                                      href:
+                                        "https://classiebit.com/eventmie-pro"
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-shopping-cart"
+                                    }),
+                                    _vm._v(" Purchase PRO ")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "lgx-btn lgx-btn-white",
+                                    attrs: {
+                                      target: "_blank",
+                                      href:
+                                        "https://eventmie-docs.classiebit.com"
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-book" }),
+                                    _vm._v(" Docs ")
+                                  ]
+                                )
+                              ])
+                            : _c("div", { staticClass: "lgx-video-area" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "lgx-btn lgx-btn-red",
                                     attrs: {
                                       href: _vm.getRoute(
-                                        "eventmie.myevents_form"
+                                        "eventmie.events_index"
                                       )
                                     }
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "fas fa-calendar-plus"
+                                      staticClass: "fas fa-calendar-day"
                                     }),
                                     _vm._v(
                                       " " +
-                                        _vm._s(_vm.trans("em.create")) +
+                                        _vm._s(_vm.trans("em.browse")) +
                                         " " +
-                                        _vm._s(_vm.trans("em.event")) +
-                                        "\n                                            "
+                                        _vm._s(_vm.trans("em.events"))
                                     )
                                   ]
-                                )
-                              : _vm._e()
-                          ])
+                                ),
+                                _vm._v(" "),
+                                !_vm.is_logged
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "lgx-btn",
+                                        attrs: {
+                                          href: _vm.getRoute(
+                                            "eventmie.register"
+                                          )
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-door-open"
+                                        }),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.trans("em.register")) +
+                                            "\n                                            "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.is_logged && _vm.is_admin
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "lgx-btn",
+                                        attrs: {
+                                          href: _vm.getRoute(
+                                            "eventmie.myevents_form"
+                                          )
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-calendar-plus"
+                                        }),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.trans("em.create")) +
+                                            " " +
+                                            _vm._s(_vm.trans("em.event")) +
+                                            "\n                                            "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ])
                         ])
                       ])
                     ])

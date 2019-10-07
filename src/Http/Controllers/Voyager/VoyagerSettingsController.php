@@ -72,6 +72,15 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
     
     public function update(Request $request)
     {
+        // demo mode restrictions
+        if(config('voyager.demo_mode'))
+        {
+            return back()->with([
+                'message'    => 'Demo Mode',
+                'alert-type' => 'info',
+            ]);
+        }
+
         // Check permission
         $this->authorize('edit', Voyager::model('Setting'));
 

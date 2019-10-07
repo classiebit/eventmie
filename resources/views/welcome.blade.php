@@ -19,6 +19,7 @@
                         :is_logged="{{ 0 }}" 
                         :is_customer="{{ 0 }}"
                         :is_admin="{{ 0 }}"
+                        :demo_mode="{{ config('voyager.demo_mode') }}"
                     ></banner-slider>
                     @else
                     <banner-slider 
@@ -26,6 +27,7 @@
                         :is_logged="{{ 1 }}" 
                         :is_customer="{{ Auth::user()->hasRole('customer') ? 1 : 0 }}"
                         :is_admin="{{ Auth::user()->hasRole('admin') ? 1 : 0 }}"
+                        :demo_mode="{{ config('voyager.demo_mode') }}"
                     ></banner-slider>
                     @endguest
                 </div>

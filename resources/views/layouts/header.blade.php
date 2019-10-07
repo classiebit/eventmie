@@ -36,7 +36,15 @@
                         </div>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
-                        <div class="lgx-nav-right navbar-right mr-5">
+                        @if(config('voyager.demo_mode'))
+                        <div class="lgx-nav-right navbar-right">
+                            <div class="lgx-cart-area">
+                                <a class="lgx-btn lgx-btn-white lgx-btn-sm mt-2" target="_blank" href="https://github.com/classiebit/eventmie"><i class="fab fa-github fa-2x col-black"></i></a>
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="lgx-nav-right navbar-right">
                             <div class="lgx-cart-area">
                                 <a class="lgx-btn lgx-btn-red" href="{{ eventmie_url('events') }}"><i class="fas fa-calendar-day"></i> @lang('eventmie::em.browse') @lang('eventmie::em.events')</a>
                             </div>

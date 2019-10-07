@@ -37,6 +37,12 @@ class ProfileController extends Controller
     // update user
     public function updateAuthUser (Request $request)
     {
+        // demo mode restrictions
+        if(config('voyager.demo_mode'))
+        {
+            return error_redirect('Demo mode');
+        }
+        
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,'.Auth::id()
@@ -68,7 +74,13 @@ class ProfileController extends Controller
     // reset password
     public function updateAuthUserPassword(Request $request)
     {
-            $this->validate($request, [
+        // demo mode restrictions
+        if(config('voyager.demo_mode'))
+        {
+            return error_redirect('Demo mode');
+        }
+
+        $this->validate($request, [
             'current' => 'required',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'

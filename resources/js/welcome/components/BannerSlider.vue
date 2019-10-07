@@ -25,7 +25,14 @@
                                         <h2 class="title lgx-delay lgx-fadeInDown">{{ item.title }}</h2>
 
                                         <div class="action-area">
-                                            <div class="lgx-video-area">
+                                            <div class="lgx-video-area" v-if="demo_mode">
+                                                <a class="lgx-btn lgx-btn-white" target="_blank" href="https://classiebit.com/eventmie"><i class="fas fa-cloud-download-alt"></i> Download FREE </a>
+                                                
+                                                <a class="lgx-btn lgx-btn-success" target="_blank" href="https://classiebit.com/eventmie-pro"><i class="fas fa-shopping-cart"></i> Purchase PRO </a>
+
+                                                <a class="lgx-btn lgx-btn-white" target="_blank" href="https://eventmie-docs.classiebit.com"><i class="fas fa-book"></i> Docs </a>
+                                            </div>
+                                            <div class="lgx-video-area" v-else>
                                                 <a class="lgx-btn lgx-btn-red" :href="getRoute('eventmie.events_index')"><i class="fas fa-calendar-day"></i> {{ trans('em.browse') }} {{ trans('em.events') }}</a>
 
                                                 <!-- if guest -->
@@ -37,7 +44,6 @@
                                                 <a class="lgx-btn" :href="getRoute('eventmie.myevents_form')" v-if="is_logged && is_admin">
                                                     <i class="fas fa-calendar-plus"></i> {{ trans('em.create') }} {{ trans('em.event') }}
                                                 </a>
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -67,6 +73,7 @@ export default {
         'is_logged',
         'is_customer',
         'is_admin',
+        'demo_mode',
     ],
     methods: {
         // return route with event slug

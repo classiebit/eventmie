@@ -374,6 +374,13 @@ class MyEventsController extends Controller
 
         if(count($is_publishable) != 4)
             return error(__('eventmie::em.please_complete_steps'), Response::HTTP_BAD_REQUEST );
+
+        // demo mode restrictions
+        if(config('voyager.demo_mode'))
+        {
+            if($event->publish)
+                return error('Demo mode', Response::HTTP_BAD_REQUEST );
+        }
         
         $params  = [
             'publish'      => $event->publish == 1 ? 0 : 1,
@@ -423,6 +430,17 @@ class MyEventsController extends Controller
     */
     public function delete_event($slug = null)
     {   
+        // demo mode restrictions
+        if(config('voyager.demo_mode'))
+        {
+            return redirect()
+            ->route("voyager.events.index")
+            ->with([
+                'message'    => 'Demo mode',
+                'alert-type' => 'info',
+            ]);
+        }
+
         // only admin can delete event
         if(Auth::check() && !Auth::user()->hasRole('admin'))
             return redirect()->route('eventmie.events');
