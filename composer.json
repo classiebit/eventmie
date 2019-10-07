@@ -18,7 +18,6 @@
     "require": {
         "intervention/image": "*",
         "tightenco/ziggy": "*",
-        "davejamesmiller/laravel-breadcrumbs": "*",
         "tcg/voyager": "*"
     },
     "require-dev": {
