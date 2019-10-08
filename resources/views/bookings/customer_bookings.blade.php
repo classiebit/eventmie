@@ -18,5 +18,10 @@
 
 
 @section('javascript')
+
+<script>    
+    var path = {!! json_encode($path, JSON_HEX_TAG) !!};
+</script>
+
 <script type="text/javascript" src="{{ eventmie_asset('js/bookings_customer.js') }}"></script>
 @stop

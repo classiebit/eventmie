@@ -34,6 +34,8 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
+    
+
     /**
      * Create a new controller instance.
      *
@@ -44,6 +46,9 @@ class RegisterController extends Controller
          // language change
         $this->middleware('common');
         $this->middleware('guest');
+
+        $this->redirectTo = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
+
     }
 
     /**

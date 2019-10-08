@@ -627,7 +627,7 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   base: '/',
   linkExactActiveClass: 'there',
   routes: [{
-    path: '/events',
+    path: path ? '/' + path + '/events' : '/events',
     // Inject  props based on route.query values for pagination
     props: function props(route) {
       return {
@@ -666,7 +666,7 @@ window.app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/HelloWorld/Products/Eventmie/Dev/eventmie/eventmie/resources/js/events_listing/index.js */"./resources/js/events_listing/index.js");
+module.exports = __webpack_require__(/*! D:\Products\Eventmie\Dev\eventmie-lite\eventmie\resources\js\events_listing\index.js */"./resources/js/events_listing/index.js");
 
 
 /***/ })

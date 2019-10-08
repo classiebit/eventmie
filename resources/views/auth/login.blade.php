@@ -8,7 +8,7 @@
 
 <h2 class="title">@lang('eventmie::em.login')</h2>
 <div class="lgx-registration-form">
-    <form method="POST" action="{{ route('eventmie.login') }}">
+    <form method="POST" action="{{ route('eventmie.login_post') }}">
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input id="email" type="email" class="wpcf7-form-control form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="@lang('eventmie::em.email')">

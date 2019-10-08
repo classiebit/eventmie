@@ -3854,7 +3854,7 @@ window.app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/HelloWorld/Products/Eventmie/Dev/eventmie/eventmie/resources/js/events_manage/index.js */"./resources/js/events_manage/index.js");
+module.exports = __webpack_require__(/*! D:\Products\Eventmie\Dev\eventmie-lite\eventmie\resources\js\events_manage\index.js */"./resources/js/events_manage/index.js");
 
 
 /***/ })

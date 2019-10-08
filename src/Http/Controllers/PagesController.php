@@ -19,9 +19,9 @@ class PagesController extends Controller
         $this->middleware('common');
     }
     
-    public function view(Request $request)
+    public function view($page = null)
     {
-        $page   = DB::table('pages')->where(['slug' => $request->segment(1)])->first();
+        $page   = DB::table('pages')->where(['slug' => $page])->first();
         
         return Eventmie::view('eventmie::pages', compact('page'));
    }

@@ -28,7 +28,7 @@ const routes = new VueRouter({
     linkExactActiveClass: 'there',
     routes: [
         {
-            path: '/events',
+            path: path ? '/'+path+'/events' : '/events',
             // Inject  props based on route.query values for pagination
             props: (route) => ({
                 page: route.query.page,
@@ -43,6 +43,7 @@ const routes = new VueRouter({
         },
     ],
 });
+
 
 
 /**

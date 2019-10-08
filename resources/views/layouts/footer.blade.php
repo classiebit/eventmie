@@ -12,10 +12,10 @@
                     <div class="lgx-footer-single">
                         <h3 class="footer-title">@lang('eventmie::em.useful') @lang('eventmie::em.links')</h3>
                         <ul class="list-unstyled">
-                            <li><a class="col-grey" href="{{ route('eventmie.about') }}">@lang('eventmie::em.about')</a></li>
                             <li><a class="col-grey" href="{{ eventmie_url('events') }}">@lang('eventmie::em.events')</a></li>
-                            <li><a class="col-grey" href="{{ route('eventmie.terms') }}">@lang('eventmie::em.terms')</a></li>
-                            <li><a class="col-grey" href="{{ route('eventmie.privacy') }}">@lang('eventmie::em.privacy')</a></li>
+                            <li><a class="col-grey" href="{{ route('eventmie.page', ['page'=>'about']) }}">@lang('eventmie::em.about')</a></li>
+                            <li><a class="col-grey" href="{{ route('eventmie.page', ['page'=>'terms']) }}">@lang('eventmie::em.terms')</a></li>
+                            <li><a class="col-grey" href="{{ route('eventmie.page', ['page'=>'privacy']) }}">@lang('eventmie::em.privacy')</a></li>
                         </ul>
                     </div>
                     <div class="lgx-footer-single">

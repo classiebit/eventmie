@@ -46,7 +46,7 @@
 
                         <div class="lgx-nav-right navbar-right">
                             <div class="lgx-cart-area">
-                                <a class="lgx-btn lgx-btn-red" href="{{ eventmie_url('events') }}"><i class="fas fa-calendar-day"></i> @lang('eventmie::em.browse') @lang('eventmie::em.events')</a>
+                                <a class="lgx-btn lgx-btn-red" href="{{ route('eventmie.events_index') }}"><i class="fas fa-calendar-day"></i> @lang('eventmie::em.browse') @lang('eventmie::em.events')</a>
                             </div>
                         </div>
                         <ul class="nav navbar-nav lgx-nav navbar-right">

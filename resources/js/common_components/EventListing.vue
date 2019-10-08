@@ -9,7 +9,7 @@
             :key="index"
         >
             <div class="lgx-event">
-                <a :href="'/events/'+event.slug" >
+                <a :href="eventSlug(event.slug)" >
 
                     <!-- Upcomming -->
                     <div class="lgx-event__tag" 
@@ -85,5 +85,11 @@ export default {
             moment : moment,
         }
     },
+    methods: {
+    // return route with event slug
+        eventSlug(slug){
+            return route('eventmie.events_show',[slug]);
+        }
+    }
 }
 </script>

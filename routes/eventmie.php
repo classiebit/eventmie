@@ -54,6 +54,7 @@ Route::group([
 
     // Login --------------------------------------------------------------------------
     Route::get('login', $namespace.'\Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', $namespace.'\Auth\LoginController@login')->name('login_post');
     // --------------------------------------------------------------------------
 
     // Logout route --------------------------------------------------------------------
@@ -87,9 +88,8 @@ Route::group([
     // --------------------------------------------------------------------------
     
     // Static Pages Routes -------------------------------------------------------------
-    Route::get('/about', $namespace."\PagesController@view")->name('about'); 
-    Route::get('/terms', $namespace."\PagesController@view")->name('terms'); 
-    Route::get('/privacy', $namespace."\PagesController@view")->name('privacy'); 
+    Route::get('/{page}', $namespace."\PagesController@view")
+    ->where('page', 'about|terms|privacy')->name('page'); 
     // --------------------------------------------------------------------------
 
     // Events Routes -----------------------------------------------------------------

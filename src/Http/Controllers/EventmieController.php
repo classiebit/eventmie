@@ -26,7 +26,9 @@ class EventmieController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        
+        $redirect = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
+        return redirect($redirect);
     }
 
     public function assets(Request $request)

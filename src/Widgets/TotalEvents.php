@@ -34,7 +34,7 @@ class TotalEvents extends BaseDimmer
             'text'   => __('Total Events', ['count' => $count, 'string' => Str::lower($string)]),
             'button' => [
                 'text' => __('view all events'),
-                'link' => route('eventmie.events_index'),
+                'link' => route('voyager.events.index'),
             ],
         ]));
     }

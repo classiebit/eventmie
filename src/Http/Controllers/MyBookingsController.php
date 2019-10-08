@@ -44,7 +44,12 @@ class MybookingsController extends Controller
      */
     public function index()
     {
-        return Eventmie::view('eventmie::bookings.customer_bookings');    
+        // get prefix from eventmie config
+        $path = false;
+        if(!empty(config('eventmie.route.prefix')))
+            $path = config('eventmie.route.prefix');
+
+        return Eventmie::view('eventmie::bookings.customer_bookings', compact('path'));    
     }
 
     /**

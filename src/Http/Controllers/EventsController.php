@@ -38,8 +38,13 @@ class EventsController extends Controller
      * @return array
      */
     public function index()
-    {
-        return Eventmie::view('eventmie::events.index');
+    {   
+        // get prefix from eventmie config
+        $path = false;
+        if(!empty(config('eventmie.route.prefix')))
+            $path = config('eventmie.route.prefix');
+            
+        return Eventmie::view('eventmie::events.index', compact('path'));
     }
 
 

@@ -34,7 +34,7 @@
         <div class="form-check text-left">
             <input class="form-check-input" type="checkbox" name="accept" id="accept" checked value="1">
             <label class="form-check-label" for="accept">
-                @lang('eventmie::em.accept') &nbsp;<a href="{{ route('eventmie.terms') }}"> @lang('eventmie::em.terms')</a>
+                @lang('eventmie::em.accept') &nbsp;<a href="{{ route('eventmie.page', ['page'=>'terms']) }}"> @lang('eventmie::em.terms')</a>
             </label>
         </div>
 

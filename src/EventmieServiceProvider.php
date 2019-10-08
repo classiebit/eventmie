@@ -171,7 +171,7 @@ class EventmieServiceProvider extends ServiceProvider
       */
     private function customVoyagerTheme()
     {
-        $theme_url = eventmie_url().'/'.config('eventmie.route.prefix').'/eventmie-assets?path='.urlencode('css/voyager.css');
+        $theme_url = eventmie_url().'/eventmie-assets?path='.urlencode('css/voyager.css');
         $this->app['config']->set('voyager.additional_css.custom_theme', $theme_url);
     }
 

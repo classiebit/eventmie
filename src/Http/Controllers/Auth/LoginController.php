@@ -41,6 +41,7 @@ class LoginController extends Controller
          // language change
         $this->middleware('common');
         $this->middleware('guest')->except('logout');
+        $this->redirectTo = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
     }
 
 
@@ -63,10 +64,37 @@ class LoginController extends Controller
      */
 
     // check if authenticated, then redirect to welcome page
-    protected function authenticated() {
+    protected function authenticated() 
+    {
         
         if (\Auth::check()) {
             return redirect()->route('eventmie.welcome');
+        }
+    }
+
+    public function login(Request $request) 
+    {
+        
+        $this->validate($request, [
+            
+            'email'    => 'required|email',
+            'password' => 'required'
+            
+        ]);
+
+        $flag = \Auth::attempt ([
+            'email' => $request->get ( 'email' ),
+            'password' => $request->get ( 'password' ) 
+        ]);
+        
+        if ($flag) 
+        {
+            $redirect = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
+            return redirect($redirect);
+        } 
+        else 
+        {
+            return error_redirect( __('eventmie::em.login').' '.__('eventmie::em.failed') );
         }
     }
 }

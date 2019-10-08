@@ -1741,6 +1741,12 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     return {
       moment: moment
     };
+  },
+  methods: {
+    // return route with event slug
+    eventSlug: function eventSlug(slug) {
+      return route('eventmie.events_show', [slug]);
+    }
   }
 });
 
@@ -39047,7 +39053,7 @@ module.exports = function (css) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v8.18.1
+* sweetalert2 v8.18.0
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -41308,39 +41314,6 @@ var handleInputOptionsAndValue = function handleInputOptionsAndValue(instance, p
     handleInputValue(instance, params);
   }
 };
-var getInputValue = function getInputValue(instance, innerParams) {
-  var input = instance.getInput();
-
-  if (!input) {
-    return null;
-  }
-
-  switch (innerParams.input) {
-    case 'checkbox':
-      return getCheckboxValue(input);
-
-    case 'radio':
-      return getRadioValue(input);
-
-    case 'file':
-      return getFileValue(input);
-
-    default:
-      return innerParams.inputAutoTrim ? input.value.trim() : input.value;
-  }
-};
-
-var getCheckboxValue = function getCheckboxValue(input) {
-  return input.checked ? 1 : 0;
-};
-
-var getRadioValue = function getRadioValue(input) {
-  return input.checked ? input.value : null;
-};
-
-var getFileValue = function getFileValue(input) {
-  return input.files.length ? input.getAttribute('multiple') !== null ? input.files : input.files[0] : null;
-};
 
 var handleInputOptions = function handleInputOptions(instance, params) {
   var content = getContent();
@@ -41514,6 +41487,40 @@ var confirm = function confirm(instance, innerParams, value) {
   } else {
     succeedWith(instance, value);
   }
+};
+
+var getInputValue = function getInputValue(instance, innerParams) {
+  var input = instance.getInput();
+
+  if (!input) {
+    return null;
+  }
+
+  switch (innerParams.input) {
+    case 'checkbox':
+      return getCheckboxValue(input);
+
+    case 'radio':
+      return getRadioValue(input);
+
+    case 'file':
+      return getFileValue(input);
+
+    default:
+      return innerParams.inputAutoTrim ? input.value.trim() : input.value;
+  }
+};
+
+var getCheckboxValue = function getCheckboxValue(input) {
+  return input.checked ? 1 : 0;
+};
+
+var getRadioValue = function getRadioValue(input) {
+  return input.checked ? input.value : null;
+};
+
+var getFileValue = function getFileValue(input) {
+  return input.files.length ? input.files[0] : null;
 };
 
 var addKeydownHandler = function addKeydownHandler(instance, globalState, innerParams, dismissWith) {
@@ -41945,7 +41952,7 @@ Object.keys(instanceMethods).forEach(function (key) {
   };
 });
 SweetAlert.DismissReason = DismissReason;
-SweetAlert.version = '8.18.1';
+SweetAlert.version = '8.18.0';
 
 var Swal = SweetAlert;
 Swal["default"] = Swal;
@@ -57354,7 +57361,7 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "lgx-event" }, [
-            _c("a", { attrs: { href: "/events/" + event.slug } }, [
+            _c("a", { attrs: { href: _vm.eventSlug(event.slug) } }, [
               _vm.moment().format("YYYY-MM-DD") <
               _vm.convert_date_to_local(event.start_date, "YYYY-MM-DD")
                 ? _c("div", { staticClass: "lgx-event__tag" }, [
