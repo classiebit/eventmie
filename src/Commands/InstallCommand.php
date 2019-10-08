@@ -2,17 +2,13 @@
 
 namespace Classiebit\Eventmie\Commands;
 
-
-
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Intervention\Image\ImageServiceProviderLaravel5;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
-use TCG\Voyager\Traits\Seedable;
-use  Classiebit\Eventmie\EventmieServiceProvider;
-
-
+use Classiebit\Eventmie\Traits\Seedable;
+use Classiebit\Eventmie\EventmieServiceProvider;
 
 class InstallCommand extends Command
 {
@@ -38,7 +34,6 @@ class InstallCommand extends Command
     {
         return [
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production', null],
-            ['with-dummy', null, InputOption::VALUE_NONE, 'Install with dummy data', null],
         ];
     }
 
@@ -70,16 +65,18 @@ class InstallCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $this->info('Publishing the Eventmie assets, database, and config files');
+        $this->info('Initiate the installation process...');
 
-        // Publish only relevant resources on install
-        $tags = ['seeds'];
+        // 1. Publish the core assets defined in the EventmieServiceProvider
+        $this->info('1. Publishing Eventmie core assets: config, languages & dummy content');
+        $this->call('vendor:publish', ['--provider' => VoyagerServiceProvider::class, '--tag' => ['config', 'resources', 'storage']]);
 
-        $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class, '--tag' => $tags]);
-        $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravel5::class]);
-
-
-        $this->info('Attempting to set Voyager User model as parent to App\User');
+        // 2. Run Eventmie migrations
+        $this->info('2. Migrating the Eventmie database tables into your application');
+        $this->call('migrate', ['--force' => $this->option('force')]);
+        
+        // 3. Extend App\User to Eventmie user model
+        $this->info('3. Attempting to set Eventmie User model as parent to App\User');
         if (file_exists(app_path('User.php'))) {
             $str = file_get_contents(app_path('User.php'));
 
@@ -93,15 +90,16 @@ class InstallCommand extends Command
             $this->warn('You will need to update this manually.  Change "extends Authenticatable" to "extends \Classiebit\Eventmie\Models\User" in your User model');
         }
 
-        $this->info('Dumping the autoloaded files and reloading all new files');
-
+        // ---- Check if everything good so far ----
+        $this->info('---- Dumping the autoloaded files and reloading all new files ----');
         $composer = $this->findComposer();
-
         $process = new Process($composer.' dump-autoload');
-        $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
+        // Setting timeout to null to prevent installation from stopping at a certain point in time
+        $process->setTimeout(null); 
         $process->setWorkingDirectory(base_path())->run();
 
-        $this->info('Adding Eventmie routes to routes/web.php');
+        // 4. Add Eventmie Route
+        $this->info('4. Adding Eventmie routes to your application routes/web.php');
         $routes_contents = $filesystem->get(base_path('routes/web.php'));
         if (false === strpos($routes_contents, 'Eventmie::routes()')) {
             $filesystem->append(
@@ -110,26 +108,19 @@ class InstallCommand extends Command
             );
         }
 
-        // \Route::group(['prefix' => 'admin'], function () {
-        //     \Voyager::routes();
-        // });
+        // 5. Run database seeder
+        $this->info('5. Running Eventmie database seeders');
+        $this->seed('EventmieDatabaseSeeder');
 
-        
-        $this->info('Migrating dummy tables');
-        $this->call('migrate');
-
-        $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class]);
-
-        $this->info('Seeders Run');
-        $this->call('db:seed --class="vendor\classiebit\eventmie\publishable\database\dummy_seeds"');
-
-        \Artisan::command('db:seed --class="vendor\classiebit\eventmie\publishable\database\dummy_seeds"');
-        // $this->info('Setting up the hooks');
-        // $this->call('hook:setup');
-
-        $this->info('Adding the storage symlink to your public folder');
+        // 6. Add storage symlink
+        $this->info('6. Adding the storage symlink to your public folder');
         $this->call('storage:link');
-
-        $this->info('Successfully installed Eventmie! Enjoy');
+        
+        // Finish
+        $this->info('.....');
+        $this->info('.....');
+        $this->info('.....');
+        $this->info('.....');
+        $this->info('Congrats!!! Eventmie installed successfully! Wish you all the best :)');
     }
 }

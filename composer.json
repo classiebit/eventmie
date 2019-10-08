@@ -1,6 +1,6 @@
 {
     "name": "classiebit/eventmie",
-    "version": "1.0.8   ",
+    "version": "1.0.0",
     "description": "Eventmie Lite",
     "keywords": ["laravel", "admin", "panel"],
     "license": "MIT",
@@ -20,14 +20,13 @@
         "tightenco/ziggy": "*",
         "tcg/voyager": "*"
     },
-    "require-dev": {
-    },
     "autoload": {
         "psr-4": {
             "Classiebit\\Eventmie\\": "src/"
         }
     },
     "minimum-stability": "dev",
+    "prefer-stable" : true,
     "extra": {
         "laravel": {
             "providers": [

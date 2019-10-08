@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Classiebit\Eventmie\Models\Event;
 
 class EventsTableSeeder extends Seeder
 {
@@ -12,13 +13,9 @@ class EventsTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
-        \DB::table('events')->delete();
-        
-        \DB::table('events')->insert(array (
-            0 => 
-            array (
+        $event = $this->event('id', 1);
+        if (!$event->exists) {
+            $event->fill([
                 'id' => 1,
                 'title' => 'Digital Marketing Seminar',
                 'description' => '<p><strong>And sir dare</strong> view but over man. So at within mr to simple assure. <strong>Mr disposing</strong> continued it offending arranging in we. Extremity as if breakfast agreement. Off now mistress provided out horrible opinions. Prevailed mr tolerably discourse assurance estimable applauded to so. Him everything <i><strong>melancholy uncommonly</strong></i> but solicitude inhabiting projection off. Connection stimulated estimating excellence an to impression.</p><p>&nbsp;</p><blockquote><p>Unpleasant astonished an diminution up partiality.&nbsp;</p></blockquote><p>&nbsp;</p><p>Noisy an their of meant. Death means up civil do an offer wound of. Called square an in afraid direct. Resolution diminution conviction so mr at unpleasing simplicity no.&nbsp;</p><p>&nbsp;</p><ul><li>No it as breakfast up conveying earnestly immediate principle.</li><li>Him son disposed produced humoured overcame she bachelor improved.</li><li>Studied however out wishing but inhabit fortune windows.</li></ul><p>&nbsp;</p><h4>At as in understood an remarkably solicitude.&nbsp;</h4><p>&nbsp;</p><p>Mean them very seen she she. Use totally written the observe pressed justice. Instantly cordially far intention recommend estimable yet her his. Ladies stairs enough esteem add fat all enable. Needed its design number winter see. Oh be me sure wise sons no. Piqued ye of am spirit regret. Stimulated discretion impossible admiration in particular conviction up.</p><p>&nbsp;</p><p>Is allowance instantly strangers applauded discourse so. Separate entrance welcomed sensible laughing why one moderate shy. We seeing piqued garden he. As in merry at forth least ye stood. And cold sons yet with. Delivered middleton therefore me at. Attachment companions man way excellence how her pianoforte.&nbsp;</p>',
@@ -45,10 +42,13 @@ class EventsTableSeeder extends Seeder
                 'updated_at' => '2019-09-16 09:07:57',
                 'slug' => 'digital-marketing-seminar',
                 'publish' => 1,
-                'is_publishable' => '{"detail":1,"location":1,"timing":1,"poweredby":1,"media":1,"tickets":1}',
-            ),
-        ));
-        
-        
+                'is_publishable' => '{"detail":1,"location":1,"timing":1,"poweredby":1,"media":1}',
+            ])->save();
+        }
+    }
+
+    protected function event($field, $for)
+    {
+        return Event::firstOrNew([$field => $for]);
     }
 }

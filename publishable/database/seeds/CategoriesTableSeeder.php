@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Classiebit\Eventmie\Models\Category;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -12,14 +13,10 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
-        \DB::table('categories')->delete();
-        
-        \DB::table('categories')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
+        $category = $this->category('id', 1);
+        if (!$category->exists) {
+            $category->fill([
+                'id'    => 1,
                 'name' => 'Business & Seminars',
                 'slug' => 'business-&-seminars',
                 'created_at' => '2019-09-02 06:26:33',
@@ -28,9 +25,12 @@ class CategoriesTableSeeder extends Seeder
                 'thumb' => 'categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg',
                 'image' => NULL,
                 'template' => 1,
-            ),
-        ));
-        
-        
+            ])->save();
+        }
+    }
+
+    protected function category($field, $for)
+    {
+        return Category::firstOrNew([$field => $for]);
     }
 }

@@ -88,7 +88,7 @@ class EventmieServiceProvider extends ServiceProvider
         
         // load eventmie database migrations
         if (config('eventmie.database.autoload_migrations', true)) {
-            $this->loadMigrationsFrom(realpath(__DIR__.'/../migrations'));
+            $this->loadMigrationsFrom(realpath(__DIR__.'/../publishable/database/migrations'));
         }
         
     }
@@ -132,51 +132,22 @@ class EventmieServiceProvider extends ServiceProvider
      */
     private function registerPublishableResources()
     {
-        $with_dummy_option  = false;
-        
-        $arg_array  = $_SERVER['argv'];
-
-        if(!empty($arg_array))
-        {   
-            foreach($arg_array as $key => $value)
-            {
-                
-                if($value == "--with-dummy")
-                    $with_dummy_option = true; 
-            }
-        }
-
-
         $publishablePath    = dirname(__DIR__).'/publishable';
         $publishable        = [
-            
-            'config --force' => [
+            'config' => [
                 "{$publishablePath}/config/eventmie.php" => config_path('eventmie.php')
             ],
-            'resources --force' => [
-                "{$publishablePath}/lang" => resource_path('lang/vendor/eventmie'),
+            'resources' => [
+                "{$publishablePath}/lang" => resource_path('lang/vendor/eventmie')
+            ],
+            'storage' => [
+                "{$publishablePath}/dummy_content/" => storage_path('app/public')
             ],
         ];
-
         
-        // common content for both cases
-        $publishable['storage --force'] = ["{$publishablePath}/dummy_content/" => storage_path('app/public')];
-        
-        if($with_dummy_option)
-        {
-            // dummmy
-            $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('seeds')];
-
-        }
-        else
-        {
-            $publishable['seeds --force'] = ["{$publishablePath}/database/seeds/" => database_path('seeds')];
-        }
-
         foreach ($publishable as $group => $paths) {
             $this->publishes($paths, $group);
         }
-        
     }
 
     /**
@@ -192,9 +163,7 @@ class EventmieServiceProvider extends ServiceProvider
         // merge new config with voyager original config
         $voyager_config = dirname(__DIR__).'/publishable/config/voyager.php';
         $this->app['config']->set('voyager', require $voyager_config);
-    
         /* ================================================================================= */
-        
     }
 
     /**

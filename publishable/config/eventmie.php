@@ -3,13 +3,13 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Route config
+    | Route config   
     |--------------------------------------------------------------------------
     |
     | Here you can specify package route Eventmie site and admin panel url prefix
     |
     | prefix : null
-    | If prefix is null, then Eventmie site url will be example.com
+    | If prefix is null, then Eventmie base url will be example.com
     |
     | prefix : 'events' -> example.com/events
     | Eventmie site url will be example.com/events
@@ -28,34 +28,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Developer Mode
-    |--------------------------------------------------------------------------
-    |
-    | Below are all developer settings, change only if you're developer and 
-    | having experience Laravel and Laravel Voyager
-    |
-    |
-    */
-    'voyager' => [
-        'prefix'            => null, 
-        'admin_prefix'      => 'admin', // required
-    ],    
-
-
-    /*
-    |--------------------------------------------------------------------------
     | Database Config
     |--------------------------------------------------------------------------
     |
-    | Here you can specify voyager database settings
+    | Here you can specify Eventmie database settings
     |
     */
-
     'database' => [
         'autoload_migrations' => true,
     ],
-
-
 
 
     /*
