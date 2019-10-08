@@ -10,7 +10,6 @@ class Page extends Model
     use Translatable;
 
     protected $translatable = ['title', 'slug', 'body'];
-
     /**
      * Statuses.
      */

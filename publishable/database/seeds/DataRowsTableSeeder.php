@@ -16,8 +16,8 @@ class DataRowsTableSeeder extends Seeder
         $dataRow = $this->dataRow('id', 1);
         if (!$dataRow->exists) 
         {
-            \DB::table('data_rows')->insert(array (
-                0 => 
+            
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 1,
                     'data_type_id' => 1,
@@ -32,8 +32,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                1 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 2,
                     'data_type_id' => 1,
@@ -48,8 +49,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"required|max:255"}}',
                     'order' => 2,
-                ),
-                2 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 3,
                     'data_type_id' => 1,
@@ -64,8 +66,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"required|email|max:255|unique:users,email,1"}}',
                     'order' => 3,
-                ),
-                3 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 4,
                     'data_type_id' => 1,
@@ -80,8 +83,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 4,
-                ),
-                4 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 5,
                     'data_type_id' => 1,
@@ -96,8 +100,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 5,
-                ),
-                5 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 6,
                     'data_type_id' => 1,
@@ -112,8 +117,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 6,
-                ),
-                6 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 7,
                     'data_type_id' => 1,
@@ -128,8 +134,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 7,
-                ),
-                7 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 8,
                     'data_type_id' => 1,
@@ -144,8 +151,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 8,
-                ),
-                8 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 9,
                     'data_type_id' => 1,
@@ -160,8 +168,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"model":"TCG\\\\Voyager\\\\Models\\\\Role","table":"roles","type":"belongsTo","column":"role_id","key":"id","label":"display_name","pivot_table":"roles","pivot":"0","taggable":"0"}',
                     'order' => 10,
-                ),
-                9 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 10,
                     'data_type_id' => 1,
@@ -176,8 +185,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"model":"TCG\\\\Voyager\\\\Models\\\\Role","table":"roles","type":"belongsToMany","column":"id","key":"id","label":"display_name","pivot_table":"user_roles","pivot":"1","taggable":"0"}',
                     'order' => 11,
-                ),
-                10 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 12,
                     'data_type_id' => 1,
@@ -192,8 +202,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 12,
-                ),
-                11 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 13,
                     'data_type_id' => 2,
@@ -208,8 +219,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                12 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 14,
                     'data_type_id' => 2,
@@ -224,8 +236,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 2,
-                ),
-                13 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 15,
                     'data_type_id' => 2,
@@ -240,8 +253,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 3,
-                ),
-                14 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 16,
                     'data_type_id' => 2,
@@ -256,8 +270,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 4,
-                ),
-                15 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 17,
                     'data_type_id' => 3,
@@ -272,8 +287,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                16 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 18,
                     'data_type_id' => 3,
@@ -288,8 +304,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 2,
-                ),
-                17 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 19,
                     'data_type_id' => 3,
@@ -304,8 +321,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 3,
-                ),
-                18 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 20,
                     'data_type_id' => 3,
@@ -320,8 +338,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 4,
-                ),
-                19 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 21,
                     'data_type_id' => 3,
@@ -336,8 +355,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"required|max:255"}}',
                     'order' => 5,
-                ),
-                20 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 22,
                     'data_type_id' => 1,
@@ -352,8 +372,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 9,
-                ),
-                21 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 45,
                     'data_type_id' => 6,
@@ -368,8 +389,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                22 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 46,
                     'data_type_id' => 6,
@@ -384,8 +406,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 2,
-                ),
-                23 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 47,
                     'data_type_id' => 6,
@@ -400,8 +423,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 3,
-                ),
-                24 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 48,
                     'data_type_id' => 6,
@@ -416,8 +440,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 4,
-                ),
-                25 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 49,
                     'data_type_id' => 6,
@@ -432,8 +457,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 5,
-                ),
-                26 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 50,
                     'data_type_id' => 6,
@@ -448,8 +474,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"slugify":{"origin":"title"},"validation":{"rule":"unique:pages,slug"}}',
                     'order' => 6,
-                ),
-                27 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 51,
                     'data_type_id' => 6,
@@ -464,8 +491,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 7,
-                ),
-                28 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 52,
                     'data_type_id' => 6,
@@ -480,8 +508,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 8,
-                ),
-                29 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 53,
                     'data_type_id' => 6,
@@ -496,8 +525,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"default":"INACTIVE","options":{"INACTIVE":"INACTIVE","ACTIVE":"ACTIVE"}}',
                     'order' => 9,
-                ),
-                30 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 54,
                     'data_type_id' => 6,
@@ -512,8 +542,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 10,
-                ),
-                31 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 55,
                     'data_type_id' => 6,
@@ -528,8 +559,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 11,
-                ),
-                32 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 56,
                     'data_type_id' => 6,
@@ -544,8 +576,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 12,
-                ),
-                33 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 57,
                     'data_type_id' => 7,
@@ -560,8 +593,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                34 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 58,
                     'data_type_id' => 7,
@@ -576,8 +610,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:256|unique:events,title"}}',
                     'order' => 2,
-                ),
-                35 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 59,
                     'data_type_id' => 7,
@@ -592,8 +627,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 4,
-                ),
-                36 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 60,
                     'data_type_id' => 7,
@@ -608,8 +644,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 5,
-                ),
-                37 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 61,
                     'data_type_id' => 7,
@@ -624,8 +661,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 10,
-                ),
-                38 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 62,
                     'data_type_id' => 7,
@@ -640,8 +678,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 11,
-                ),
-                39 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 63,
                     'data_type_id' => 7,
@@ -656,8 +695,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 12,
-                ),
-                40 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 65,
                     'data_type_id' => 7,
@@ -672,8 +712,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:256"},"display":{"width":"6"}}',
                     'order' => 14,
-                ),
-                41 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 66,
                     'data_type_id' => 7,
@@ -688,8 +729,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:512"},"display":{"width":"6"}}',
                     'order' => 16,
-                ),
-                42 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 67,
                     'data_type_id' => 7,
@@ -704,8 +746,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:256"},"display":{"width":"3"}}',
                     'order' => 17,
-                ),
-                43 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 68,
                     'data_type_id' => 7,
@@ -720,8 +763,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:256"},"display":{"width":"3"}}',
                     'order' => 18,
-                ),
-                44 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 69,
                     'data_type_id' => 7,
@@ -736,8 +780,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:64"},"display":{"width":"3"}}',
                     'order' => 19,
-                ),
-                45 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 71,
                     'data_type_id' => 7,
@@ -752,8 +797,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"date|after_or_equal:tomorrow"},"display":{"width":"6"}}',
                     'order' => 21,
-                ),
-                46 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 72,
                     'data_type_id' => 7,
@@ -768,8 +814,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"date|after_or_equal:start_date"},"display":{"width":"6"}}',
                     'order' => 22,
-                ),
-                47 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 73,
                     'data_type_id' => 7,
@@ -784,8 +831,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":""},"display":{"width":"6"}}',
                     'order' => 23,
-                ),
-                48 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 74,
                     'data_type_id' => 7,
@@ -800,8 +848,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":""},"display":{"width":"6"}}',
                     'order' => 24,
-                ),
-                49 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 79,
                     'data_type_id' => 7,
@@ -816,8 +865,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"default":"1","options":{"0":"Disabled","1":"Enabled"},"validation":{"rule":"required"}}',
                     'order' => 36,
-                ),
-                50 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 80,
                     'data_type_id' => 7,
@@ -832,8 +882,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:256"}}',
                     'order' => 31,
-                ),
-                51 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 82,
                     'data_type_id' => 7,
@@ -848,8 +899,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 33,
-                ),
-                52 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 87,
                     'data_type_id' => 7,
@@ -864,8 +916,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 37,
-                ),
-                53 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 88,
                     'data_type_id' => 7,
@@ -880,8 +933,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 38,
-                ),
-                54 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 114,
                     'data_type_id' => 15,
@@ -896,8 +950,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                55 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 115,
                     'data_type_id' => 15,
@@ -912,8 +967,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"required|max:64|unique:categories,name,1"}}',
                     'order' => 2,
-                ),
-                56 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 116,
                     'data_type_id' => 15,
@@ -928,8 +984,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"required|max:128|unique:categories,slug,1"},"slugify":{"origin":"name"}}',
                     'order' => 3,
-                ),
-                57 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 117,
                     'data_type_id' => 15,
@@ -944,8 +1001,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 7,
-                ),
-                58 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 118,
                     'data_type_id' => 15,
@@ -960,8 +1018,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 8,
-                ),
-                59 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 119,
                     'data_type_id' => 7,
@@ -976,8 +1035,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"model":"Classiebit\\\\Eventmie\\\\Models\\\\Category","table":"categories","type":"belongsTo","column":"category_id","key":"id","label":"name","pivot_table":"categories","pivot":"0","taggable":"0"}',
                     'order' => 6,
-                ),
-                60 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 123,
                     'data_type_id' => 7,
@@ -992,8 +1052,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"integer"}}',
                     'order' => 15,
-                ),
-                61 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 124,
                     'data_type_id' => 7,
@@ -1008,8 +1069,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"integer"}}',
                     'order' => 29,
-                ),
-                62 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 143,
                     'data_type_id' => 15,
@@ -1024,8 +1086,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"default":"1","options":{"0":"Disabled","1":"Enabled"},"validation":{"rule":"required"}}',
                     'order' => 9,
-                ),
-                63 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 144,
                     'data_type_id' => 15,
@@ -1040,8 +1103,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"nullable"},"resize":{"width":"480","height":"270"},"quality":"70%","upsize":true}',
                     'order' => 4,
-                ),
-                64 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 145,
                     'data_type_id' => 15,
@@ -1056,8 +1120,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"validation":{"rule":"nullable"},"resize":{"width":"157","height":"467"},"quality":"70%","upsize":true}',
                     'order' => 5,
-                ),
-                65 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 146,
                     'data_type_id' => 15,
@@ -1072,8 +1137,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"default":"1","options":{"1":"Template 1","2":"Template 2","3":"Template 3"},"validation":{"rule":"required"}}',
                     'order' => 6,
-                ),
-                66 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 149,
                     'data_type_id' => 7,
@@ -1088,8 +1154,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:512"},"slugify":{"origin":"title"},"readonly":true}',
                     'order' => 3,
-                ),
-                67 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 196,
                     'data_type_id' => 25,
@@ -1104,8 +1171,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                68 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 197,
                     'data_type_id' => 25,
@@ -1120,8 +1188,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 2,
-                ),
-                69 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 198,
                     'data_type_id' => 25,
@@ -1136,8 +1205,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 3,
-                ),
-                70 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 199,
                     'data_type_id' => 25,
@@ -1152,8 +1222,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 4,
-                ),
-                71 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 200,
                     'data_type_id' => 25,
@@ -1168,8 +1239,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 5,
-                ),
-                72 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 201,
                     'data_type_id' => 25,
@@ -1184,8 +1256,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 6,
-                ),
-                73 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 202,
                     'data_type_id' => 25,
@@ -1200,8 +1273,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 7,
-                ),
-                74 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 203,
                     'data_type_id' => 25,
@@ -1216,8 +1290,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 8,
-                ),
-                75 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 204,
                     'data_type_id' => 25,
@@ -1232,8 +1307,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 9,
-                ),
-                76 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 209,
                     'data_type_id' => 7,
@@ -1248,8 +1324,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"default":"0","options":{"0":"In Draft","1":"Published"},"validation":{"rule":"required"}}',
                     'order' => 35,
-                ),
-                77 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 221,
                     'data_type_id' => 27,
@@ -1264,8 +1341,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                78 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 222,
                     'data_type_id' => 27,
@@ -1280,8 +1358,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 7,
-                ),
-                79 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 224,
                     'data_type_id' => 27,
@@ -1296,8 +1375,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 9,
-                ),
-                80 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 226,
                     'data_type_id' => 27,
@@ -1312,8 +1392,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 12,
-                ),
-                81 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 227,
                     'data_type_id' => 27,
@@ -1328,8 +1409,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 13,
-                ),
-                82 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 229,
                     'data_type_id' => 27,
@@ -1344,8 +1426,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 15,
-                ),
-                83 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 230,
                     'data_type_id' => 27,
@@ -1360,8 +1443,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"default":"1","options":{"0":"Disabled","1":"Enabled"},"validation":{"rule":"required"}}',
                     'order' => 26,
-                ),
-                84 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 231,
                     'data_type_id' => 27,
@@ -1376,8 +1460,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 27,
-                ),
-                85 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 232,
                     'data_type_id' => 27,
@@ -1392,8 +1477,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 28,
-                ),
-                86 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 233,
                     'data_type_id' => 27,
@@ -1408,8 +1494,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"disabled":"true"}',
                     'order' => 4,
-                ),
-                87 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 234,
                     'data_type_id' => 27,
@@ -1424,8 +1511,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 17,
-                ),
-                88 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 235,
                     'data_type_id' => 27,
@@ -1440,8 +1528,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 18,
-                ),
-                89 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 236,
                     'data_type_id' => 27,
@@ -1456,8 +1545,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 19,
-                ),
-                90 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 237,
                     'data_type_id' => 27,
@@ -1472,8 +1562,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 20,
-                ),
-                91 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 241,
                     'data_type_id' => 27,
@@ -1488,8 +1579,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 3,
-                ),
-                92 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 244,
                     'data_type_id' => 27,
@@ -1504,8 +1596,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"disabled":"true"}',
                     'order' => 2,
-                ),
-                93 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 246,
                     'data_type_id' => 27,
@@ -1520,8 +1613,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"disabled":"true"}',
                     'order' => 23,
-                ),
-                94 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 247,
                     'data_type_id' => 27,
@@ -1536,8 +1630,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{"disabled":"true"}',
                     'order' => 24,
-                ),
-                95 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 261,
                     'data_type_id' => 7,
@@ -1552,8 +1647,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{}',
                     'order' => 36,
-                ),
-                96 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 275,
                     'data_type_id' => 1,
@@ -1568,8 +1664,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 6,
-                ),
-                97 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 279,
                     'data_type_id' => 31,
@@ -1584,8 +1681,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 1,
-                ),
-                98 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 280,
                     'data_type_id' => 31,
@@ -1600,8 +1698,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:64"}}',
                     'order' => 2,
-                ),
-                99 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 281,
                     'data_type_id' => 31,
@@ -1616,8 +1715,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"validation":{"rule":"max:64"}}',
                     'order' => 3,
-                ),
-                100 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 282,
                     'data_type_id' => 31,
@@ -1632,8 +1732,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"resize":{"width":"1920","height":"1080"},"quality":"60%","upsize":true}',
                     'order' => 4,
-                ),
-                101 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 283,
                     'data_type_id' => 31,
@@ -1648,8 +1749,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 1,
                     'details' => '{"default":"1","options":{"0":"Disabled","1":"Enabled"},"validation":{"rule":"required"}}',
                     'order' => 5,
-                ),
-                102 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 284,
                     'data_type_id' => 31,
@@ -1664,8 +1766,9 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 6,
-                ),
-                103 => 
+                )
+                );
+                \DB::table('data_rows')->insert(
                 array (
                     'id' => 285,
                     'data_type_id' => 31,
@@ -1680,24 +1783,25 @@ class DataRowsTableSeeder extends Seeder
                     'delete' => 0,
                     'details' => '{}',
                     'order' => 7,
-                ),
-                104 => 
-                array (
-                    'id' => 286,
-                    'data_type_id' => 7,
-                    'field' => 'meta_keywords',
-                    'type' => 'text',
-                    'display_name' => 'Meta Keywords',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{}',
-                    'order' => 20,
-                ),
-            ));
+                )
+                );
+                \DB::table('data_rows')->insert(
+                    array (
+                        'id' => 286,
+                        'data_type_id' => 7,
+                        'field' => 'meta_keywords',
+                        'type' => 'text',
+                        'display_name' => 'Meta Keywords',
+                        'required' => 0,
+                        'browse' => 1,
+                        'read' => 1,
+                        'edit' => 1,
+                        'add' => 1,
+                        'delete' => 1,
+                        'details' => '{}',
+                        'order' => 20,
+                    )
+                );
         }
         
        

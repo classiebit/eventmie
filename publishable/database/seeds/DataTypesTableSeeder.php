@@ -16,8 +16,8 @@ class DataTypesTableSeeder extends Seeder
         $dataType = $this->dataType('id', 1);
         if (!$dataType->exists) 
         {
-            \DB::table('data_types')->insert(array (
-                0 => 
+
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 1,
                     'name' => 'users',
@@ -34,8 +34,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":"id","order_display_column":"id","order_direction":"desc","default_search_key":"email","scope":null}',
                     'created_at' => '2018-12-21 10:25:07',
                     'updated_at' => '2019-10-05 05:27:38',
-                ),
-                1 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 2,
                     'name' => 'menus',
@@ -52,8 +52,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}',
                     'created_at' => '2018-12-21 10:25:07',
                     'updated_at' => '2019-10-05 05:27:27',
-                ),
-                2 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 3,
                     'name' => 'roles',
@@ -70,8 +70,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}',
                     'created_at' => '2018-12-21 10:25:07',
                     'updated_at' => '2019-10-05 05:27:33',
-                ),
-                3 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 6,
                     'name' => 'pages',
@@ -88,8 +88,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":null,"order_display_column":null,"order_direction":"desc","default_search_key":null,"scope":null}',
                     'created_at' => '2018-12-21 10:25:08',
                     'updated_at' => '2019-10-05 05:27:31',
-                ),
-                4 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 7,
                     'name' => 'events',
@@ -106,8 +106,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":"id","order_display_column":"id","order_direction":"desc","default_search_key":"title","scope":null}',
                     'created_at' => '2018-12-22 08:54:46',
                     'updated_at' => '2019-10-05 05:27:24',
-                ),
-                5 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 15,
                     'name' => 'categories',
@@ -124,8 +124,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":"id","order_display_column":"id","order_direction":"asc","default_search_key":"name","scope":null}',
                     'created_at' => '2018-12-24 09:09:20',
                     'updated_at' => '2019-10-05 05:27:16',
-                ),
-                6 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 25,
                     'name' => 'contacts',
@@ -142,8 +142,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                     'created_at' => '2019-07-09 08:52:22',
                     'updated_at' => '2019-10-05 05:27:19',
-                ),
-                7 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 27,
                     'name' => 'bookings',
@@ -160,8 +160,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                     'created_at' => '2019-08-17 05:29:55',
                     'updated_at' => '2019-10-05 05:27:14',
-                ),
-                8 => 
+                ));
+                \DB::table('data_types')->insert(
                 array (
                     'id' => 31,
                     'name' => 'banners',
@@ -178,8 +178,8 @@ class DataTypesTableSeeder extends Seeder
                     'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                     'created_at' => '2019-10-04 12:34:41',
                     'updated_at' => '2019-10-05 05:32:39',
-                ),
-            ));
+                ));
+            
         }
         
         

@@ -8,10 +8,7 @@ use DB;
 
 class Event extends Model
 {
-    // exclude
-    protected $guarded = [
-        'id',
-    ]; 
+    protected $guarded = [];
 
     /**
      * Get the route key for the model.

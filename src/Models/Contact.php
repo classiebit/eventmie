@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     // save contact details
     public function store_contact($data = [])

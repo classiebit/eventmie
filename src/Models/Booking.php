@@ -9,9 +9,7 @@ use Classiebit\Eventmie\Models\User;
 
 class Booking extends Model
 {
-    protected $guarded = [
-        'id'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * Table used
