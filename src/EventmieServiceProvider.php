@@ -134,13 +134,13 @@ class EventmieServiceProvider extends ServiceProvider
     {
         $publishablePath    = dirname(__DIR__).'/publishable';
         $publishable        = [
-            'config --force' => [
+            'config' => [
                 "{$publishablePath}/config/eventmie.php" => config_path('eventmie.php')
             ],
-            'resources --force' => [
+            'resources' => [
                 "{$publishablePath}/lang" => resource_path('lang/vendor/eventmie')
             ],
-            'storage --force' => [
+            'storage' => [
                 "{$publishablePath}/dummy_content/" => storage_path('app/public')
             ],
         ];

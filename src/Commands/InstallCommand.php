@@ -69,7 +69,7 @@ class InstallCommand extends Command
 
         // 1. Publish the core assets defined in the EventmieServiceProvider
         $this->info('1. Publishing Eventmie core assets: config, languages & dummy content');
-        $this->call('vendor:publish', ['--provider' => VoyagerServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class]);
 
         // 2. Run Eventmie migrations
         $this->info('2. Migrating the Eventmie database tables into your application');
