@@ -2,7 +2,15 @@
     "name": "classiebit/eventmie",
     "version": "1.0.0",
     "description": "Eventmie Lite",
-    "keywords": ["laravel", "admin", "panel"],
+    "keywords": [
+        "eventmie-lite",
+        "events",
+        "event-management",
+        "event-planning",
+        "laravel",
+        "laravel-package",
+        "vuejs"
+    ],
     "license": "MIT",
     "homepage": "https://classiebit.com/eventmie",
     "support": {
