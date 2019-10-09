@@ -7,6 +7,13 @@
 @section('authcontent')
 
 <h2 class="title">@lang('eventmie::em.login')</h2>
+
+@if(config('voyager.demo_mode'))
+<div class="alert alert-info">
+    <a href="https://eventmie-docs.classiebit.com/docs/1.0/demo-accounts" target="_blank">Visit here for Demo Accounts</a>    
+</div>
+@endif
+
 <div class="lgx-registration-form">
     <form method="POST" action="{{ route('eventmie.login_post') }}">
         
