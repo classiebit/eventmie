@@ -62,7 +62,7 @@ class ContactController extends Controller
         $mail['greeting']     = "Greetings";
         $mail['mail_subject'] = "Thank you for contacting us";
         $mail['line']         = "We will get back to you soon!";
-        $mail['n_type']       = "New Contacts";
+        $mail['n_type']       = "contact";
         
         // send mail notification on any email id
         $user           = new User();
