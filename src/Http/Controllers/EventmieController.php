@@ -38,7 +38,7 @@ class EventmieController extends Controller
         // detect package development mode
         // if in package development mode then base will be package else vendor
         $base = 'vendor'.DIRECTORY_SEPARATOR.'classiebit'.DIRECTORY_SEPARATOR;
-        if(config('voyager.pkg_dev_mode'))
+        if(config('voyager.pkg_dev_mode') || config('voyager.demo_mode'))
             $base = '..'.DIRECTORY_SEPARATOR;
         
         $path = base_path($base.'eventmie'.DIRECTORY_SEPARATOR.'publishable'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.$path);

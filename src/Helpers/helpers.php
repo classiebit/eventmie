@@ -128,7 +128,7 @@ if (!function_exists('lang_selector'))
         // detect package development mode
         // if in package development mode - lang_path will be package else vendor
         $lang_path = resource_path('lang'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'eventmie');
-        if(config('voyager.pkg_dev_mode'))
+        if(config('voyager.pkg_dev_mode') || config('voyager.demo_mode'))
             $lang_path = dirname(__DIR__).'/../publishable/lang';
 
         $directories = array_map('basename', File::directories($lang_path));
