@@ -30,6 +30,7 @@
                 'eventmie.events_show',
                 'eventmie.login', 
                 'eventmie.register', 
+                'eventmie.register_show', 
                 'eventmie.password.request', 
                 'eventmie.password.reset',
             ]    

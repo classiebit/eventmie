@@ -62,7 +62,7 @@ Route::group([
     // --------------------------------------------------------------------------
     
     // Registration Routes------------------------------------------------------------------------------------
-    Route::get('register', $namespace.'\Auth\RegisterController@showRegistrationForm');
+    Route::get('register', $namespace.'\Auth\RegisterController@showRegistrationForm')->name('register_show');
     Route::post('register', $namespace.'\Auth\RegisterController@register')->name('register');
     //--------------------------------------------------------------------------------------------------
 
