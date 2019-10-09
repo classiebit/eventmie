@@ -1,6 +1,6 @@
-# Eventmie Lite Docs
+# Eventmie Lite
 
-**Welcome to Eventmie Lite Documentation**
+**Welcome to Eventmie Lite**
 
 <br>
 
