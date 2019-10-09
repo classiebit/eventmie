@@ -23,8 +23,10 @@ Vue.prototype.trans = string => _.get(window.i18n, string);
 Vue.prototype.base_url = window.base_url;
 
 // Vue Global Config
-Vue.config.productionTip = true;
-Vue.config.devtools = true;
+Vue.config.productionTip = false;
+Vue.config.devtools = false;
+Vue.config.debug = false;
+Vue.config.silent = true;
 
 window.VueProgressBar = require('vue-progressbar');
 const options = {
