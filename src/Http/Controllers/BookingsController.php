@@ -195,7 +195,7 @@ class BookingsController extends Controller
         $mail['greeting']     = "Greetings";
         $mail['mail_subject'] = "Booking Successfully";
         $mail['line']         = "Thank you for using our application!";
-        $mail['n_type']       = "New Bookings";
+        $mail['n_type']       = "bookings";
 
         $notification_ids       = [1, $booking['customer_id']];
         

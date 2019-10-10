@@ -128,7 +128,7 @@ class MyEventsController extends Controller
         $mail['greeting']     = "Greetings";
         $mail['mail_subject'] = "Event Created Successfully";
         $mail['line']         = "Thank you for using our application!";
-        $mail['n_type']       = "New Events";
+        $mail['n_type']       = "events";
 
         $notification_ids       = [1];
         

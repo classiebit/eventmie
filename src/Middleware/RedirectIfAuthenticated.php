@@ -18,7 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/');
+            
+            $redirect = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
+            return redirect($redirect);
         }
 
         return $next($request);
