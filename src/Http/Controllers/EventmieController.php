@@ -33,7 +33,10 @@ class EventmieController extends Controller
 
     public function assets(Request $request)
     {
-        $path = str_start(str_replace(['../', './'], '', urldecode($request->path)), DIRECTORY_SEPARATOR);
+        if(class_exists('\Str'))
+            $path = \Str::start(str_replace(['../', './'], '', urldecode($request->path)), DIRECTORY_SEPARATOR);
+        else
+            $path = str_start(str_replace(['../', './'], '', urldecode($request->path)), DIRECTORY_SEPARATOR);
         
         // detect package development mode
         // if in package development mode then base will be package else vendor
@@ -45,13 +48,28 @@ class EventmieController extends Controller
 
         if (File::exists($path)) {
             $mime = '';
-            if (ends_with($path, '.js')) {
-                $mime = 'text/javascript';
-            } elseif (ends_with($path, '.css')) {
-                $mime = 'text/css';
-            } else {
-                $mime = File::mimeType($path);
+
+            if(class_exists('\Str'))
+            {
+                if (\Str::endsWith($path, '.js')) {
+                    $mime = 'text/javascript';
+                } elseif (\Str::endsWith($path, '.css')) {
+                    $mime = 'text/css';
+                } else {
+                    $mime = File::mimeType($path);
+                }
             }
+            else
+            {
+                if (ends_with($path, '.js')) {
+                    $mime = 'text/javascript';
+                } elseif (ends_with($path, '.css')) {
+                    $mime = 'text/css';
+                } else {
+                    $mime = File::mimeType($path);
+                }
+            }
+            
             $response = response(File::get($path), 200, ['Content-Type' => $mime]);
             $response->setSharedMaxAge(31536000);
             $response->setMaxAge(31536000);
