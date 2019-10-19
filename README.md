@@ -62,8 +62,22 @@ Eventmie can be installed via composer. Easy... 🍻
 
     if installing Eventmie on **Fresh Laravel application** then run 
 
+    **For Laravel 5.5 to 5.8**
+
     ```php
     php artisan make:auth
+
+    php artisan migrate
+    ```
+
+    **For Laravel 6.x**
+
+    ```php
+    composer require laravel/ui --dev
+
+    php artisan ui vue --auth
+
+    npm install && npm run dev
 
     php artisan migrate
     ```
