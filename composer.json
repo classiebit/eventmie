@@ -26,8 +26,7 @@
     "require": {
         "intervention/image": "*",
         "tightenco/ziggy": "*",
-        "tcg/voyager": "*",
-        "laravel/helpers": "*"
+        "tcg/voyager": "*"
     },
     "autoload": {
         "psr-4": {
