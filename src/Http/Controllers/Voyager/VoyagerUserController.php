@@ -7,6 +7,8 @@ use TCG\Voyager\Facades\Voyager;
 
 use TCG\Voyager\Http\Controllers\VoyagerUserController as BaseVoyagerUserController;
 
+use Auth;
+
 class VoyagerUserController extends BaseVoyagerUserController
 {
     // POST BR(E)AD
@@ -24,11 +26,10 @@ class VoyagerUserController extends BaseVoyagerUserController
                     ->send();
         }
 
-        if (app('VoyagerAuth')->user()->getKey() == $id) {
+        if (Auth::user()->getKey() == $id) {
             $request->merge([
-                'role_id'                              => app('VoyagerAuth')->user()->role_id,
-                'user_belongsto_role_relationship'     => app('VoyagerAuth')->user()->role_id,
-                'user_belongstomany_role_relationship' => app('VoyagerAuth')->user()->roles->pluck('id')->toArray(),
+                'role_id'                              => Auth::user()->role_id,
+                'user_belongstomany_role_relationship' => Auth::user()->roles->pluck('id')->toArray(),
             ]);
         }
 
