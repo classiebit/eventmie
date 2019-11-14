@@ -1793,7 +1793,7 @@ class DataRowsTableSeeder extends Seeder
                         'type' => 'text',
                         'display_name' => 'Meta Keywords',
                         'required' => 0,
-                        'browse' => 1,
+                        'browse' => 0,
                         'read' => 1,
                         'edit' => 1,
                         'add' => 1,

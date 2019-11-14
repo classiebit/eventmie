@@ -241,7 +241,7 @@
                                             </a>
 
                                             @if($data->publish > 0)
-                                            <a href="{{ route('eventmie.events_show').'/'.$data->slug}}" class="btn btn-sm btn-warning pull-right view">
+                                            <a href="{{ route('eventmie.events_show', ['slug' => $data->slug]) }}" class="btn btn-sm btn-warning pull-right view">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
                                             </a>
                                             @endif 
