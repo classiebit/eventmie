@@ -1,0 +1,12 @@
+[dir=rtl] .brand-name, 
+[dir=rtl] .brand-slogan {
+    left: unset;
+    right: 90px;
+}
+[dir=rtl] .lgx-nav-right.navbar-right {
+    float: left !important;
+}
+[dir=rtl] .nav.navbar-nav.lgx-nav.navbar-right {
+    float: left !important;
+    margin-left: 25px !important;
+}

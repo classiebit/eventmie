@@ -80,7 +80,7 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
                 'alert-type' => 'info',
             ]);
         }
-
+        
         // Check permission
         $this->authorize('edit', Voyager::model('Setting'));
 
@@ -97,7 +97,7 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
                 continue;
             }
 
-            if ($setting->type == 'file' && $content == json_encode([])) {
+            if ($setting->type == 'file' && $content == null) {
                 continue;
             }
 

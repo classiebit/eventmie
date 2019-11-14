@@ -101,6 +101,11 @@
             margin-bottom: 10px;
             cursor: pointer;
             z-index: 9;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
             user-select: none;
         }
         .new-setting-btn {
@@ -240,12 +245,35 @@
                         @foreach($settings as $group => $group_settings)
                         <div id="{{ \Illuminate\Support\Str::slug($group) }}" class="tab-pane fade in @if($group == $active) active @endif">
                             @foreach($group_settings as $setting)
+                            {{-- Info for Google Callback --}}
+                            @if($setting->key == 'apps.google_client_id')
+                            <br>
+                            <div class="alert alert-info">
+                                Set Callback URL on your Google App Dashboard - <code>{{ route('eventmie.google_callback') }}</code>
+                            </div>
+                            @endif
+
+                            {{-- Info for Facebook Callback --}}
+                            @if($setting->key == 'apps.facebook_app_id')
+                            <br>
+                            <div class="alert alert-info">
+                                Set Callback URL on your Facebook App Dashboard - <code>{{ route('eventmie.facebook_callback') }}</code>
+                            </div>
+                            @endif
+
+                            {{-- Info for PayPal Callback --}}
+                            @if($setting->key == 'apps.paypal_client_id')
+                            <br>
+                            <div class="alert alert-info">
+                                Set Callback URL on your PayPal Dashboard - <code>{{ route('eventmie.bookings_paypal_callback') }}</code>
+                            </div>
+                            @endif
 
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     {{ $setting->display_name }} @if(config('voyager.show_dev_tips'))<code>setting('{{ $setting->key }}')</code>@endif
                                 </h3>
-
+                                
                                 @if (config('voyager.pkg_dev_mode')) 
                                 <div class="panel-actions">
                                     <a href="{{ route('voyager.settings.move_up', $setting->id) }}">
@@ -254,10 +282,12 @@
                                     <a href="{{ route('voyager.settings.move_down', $setting->id) }}">
                                         <i class="sort-icons voyager-sort-desc"></i>
                                     </a>
+                                    @can('delete', Voyager::model('Setting'))
                                     <i class="voyager-trash"
                                        data-id="{{ $setting->id }}"
                                        data-display-key="{{ $setting->key }}"
                                        data-display-name="{{ $setting->display_name }}"></i>
+                                    @endcan
                                 </div>
                                 @endif
 
@@ -278,16 +308,24 @@
                                     @elseif($setting->type == "image" || $setting->type == "file")
                                         @if(isset( $setting->value ) && !empty( $setting->value ) && Storage::disk(config('voyager.storage.disk'))->exists($setting->value))
                                             <div class="img_settings_container">
-
                                                 @if (config('voyager.pkg_dev_mode')) 
                                                 <a href="{{ route('voyager.settings.delete_value', $setting->id) }}" class="voyager-x delete_value"></a>
                                                 @endif
-
-                                                <img src="{{ Storage::disk(config('voyager.storage.disk'))->url($setting->value) }}" style="width:10%; height:auto; padding:2px; border:1px solid #ddd; margin-bottom:10px;">
+                                                
+                                                <img src="{{ Storage::disk(config('voyager.storage.disk'))->url($setting->value) }}" style="width:200px; height:auto; padding:2px; border:1px solid #ddd; margin-bottom:10px;">
                                             </div>
                                             <div class="clearfix"></div>
                                         @elseif($setting->type == "file" && isset( $setting->value ))
-                                            <div class="fileType">{{ $setting->value }}</div>
+                                            @if(json_decode($setting->value) !== null)
+                                                @foreach(json_decode($setting->value) as $file)
+                                                  <div class="fileType">
+                                                    <a class="fileType" target="_blank" href="{{ Storage::disk(config('voyager.storage.disk'))->url($file->download_link) }}">
+                                                      {{ $file->original_name }}
+                                                    </a>
+                                                    <a href="{{ route('voyager.settings.delete_value', $setting->id) }}" class="voyager-x delete_value"></a>
+                                                 </div>
+                                                @endforeach
+                                            @endif
                                         @endif
                                         <input type="file" name="{{ $setting->key }}">
                                     @elseif($setting->type == "select_dropdown")
@@ -328,19 +366,24 @@
                                         @endif
                                     @endif
                                 </div>
-
-                                @if (config('voyager.pkg_dev_mode')) 
                                 <div class="col-md-2 no-padding-left-right">
+                                    @if(config('voyager.pkg_dev_mode'))
                                     <select class="form-control group_select" name="{{ $setting->key }}_group">
                                         @foreach($groups as $group)
                                         <option value="{{ $group }}" {!! $setting->group == $group ? 'selected' : '' !!}>{{ $group }}</option>
                                         @endforeach
                                     </select>
+                                    @else
+                                        @foreach($groups as $group)
+                                            @if($setting->group == $group)
+                                                <input type="hidden" name="{{ $setting->key }}_group" value="{{ $group }}">
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @endif
+
                                 </div>
-                                @endif
-
                             </div>
-
                             @if(!$loop->last)
                                 <hr>
                             @endif
@@ -355,7 +398,6 @@
         </form>
 
         <div style="clear:both"></div>
-        
         @if (config('voyager.pkg_dev_mode')) 
         @can('add', Voyager::model('Setting'))
         <div class="panel" style="margin-top:10px;">
@@ -422,6 +464,7 @@
         @endif
     </div>
 
+    @can('delete', Voyager::model('Setting'))
     <div class="modal modal-danger fade" tabindex="-1" id="delete_modal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -444,6 +487,7 @@
             </div>
         </div>
     </div>
+    @endcan
 
 @stop
 
@@ -459,6 +503,7 @@
                 }
             });
 
+            @can('delete', Voyager::model('Setting'))
             $('.panel-actions .voyager-trash').click(function () {
                 var display = $(this).data('display-name') + '/' + $(this).data('display-key');
 
@@ -467,6 +512,7 @@
                 $('#delete_form')[0].action = '{{ route('voyager.settings.delete', [ 'id' => '__id' ]) }}'.replace('__id', $(this).data('id'));
                 $('#delete_modal').modal('show');
             });
+            @endcan
 
             $('.toggleswitch').bootstrapToggle();
 
