@@ -32,9 +32,16 @@ mix
 
 // compile sass files
 .sass('resources/sass/app.scss', 'publishable/assets/css')
-
-// do not process urls in CSS
-.options({processCssUrls: false})
+.options({
+    processCssUrls: false,
+    autoprefixer: {
+        options: {
+            browsers: [
+                'last 6 versions',
+            ]
+        }
+    }
+})
 
 // third-party css
 .sass('resources/sass/vendor.scss', 'publishable/assets/css')
