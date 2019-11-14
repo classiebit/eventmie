@@ -1,14 +1,17 @@
 {
     "name": "classiebit/eventmie",
     "version": "1.0.6",
-    "description": "Eventmie Lite",
+    "description": "Run your own Events business with Eventmie Pro. Use it as event ticket selling website or event management platform on your own domain.",
     "keywords": [
-        "eventmie-lite",
+        "eventmie-pro",
         "events",
+        "event ticket selling website", 
+        "event management platform",
         "event-management",
         "event-planning",
         "laravel",
         "laravel-package",
+        "voyager",
         "vuejs"
     ],
     "license": "MIT",
