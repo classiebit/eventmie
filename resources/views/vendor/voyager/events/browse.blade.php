@@ -236,12 +236,12 @@
                                             </a>
                                             {{-- Single delete modal --}}
 
-                                            <a href="{{ route('eventmie.myevents_form',['slug' => $data->slug])}}" class="btn btn-sm btn-primary pull-right edit">
+                                            <a href="{{ route('eventmie.myevents_form',[$data->slug])}}" class="btn btn-sm btn-primary pull-right edit">
                                                 <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
                                             </a>
 
                                             @if($data->publish > 0)
-                                            <a href="{{ route('eventmie.events_show', ['slug' => $data->slug]) }}" class="btn btn-sm btn-warning pull-right view">
+                                            <a href="{{ route('eventmie.events_show', [$data->slug]) }}" class="btn btn-sm btn-warning pull-right view">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
                                             </a>
                                             @endif 
@@ -255,7 +255,7 @@
                                                             <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower($dataType->display_name_singular) }}?</h4>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form action="{{ route('eventmie.delete_event',['slug' => $data->slug]) }}" id="delete_form" method="GET">
+                                                            <form action="{{ route('eventmie.delete_event',[$data->slug]) }}" id="delete_form" method="GET">
                                                                 {{ csrf_field() }}
                                                                 <input type="submit" class="btn btn-danger pull-right delete-confirm" value="{{ __('voyager::generic.delete_confirm') }}">
                                                             </form>
