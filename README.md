@@ -39,8 +39,8 @@ Just **install** it into a brand new Laravel application or an existing one and 
 
 **Eventmie Pro Version** comes with **Commercial** license. Pro version is fully loaded with a lot of useful and exciting features.
 
-+ [Live](https://eventmie-pro.classiebit.com) - Coming soon.
-+ [Purchase](https://classiebit.com/eventmie-pro) - Subscribe now for notifications, will be soon available for Purchase here
++ [Live](https://eventmie-pro.classiebit.com) - It's live, checkout now.
++ [Purchase](https://classiebit.com/eventmie-pro) - Purchase Pro version here.
 
 ---
 

@@ -487,9 +487,9 @@ class MyEventsController extends Controller
             $image           = str_replace(' ', '+', $image);
 
             if(class_exists('\Str'))
-                $filename        = time().str_random(10).'.'.'jpg';
-            else
                 $filename        = time().\Str::random(10).'.'.'jpg';
+            else
+                $filename        = time().str_random(10).'.'.'jpg';
 
             $path            = '/storage/'.$params['path'].'/'.Carbon::now()->format('FY').'/';
             $image_resize    = Image::make(base64_decode($image))->resize($params['width'], $params['height']);
