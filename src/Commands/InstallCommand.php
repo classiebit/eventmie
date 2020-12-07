@@ -86,14 +86,14 @@ class InstallCommand extends Command
                 file_put_contents(app_path('User.php'), $str);
             }
         } else {
-            $this->warn('Unable to locate "app/User.php".  Did you move this file?');
+            $this->warn('Unable to locate "app/Models/User.php".  Did you move this file?');
             $this->warn('You will need to update this manually.  Change "extends Authenticatable" to "extends \Classiebit\Eventmie\Models\User" in your User model');
         }
 
         // ---- Check if everything good so far ----
         $this->info('---- Dumping the autoloaded files and reloading all new files ----');
         $composer = $this->findComposer();
-        $process = new Process($composer.' dump-autoload');
+        $process = new Process([$composer.' dump-autoload']);
         // Setting timeout to null to prevent installation from stopping at a certain point in time
         $process->setTimeout(null); 
         $process->setWorkingDirectory(base_path())->run();

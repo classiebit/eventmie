@@ -188,15 +188,43 @@ class EventmieServiceProvider extends ServiceProvider
      */
     private function mailConfiguration($mail = [])
     {
-        Config::set('mail.host', $mail['mail_host']);
-        Config::set('mail.port', $mail['mail_port']);
-        Config::set('mail.driver', $mail['mail_driver']);
-        Config::set('mail.from', ['address' => $mail['mail_sender_email'],
-                                    'name' =>  $mail['mail_sender_name']
-                                ]);
-        Config::set('mail.encryption', $mail['mail_encryption']);
-        Config::set('mail.username', $mail['mail_username']);
-        Config::set('mail.password', $mail['mail_password']);
+        // defaults
+        $MAIL_MAILER        = 'smtp';
+        $MAIL_HOST          = 'smtp.mailtrap.io';
+        $MAIL_PORT          = '2525';
+        $MAIL_USERNAME      = null;
+        $MAIL_PASSWORD      = null;
+        $MAIL_ENCRYPTION    = null;
+        $MAIL_FROM_ADDRESS  = null;
+        $MAIL_FROM_NAME     = "EventmiePro@classiebit";
+        if(
+            !empty($mail['mail_host']) && 
+            !empty($mail['mail_port']) && 
+            !empty($mail['mail_driver']) && 
+            !empty($mail['mail_sender_email']) && 
+            !empty($mail['mail_sender_name']) && 
+            !empty($mail['mail_encryption']) && 
+            !empty($mail['mail_username']) && 
+            !empty($mail['mail_password'])  
+        )
+        {
+            $MAIL_MAILER        = $mail['mail_driver'];
+            $MAIL_HOST          = $mail['mail_host'];
+            $MAIL_PORT          = $mail['mail_port'];
+            $MAIL_USERNAME      = $mail['mail_username'];
+            $MAIL_PASSWORD      = $mail['mail_password'];
+            $MAIL_ENCRYPTION    = $mail['mail_encryption'];
+            $MAIL_FROM_ADDRESS  = $mail['mail_sender_email'];
+            $MAIL_FROM_NAME     = $mail['mail_sender_name'];
+        }   
+        
+        Config::set('mail.driver', $MAIL_MAILER);
+        Config::set('mail.host', $MAIL_HOST);
+        Config::set('mail.port', $MAIL_PORT);
+        Config::set('mail.username', $MAIL_USERNAME);
+        Config::set('mail.password', $MAIL_PASSWORD);
+        Config::set('mail.encryption', $MAIL_ENCRYPTION);
+        Config::set('mail.from', ['address' => $MAIL_FROM_ADDRESS, 'name' =>  $MAIL_FROM_NAME]);
             
     }
      
