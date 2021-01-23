@@ -2,10 +2,9 @@
 
 namespace Classiebit\Eventmie\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Auth\AuthenticationException;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
 
 class MyHandler extends ExceptionHandler
 {
@@ -28,20 +27,32 @@ class MyHandler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    /**
+     * Report or log an exception.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function report(Throwable $exception)
+    {
+        parent::report($exception);
+    }
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Render an exception into an HTTP response.
      *
-     * @return void
-     */
-    public function register()
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+    */
+    public function render($request, Throwable $exception)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        return parent::render($request, $exception);
     }
-    
-
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {

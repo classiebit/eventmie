@@ -1,6 +1,6 @@
 {
     "name": "classiebit/eventmie",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "Run your own Events business with Eventmie Pro. Use it as event ticket selling website or event management platform on your own domain.",
     "keywords": [
         "eventmie-pro",
@@ -27,8 +27,12 @@
         }
     ],
     "require": {
+        "illuminate/support": "~6.0|~7.0|~8.0",
         "tightenco/ziggy": "~0.8",
-        "tcg/voyager": "1.3.*"
+        "tcg/voyager": "1.4.*"
+    },
+    "require-dev": {
+        "laravel/framework": "~6.0|~7.0|~8.0"
     },
     "autoload": {
         "psr-4": {
@@ -36,7 +40,6 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable" : true,
     "extra": {
         "laravel": {
             "providers": [
