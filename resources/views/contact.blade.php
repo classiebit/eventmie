@@ -1,9 +1,9 @@
 @extends('eventmie::layouts.app')
 
 @section('title')
-    @lang('eventmie-pro::em.contact')
+    @lang('eventmie::em.contact')
 @endsection
-@section('meta_title') @lang('eventmie-pro::em.contact') @endsection
+@section('meta_title') @lang('eventmie::em.contact') @endsection
 @section('meta_description', setting('site.site_name') ? setting('site.site_name') : config('app.name'))
 @section('meta_url', url()->current())
 
@@ -29,10 +29,10 @@
                                     @csrf
                                     <!-- first name -->
                                     <div class="mb-3 col-md-6">
-                                        <label for="fname" class="form-label">@lang('eventmie-pro::em.name') <span
+                                        <label for="fname" class="form-label">@lang('eventmie::em.name') <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="name"
-                                            placeholder="@lang('eventmie-pro::em.name')" required="">
+                                            placeholder="@lang('eventmie::em.name')" required="">
                                         <div class="invalid-feedback">
                                             @if ($errors->has('name'))
                                                 <div class="alert alert-danger">{{ $errors->first('name') }}</div>
@@ -42,10 +42,10 @@
 
                                     <!-- email -->
                                     <div class="mb-3 col-md-6">
-                                        <label for="lname" class="form-label">@lang('eventmie-pro::em.email') <span
+                                        <label for="lname" class="form-label">@lang('eventmie::em.email') <span
                                                 class="text-danger">*</span></label>
                                         <input type="email" name="email" class="form-control" id="lname"
-                                            placeholder="@lang('eventmie-pro::em.email')" required="">
+                                            placeholder="@lang('eventmie::em.email')" required="">
                                         <div class="invalid-feedback">
                                             @if ($errors->has('email'))
                                                 <div class="alert alert-danger">{{ $errors->first('email') }}</div>
@@ -55,10 +55,10 @@
 
                                     <!-- title -->
                                     <div class="mb-3 col-md-12">
-                                        <label for="title" class="form-label">@lang('eventmie-pro::em.title') <span
+                                        <label for="title" class="form-label">@lang('eventmie::em.title') <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" name="title" class="form-control"
-                                            placeholder="@lang('eventmie-pro::em.title')" required="">
+                                            placeholder="@lang('eventmie::em.title')" required="">
                                         <div class="invalid-feedback">
                                             @if ($errors->has('title'))
                                                 <div class="alert alert-danger">{{ $errors->first('title') }}</div>
@@ -68,7 +68,7 @@
                                     <!-- message -->
                                     <div class="mb-3 col-md-12">
                                         <label for="message" class="form-label">Message</label>
-                                        <textarea class="form-control " rows="3" name="message" placeholder="@lang('eventmie-pro::em.message')" id="message"
+                                        <textarea class="form-control " rows="3" name="message" placeholder="@lang('eventmie::em.message')" id="message"
                                             required=""></textarea>
                                         @if ($errors->has('message'))
                                             <div class="alert alert-danger">{{ $errors->first('message') }}</div>
@@ -77,7 +77,7 @@
                                     <!-- button -->
                                     <div class="col-md-12">
                                         <button class="btn btn-primary" type="submit" value="contact-form">
-                                            <span><i class="fas fa-paper-plane"></i></span> @lang('eventmie-pro::em.send_message')</button>
+                                            <span><i class="fas fa-paper-plane"></i></span> @lang('eventmie::em.send_message')</button>
 
                                     </div>
                                 </form>

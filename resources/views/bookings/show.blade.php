@@ -1,7 +1,7 @@
 @extends('eventmie::layouts.app')
 
 @section('title')
-    @lang('eventmie-pro::em.booking_details')
+    @lang('eventmie::em.booking_details')
 @endsection
 
 @section('content')
@@ -21,32 +21,32 @@
                                 <div class="table-responsive">
                                     {{-- booking details --}}
 
-                                    <h3 class="text-center bg-light p-3">@lang('eventmie-pro::em.booking_info')</h3>
+                                    <h3 class="text-center bg-light p-3">@lang('eventmie::em.booking_info')</h3>
                                     <table class="table">
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.order_id')</th>
+                                            <th>@lang('eventmie::em.order_id')</th>
                                             <td>{{ $booking['order_number'] }}</td>
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.event_category')</th>
+                                            <th>@lang('eventmie::em.event_category')</th>
                                             <td>{{ $booking['event_category'] }}</td>
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.event')</th>
+                                            <th>@lang('eventmie::em.event')</th>
                                             <td>{{ $booking['event_title'] }}</td>
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.start_date')</th>
+                                            <th>@lang('eventmie::em.start_date')</th>
                                             <td>{{ userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
                                                 {{ showTimezone() }}
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.end_date')</th>
+                                            <th>@lang('eventmie::em.end_date')</th>
                                             @if (userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', 'Y-m-d') <=
                                                 userTimezone($booking['event_end_date'] . ' ' . $booking['event_end_time'], 'Y-m-d H:i:s', 'Y-m-d'))
                                                 <td>{{ userTimezone($booking['event_end_date'] . ' ' . $booking['event_end_time'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
@@ -60,7 +60,7 @@
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.start_time')</th>
+                                            <th>@lang('eventmie::em.start_time')</th>
                                             <td>
                                                 {{ userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', format_carbon_date(false)) }}
                                                 {{ showTimezone() }}
@@ -68,20 +68,20 @@
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.end_time')</th>
+                                            <th>@lang('eventmie::em.end_time')</th>
                                             <td>{{ userTimezone($booking['event_end_date'] . ' ' . $booking['event_end_time'], 'Y-m-d H:i:s', format_carbon_date(false)) }}
                                                 {{ showTimezone() }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.booking_date')</th>
+                                            <th>@lang('eventmie::em.booking_date')</th>
                                             <td>{{ userTimezone($booking['created_at'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
                                                 {{ showTimezone() }}
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <th>@lang('eventmie-pro::em.booking_status')</th>
+                                            <th>@lang('eventmie::em.booking_status')</th>
                                             <td><span
                                                     class="label label-success">{{ $booking['status'] == 0 ? 'Inactive' : 'Active' }}</span>
                                             </td>
@@ -103,16 +103,16 @@
                             <div class="card-body">
                                 {{-- customer details --}}
 
-                                <h3 class="text-center bg-light p-3">@lang('eventmie-pro::em.customer_info')</h3>
+                                <h3 class="text-center bg-light p-3">@lang('eventmie::em.customer_info')</h3>
                                 <hr>
                                 <table class="table table-hover">
                                     <tr>
-                                        <th>@lang('eventmie-pro::em.name')</th>
+                                        <th>@lang('eventmie::em.name')</th>
                                         <td>{{ $booking['customer_name'] }}</td>
                                     </tr>
 
                                     <tr>
-                                        <th>@lang('eventmie-pro::em.email')</th>
+                                        <th>@lang('eventmie::em.email')</th>
                                         <td>{{ $booking['customer_email'] }}</td>
                                     </tr>
 

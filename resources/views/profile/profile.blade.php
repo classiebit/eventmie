@@ -1,7 +1,7 @@
 @extends('eventmie::layouts.app')
 
 @section('title')
-    @lang('eventmie-pro::em.profile')
+    @lang('eventmie::em.profile')
 @endsection
 
 @section('content')
@@ -13,14 +13,14 @@
                     <ul class="nav nav-lb-tab text-center w-space">
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{ name: 'personal-details' }">
-                                @lang('eventmie-pro::em.personal_details')
+                                @lang('eventmie::em.personal_details')
                                 <i class="fas fa-exclamation-circle text-danger" v-if="!store.state.personal_details"></i>
                                 <i class="fas fa-check-circle text-primary" v-else></i>
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{ name: 'security' }">
-                                @lang('eventmie-pro::em.security')
+                                @lang('eventmie::em.security')
                                 <i class="fas fa-check-circle text-primary"></i>
                             </router-link>
                         </li>

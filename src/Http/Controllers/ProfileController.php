@@ -86,7 +86,7 @@ class ProfileController extends Controller
         $user->save();
 
         // redirect no matter what so that it never turns back
-        $msg = __('eventmie-pro::em.saved').' '.__('eventmie-pro::em.successfully');
+        $msg = __('eventmie::em.saved').' '.__('eventmie::em.successfully');
         return success_redirect($msg, route('eventmie.profile'));
         
     }
@@ -116,7 +116,7 @@ class ProfileController extends Controller
         }
 
          // redirect no matter what so that it never turns back
-        $msg = __('eventmie-pro::em.saved').' '.__('eventmie-pro::em.successfully');
+        $msg = __('eventmie::em.saved').' '.__('eventmie::em.successfully');
         return success_redirect($msg, route('eventmie.profile').'#/userSecurity');
     }
 
@@ -143,7 +143,7 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
 
         if (!Hash::check($request->current, $user->password)) {
-            return ['errors' => __('eventmie-pro::em.current_password_not_match') , 'status' => false];
+            return ['errors' => __('eventmie::em.current_password_not_match') , 'status' => false];
         }
 
         

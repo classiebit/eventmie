@@ -1,7 +1,7 @@
 @extends('eventmie::layouts.app')
 
 @section('title')
-    @lang('eventmie-pro::em.mybookings')
+    @lang('eventmie::em.mybookings')
 @endsection
 
 @section('content')

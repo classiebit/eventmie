@@ -79,7 +79,7 @@ class MyEventsController extends Controller
             'description'       => 'required',
             'faq'               => 'nullable',
         ], [
-            'category_id.*' => __('eventmie-pro::em.category').' '.__('eventmie-pro::em.required')
+            'category_id.*' => __('eventmie::em.category').' '.__('eventmie::em.required')
         ]);
 
         
@@ -130,16 +130,16 @@ class MyEventsController extends Controller
         $event    = $this->event->save_event($params, $request->event_id);
         
         if(empty($event))
-            return error(__('eventmie-pro::em.event_not_created'), Response::HTTP_BAD_REQUEST );
+            return error(__('eventmie::em.event_not_created'), Response::HTTP_BAD_REQUEST );
 
         // ====================== Notification ====================== 
         //send notification after bookings
-        $msg[]                  = __('eventmie-pro::em.event').' - '.$event->title;
+        $msg[]                  = __('eventmie::em.event').' - '.$event->title;
         $extra_lines            = $msg;
 
-        $mail['mail_subject']   = __('eventmie-pro::em.event_created');
-        $mail['mail_message']   = __('eventmie-pro::em.event_info');
-        $mail['action_title']   = __('eventmie-pro::em.manage_events');
+        $mail['mail_subject']   = __('eventmie::em.event_created');
+        $mail['mail_message']   = __('eventmie::em.event_info');
+        $mail['action_title']   = __('eventmie::em.manage_events');
         $mail['action_url']     = route('eventmie.myevents_index');
         $mail['n_type']         = "events";
 
@@ -523,7 +523,7 @@ class MyEventsController extends Controller
             return error('Event Could Not Deleted!', Response::HTTP_BAD_REQUEST );   
         }
 
-        $msg = __('eventmie-pro::em.event_deleted');
+        $msg = __('eventmie::em.event_deleted');
         
         return redirect()
         ->route("voyager.events.index")

@@ -77,7 +77,7 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th> {{ __('eventmie-pro::em.expired') }} </th>
+                                        <th> {{ __('eventmie::em.expired') }} </th>
                                         <th class="actions text-right">{{ __('voyager::generic.actions') }}</th>
                                     </tr>
                                 </thead>

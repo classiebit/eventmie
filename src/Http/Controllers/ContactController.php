@@ -55,20 +55,20 @@ class ContactController extends Controller
         
         if(empty($contact))
         {
-            return redirect()->back()->with('msg', __('eventmie-pro::em.message_sent_fail')); 
+            return redirect()->back()->with('msg', __('eventmie::em.message_sent_fail')); 
         }
         
         // ====================== Notification ====================== 
         //send notification after bookings
-        $msg[]                  = __('eventmie-pro::em.name').' - '.$contact->name;
-        $msg[]                  = __('eventmie-pro::em.email').' - '.$contact->email;
-        $msg[]                  = __('eventmie-pro::em.title').' - '.$contact->title;
-        $msg[]                  = __('eventmie-pro::em.message').' - '.$contact->message;
+        $msg[]                  = __('eventmie::em.name').' - '.$contact->name;
+        $msg[]                  = __('eventmie::em.email').' - '.$contact->email;
+        $msg[]                  = __('eventmie::em.title').' - '.$contact->title;
+        $msg[]                  = __('eventmie::em.message').' - '.$contact->message;
         $extra_lines            = $msg;
 
-        $mail['mail_subject']   = __('eventmie-pro::em.message_sent');
-        $mail['mail_message']   = __('eventmie-pro::em.get_tickets');
-        $mail['action_title']   = __('eventmie-pro::em.view').' '.__('eventmie-pro::em.all').' '.__('eventmie-pro::em.events');
+        $mail['mail_subject']   = __('eventmie::em.message_sent');
+        $mail['mail_message']   = __('eventmie::em.get_tickets');
+        $mail['action_title']   = __('eventmie::em.view').' '.__('eventmie::em.all').' '.__('eventmie::em.events');
         $mail['action_url']     = route('eventmie.events_index');
         $mail['n_type']         = "contact";
         
@@ -87,6 +87,6 @@ class ContactController extends Controller
         } catch (\Throwable $th) {}
         // ====================== Notification ====================== 
         
-        return redirect()->back()->with('msg', __('eventmie-pro::em.message_sent')); 
+        return redirect()->back()->with('msg', __('eventmie::em.message_sent')); 
     }
 }    

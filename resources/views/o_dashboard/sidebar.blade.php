@@ -5,9 +5,9 @@
 
                 <li class="nav-item tooltip-custom">
                     <a class="nav-link {{ Route::currentRouteName() == 'eventmie.myevents_index' || Route::currentRouteName() == 'eventmie.myevents_form' ? 'active' : '' }}"
-                        href="{{ route('eventmie.myevents_index') }}" title="@lang('eventmie-pro::em.myevents')">
+                        href="{{ route('eventmie.myevents_index') }}" title="@lang('eventmie::em.myevents')">
                         <span class="nav-icon"><i class="far fa-calendar-alt"></i></span>
-                        <span class="tooltiptext">@lang('eventmie-pro::em.myevents')</span>
+                        <span class="tooltiptext">@lang('eventmie::em.myevents')</span>
                     </a>
                 </li>
 

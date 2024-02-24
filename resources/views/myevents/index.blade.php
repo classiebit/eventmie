@@ -1,7 +1,7 @@
 @extends('eventmie::o_dashboard.index')
 
 @section('title')
-    @lang('eventmie-pro::em.myevents')
+    @lang('eventmie::em.myevents')
 @endsection
 
 @section('o_dashboard')

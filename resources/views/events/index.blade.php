@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    @lang('eventmie-pro::em.events')
+    @lang('eventmie::em.events')
 @endsection
 
 @section('content')

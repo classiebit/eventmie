@@ -1,6 +1,6 @@
 @extends('eventmie::layouts.app')
 
-@section('title') @lang('eventmie-pro::em.home') @endsection
+@section('title') @lang('eventmie::em.home') @endsection
 
 @section('content')
     @php
@@ -38,13 +38,13 @@
                                     <select
                                         class="form-select border-bottom border-bottom-md-0 rounded-0 border-0 form-focus-none bg-transparent"
                                         id="city" name="city">
-                                        <option value="All">@lang('eventmie-pro::em.all')</option>
+                                        <option value="All">@lang('eventmie::em.all')</option>
                                         @foreach ($cities as $val)
                                             <option value="{{ $val['city'] }}">{{ $val['city'] }}, {{ $val['state'] }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="city_select">{{ __('eventmie-pro::em.city') }}</label>
+                                    <label for="city_select">{{ __('eventmie::em.city') }}</label>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -52,12 +52,12 @@
                                     <select
                                         class="form-select  border-bottom border-bottom-md-0 rounded-0 border-0 form-focus-none bg-transparent"
                                         id="category" name="category">
-                                        <option value="All">@lang('eventmie-pro::em.all')</option>
+                                        <option value="All">@lang('eventmie::em.all')</option>
                                         @foreach ($categories as $val)
                                             <option value="{{ $val['name'] }}">{{ $val['name'] }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="category">{{ __('eventmie-pro::em.category') }}</label>
+                                    <label for="category">{{ __('eventmie::em.category') }}</label>
                                 </div>
                             </div>
                             <div class="col-sm-1">
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="d-md-flex justify-content-end ms-md-n3 ms-lg-0  d-block d-md-none">
                                     <button type="submit"
-                                        class="btn btn-primary d-grid gap-2 col-12 mx-auto">@lang('eventmie-pro::em.search')</button>
+                                        class="btn btn-primary d-grid gap-2 col-12 mx-auto">@lang('eventmie::em.search')</button>
                                 </div>
                             </div>
                         </div>
@@ -85,11 +85,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-8">
-                        <h3>@lang('eventmie-pro::em.top_selling_events')</h3>
+                        <h3>@lang('eventmie::em.top_selling_events')</h3>
                     </div>
                     <div class="col-4">
                         <a class="btn btn-sm text-primary mt-lg-2 {{ App::isLocale('ar') ? 'float-start' : 'float-end' }}"
-                            href="{{ route('eventmie.events_index') }}">@lang('eventmie-pro::em.view_all') <i
+                            href="{{ route('eventmie.events_index') }}">@lang('eventmie::em.view_all') <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -119,11 +119,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-8">
-                        <h3>@lang('eventmie-pro::em.upcoming_events')</h3>
+                        <h3>@lang('eventmie::em.upcoming_events')</h3>
                     </div>
                     <div class="col-4">
                         <a class="btn btn-sm text-primary mt-lg-2 {{ App::isLocale('ar') ? 'float-start' : 'float-end' }}"
-                            href="{{ route('eventmie.events_index') }}">@lang('eventmie-pro::em.view_all') <i
+                            href="{{ route('eventmie.events_index') }}">@lang('eventmie::em.view_all') <i
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="text-white">@lang('eventmie-pro::em.event_categories')</h3>
+                        <h3 class="text-white">@lang('eventmie::em.event_categories')</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -185,8 +185,8 @@
             <div class="row ">
                 <div class="col-12">
                     <div class="text-center mb-10">
-                        <p class="mb-0">@lang('eventmie-pro::em.how_it_works') </p>
-                        <h2 class="mb-1">@lang('eventmie-pro::em.for_customers')</h2>
+                        <p class="mb-0">@lang('eventmie::em.how_it_works') </p>
+                        <h2 class="mb-1">@lang('eventmie::em.for_customers')</h2>
                     </div>
                 </div>
             </div>
@@ -199,8 +199,8 @@
                                 <i class="fas fa-calendar-alt fa-1x text-primary"></i>
                             </div>
                         </div>
-                        <h3 class="mb-3">1. @lang('eventmie-pro::em.customer_1')</h3>
-                        <p class="mb-0 px-lg-3">@lang('eventmie-pro::em.customer_1_info') </p>
+                        <h3 class="mb-3">1. @lang('eventmie::em.customer_1')</h3>
+                        <p class="mb-0 px-lg-3">@lang('eventmie::em.customer_1_info') </p>
                     </div>
 
                 </div>
@@ -211,8 +211,8 @@
                                 <i class="fas fa-ticket-alt fa-1x text-primary"></i>
                             </div>
                         </div>
-                        <h3 class="mb-3">2. @lang('eventmie-pro::em.customer_2')</h3>
-                        <p class="mb-0 px-lg-3">@lang('eventmie-pro::em.customer_2_info')</p>
+                        <h3 class="mb-3">2. @lang('eventmie::em.customer_2')</h3>
+                        <p class="mb-0 px-lg-3">@lang('eventmie::em.customer_2_info')</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-12">
@@ -223,8 +223,8 @@
                                 <i class="fas fa-walking fa-1x text-primary"></i>
                             </div>
                         </div>
-                        <h3 class="mb-3">3. @lang('eventmie-pro::em.customer_3')</h3>
-                        <p class="mb-0 px-lg-3">@lang('eventmie-pro::em.customer_3_info') </p>
+                        <h3 class="mb-3">3. @lang('eventmie::em.customer_3')</h3>
+                        <p class="mb-0 px-lg-3">@lang('eventmie::em.customer_3_info') </p>
                     </div>
                 </div>
             </div>

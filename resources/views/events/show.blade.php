@@ -32,16 +32,16 @@
                                 <p class="fs-6 mb-2">
                                     <span class="badge bg-primary text-white">{{ $category['name'] }}</span>
 
-                                    <span class="badge bg-primary text-white">@lang('eventmie-pro::em.free_tickets')</span>
+                                    <span class="badge bg-primary text-white">@lang('eventmie::em.free_tickets')</span>
 
                                     @if ($ended)
-                                    <span class="badge bg-danger text-white">@lang('eventmie-pro::em.event_ended')</span>
+                                    <span class="badge bg-danger text-white">@lang('eventmie::em.event_ended')</span>
                                     @endif
                                 </p>
                             </div>
                             <div class="card-footer bg-gradient">
                                 <div class="text-white">
-                                    <span><strong>@lang('eventmie-pro::em.share_event') &nbsp;</strong></span>
+                                    <span><strong>@lang('eventmie::em.share_event') &nbsp;</strong></span>
                                     <a class="me-1 text-white  badge text-bg-primary" target="_blank"
                                         href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}">
                                         <i class="fab fa-facebook"></i>
@@ -76,7 +76,7 @@
                         <div class="card mb-4 bg-light" id="buy-tickets">
                             <div class="card-body p-4">
                                 <div class="mb-4 text-left">
-                                    <h4 class="mb-0 fw-bold h4">@lang('eventmie-pro::em.get_tickets')</h4>
+                                    <h4 class="mb-0 fw-bold h4">@lang('eventmie::em.get_tickets')</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-12">
@@ -111,7 +111,7 @@
                         <!-- post single -->
                         <div class="card mb-4">
                             <div class="card-body p-4">
-                                <h4>@lang('eventmie-pro::em.overview')</h4>
+                                <h4>@lang('eventmie::em.overview')</h4>
                                 <p>{!! $event['description'] !!}</p>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                         @if ($event['faq'])
                             <div class="card mb-4">
                                 <div class="card-body p-4">
-                                    <h4 class=" text-left">@lang('eventmie-pro::em.event_info')</h4>
+                                    <h4 class=" text-left">@lang('eventmie::em.event_info')</h4>
                                     <p>{!! $event['faq'] !!}</p>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                         @if (!empty($event->images))
                             <div class="card mb-4">
                                 <div class="card-body p-4 pb-0">
-                                    <h4 class="mb-3">@lang('eventmie-pro::em.event_gallery')</h4>
+                                    <h4 class="mb-3">@lang('eventmie::em.event_gallery')</h4>
                                     <gallery-images :gimages="{{ $event->images }}" :style=''>
                                     </gallery-images>
                                 </div>
@@ -154,7 +154,7 @@
                                 <div class="d-grid">
                                     <a class="btn btn-primary btn-lg " href="#buy-tickets">
                                         <i class="fas fa-ticket-alt"></i>
-                                        @lang('eventmie-pro::em.get_tickets')
+                                        @lang('eventmie::em.get_tickets')
                                     </a>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <!-- card-->
-                                <h4 class="mb-2 fw-bold">@lang('eventmie-pro::em.where')</h4>
+                                <h4 class="mb-2 fw-bold">@lang('eventmie::em.where')</h4>
                                 <p>
                                     <strong>{{ $event->venue }}</strong>
 
@@ -191,7 +191,7 @@
                         <!-- card-->
                         <div class="card  mb-4">
                             <div class="card-body">
-                                <h4 class="mb-2 fw-bold">@lang('eventmie-pro::em.when')</h4>
+                                <h4 class="mb-2 fw-bold">@lang('eventmie::em.when')</h4>
                                     <p>
                                         {{ userTimezone($event->start_date . ' ' . $event->start_time, 'Y-m-d H:i:s', format_carbon_date(false)) }}
 

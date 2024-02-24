@@ -2,52 +2,52 @@
     <div class="container">
         <div class="row mb-3">
             <div class="col-md-3">
-                <h5 class="mb-3 text-white">@lang('eventmie-pro::em.useful_links')</h5>
+                <h5 class="mb-3 text-white">@lang('eventmie::em.useful_links')</h5>
                 <div>
                     <ul class="list-unstyled">
                         <li><a class="text-white lh-lg"
-                                href="{{ route('eventmie.page', ['page' => 'about']) }}">@lang('eventmie-pro::em.about')</a>
+                                href="{{ route('eventmie.page', ['page' => 'about']) }}">@lang('eventmie::em.about')</a>
                         </li>
-                        <li><a class="text-white lh-lg" href="{{ route('eventmie.events_index') }}">@lang('eventmie-pro::em.events')</a>
-                        </li>
-                        <li><a class="text-white lh-lg"
-                                href="{{ route('eventmie.page', ['page' => 'terms']) }}">@lang('eventmie-pro::em.terms')</a>
+                        <li><a class="text-white lh-lg" href="{{ route('eventmie.events_index') }}">@lang('eventmie::em.events')</a>
                         </li>
                         <li><a class="text-white lh-lg"
-                                href="{{ route('eventmie.page', ['page' => 'privacy']) }}">@lang('eventmie-pro::em.privacy')</a>
+                                href="{{ route('eventmie.page', ['page' => 'terms']) }}">@lang('eventmie::em.terms')</a>
+                        </li>
+                        <li><a class="text-white lh-lg"
+                                href="{{ route('eventmie.page', ['page' => 'privacy']) }}">@lang('eventmie::em.privacy')</a>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3">
-                <h5 class="mb-3 text-white">@lang('eventmie-pro::em.social')</h5>
+                <h5 class="mb-3 text-white">@lang('eventmie::em.social')</h5>
                 <div>
                     <ul class="list-unstyled">
                         @if (setting('social.facebook'))
                             <li><a href="{{ 'https://www.facebook.com/' . setting('social.facebook') }}" target="_blank"
-                                    class="text-white lh-lg">@lang('eventmie-pro::em.facebook')</a>
+                                    class="text-white lh-lg">@lang('eventmie::em.facebook')</a>
                         @endif
                         @if (setting('social.twitter'))
                             <li><a href="{{ 'https://twitter.com/' . setting('social.twitter') }}" target="_blank"
-                                    class="text-white lh-lg">@lang('eventmie-pro::em.twitter')</a>
+                                    class="text-white lh-lg">@lang('eventmie::em.twitter')</a>
                         @endif
                         @if (setting('social.instagram'))
                             <li><a href="{{ setting('social.instagram') }}" target="_blank"
-                                    class="text-white lh-lg">@lang('eventmie-pro::em.instagram')</a>
+                                    class="text-white lh-lg">@lang('eventmie::em.instagram')</a>
                         @endif
                         @if (setting('social.linkedin'))
                             <li><a href="{{ setting('social.linkedin') }}" target="_blank"
-                                    class="text-white lh-lg">@lang('eventmie-pro::em.linkedin')</a>
+                                    class="text-white lh-lg">@lang('eventmie::em.linkedin')</a>
                         @endif
                     </ul>
                 </div>
             </div>
             <div class="col-md-3">
-                <h5 class="mb-3 text-white">@lang('eventmie-pro::em.contact')</h5>
+                <h5 class="mb-3 text-white">@lang('eventmie::em.contact')</h5>
                 <div>
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('eventmie.contact') }}" class="text-white lh-lg">@lang('eventmie-pro::em.contact_send_message')</a>
+                        <li><a href="{{ route('eventmie.contact') }}" class="text-white lh-lg">@lang('eventmie::em.contact_send_message')</a>
                         </li>
-                        <li><a href="{{ route('eventmie.contact') }}" class="text-white lh-lg">@lang('eventmie-pro::em.contact_find_us')</a>
+                        <li><a href="{{ route('eventmie.contact') }}" class="text-white lh-lg">@lang('eventmie::em.contact_find_us')</a>
                         </li>
                     </ul>
                 </div>
@@ -69,7 +69,7 @@
                         <li class="list-group-item bg-secondary border-0 p-1">
                             <a class="text-center col-grey px-2 text-white {{ $val == config('app.locale') ? 'active' : '' }}"
                                 href="{{ route('eventmie.change_lang', ['lang' => $val]) }}">
-                                @lang('eventmie-pro::em.lang_' . $val)
+                                @lang('eventmie::em.lang_' . $val)
                             </a>
                         </li>
                     @endforeach

@@ -26,8 +26,8 @@
                                     <a
                                         href="{{ URL::to(implode('/', array_slice(Request::segments(), 0, $i, true))) }}">
                                         {{-- translate if variable exists  --}}
-                                        @if (\Lang::has('eventmie-pro::em.' . strtolower(Request::segment($i))))
-                                            @lang('eventmie-pro::em.' . strtolower(Request::segment($i)))
+                                        @if (\Lang::has('eventmie::em.' . strtolower(Request::segment($i))))
+                                            @lang('eventmie::em.' . strtolower(Request::segment($i)))
                                         @else
                                             {{ strtoupper(Request::segment($i)) }}
                                         @endif
@@ -36,8 +36,8 @@
                             @else
                                 <li class="breadcrumb-item active">
                                     {{-- translate if variable exists  --}}
-                                    @if (\Lang::has('eventmie-pro::em.' . strtolower(Request::segment($i))))
-                                        @lang('eventmie-pro::em.' . strtolower(Request::segment($i)))
+                                    @if (\Lang::has('eventmie::em.' . strtolower(Request::segment($i))))
+                                        @lang('eventmie::em.' . strtolower(Request::segment($i)))
                                     @else
                                         {{ strtoupper(Request::segment($i)) }}
                                     @endif

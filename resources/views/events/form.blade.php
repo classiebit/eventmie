@@ -3,9 +3,9 @@
 {{-- Page title --}}
 @section('title')
     @if (empty($event))
-        @lang('eventmie-pro::em.create_event')
+        @lang('eventmie::em.create_event')
     @else
-        @lang('eventmie-pro::em.update_event')
+        @lang('eventmie::em.update_event')
     @endif
 @endsection
 
@@ -19,14 +19,14 @@
                     <div>
                         <h1 class="mb-0 fw-bold h2">
                             @if (empty($event))
-                                @lang('eventmie-pro::em.create_event')
+                                @lang('eventmie::em.create_event')
                             @else
-                                @lang('eventmie-pro::em.update_event') - {{ $event->title }}
+                                @lang('eventmie::em.update_event') - {{ $event->title }}
                             @endif
                         </h1>
                     </div>
                     <div class="d-flex">
-                        <a class="btn btn-secondary btn-block" href="{{ route('eventmie.myevents_index') }}"><span><i class="fas fa-xmark"></i> @lang('eventmie-pro::em.cancel')</span></a>  
+                        <a class="btn btn-secondary btn-block" href="{{ route('eventmie.myevents_index') }}"><span><i class="fas fa-xmark"></i> @lang('eventmie::em.cancel')</span></a>  
                     </div>
                 </div>
 

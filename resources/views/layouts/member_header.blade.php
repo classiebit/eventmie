@@ -21,30 +21,30 @@
                     <a class="dropdown-item" href="{{ route('eventmie.notify_read', [$notification->n_type]) }}">
                         {{ $notification->total }}
                         @if ($notification->n_type == 'user')
-                            @lang('eventmie-pro::em.user')
+                            @lang('eventmie::em.user')
                         @elseif($notification->n_type == 'cancel')
-                            @lang('eventmie-pro::em.booking_cancellation')
+                            @lang('eventmie::em.booking_cancellation')
                         @elseif($notification->n_type == 'review')
-                            @lang('eventmie-pro::em.show_reviews')
+                            @lang('eventmie::em.show_reviews')
                         @elseif($notification->n_type == 'contact')
-                            @lang('eventmie-pro::em.contact')
+                            @lang('eventmie::em.contact')
                         @elseif($notification->n_type == 'events')
-                            @lang('eventmie-pro::em.event')
+                            @lang('eventmie::em.event')
                         @elseif($notification->n_type == 'Approve-Organizer')
-                            @lang('eventmie-pro::em.requested_to_become_organiser')
+                            @lang('eventmie::em.requested_to_become_organiser')
                         @elseif($notification->n_type == 'Approved-Organizer')
-                            @lang('eventmie-pro::em.became_organiser_successful')
+                            @lang('eventmie::em.became_organiser_successful')
                         @elseif($notification->n_type == 'bookings')
-                            @lang('eventmie-pro::em.booking')
+                            @lang('eventmie::em.booking')
                         @elseif($notification->n_type == 'forgot_password')
-                            @lang('eventmie-pro::em.reset_password')
+                            @lang('eventmie::em.reset_password')
                         @endif
                     </a>
                 </li>
             @endforeach
         @else
             <li class="nav-item dropdown">
-                <a class="dropdown-item"> @lang('eventmie-pro::em.no_notifications')</a>
+                <a class="dropdown-item"> @lang('eventmie::em.no_notifications')</a>
             </li>
         @endif
     </ul>
@@ -67,11 +67,11 @@
         @if (Auth::user()->hasRole('customer'))
         <li class="nav-item dropdown ">
             <a class="dropdown-item" href="{{ route('eventmie.profile') }}"><i class="fas fa-id-card"></i>
-                @lang('eventmie-pro::em.profile')</a>
+                @lang('eventmie::em.profile')</a>
         </li>
         <li class="nav-item dropdown ">
             <a class="dropdown-item" href="{{ route('eventmie.mybookings_index') }}"><i
-                    class="fas fa-money-check-alt"></i> @lang('eventmie-pro::em.mybookings')</a>
+                    class="fas fa-money-check-alt"></i> @lang('eventmie::em.mybookings')</a>
         </li>
         @endif
 
@@ -79,22 +79,22 @@
         @if (Auth::user()->hasRole('admin'))
         <li class="nav-item dropdown">
             <a class="dropdown-item" href="{{ eventmie_url() . '/' . config('eventmie.route.admin_prefix') }}"><i
-                    class="fas fa-tachometer-alt"></i> @lang('eventmie-pro::em.admin_panel')</a>
+                    class="fas fa-tachometer-alt"></i> @lang('eventmie::em.admin_panel')</a>
         </li>
         <li class="nav-item dropdown">
             <a class="dropdown-item" href="{{ route('eventmie.profile') }}"><i class="fas fa-id-card"></i>
-                @lang('eventmie-pro::em.profile')</a>
+                @lang('eventmie::em.profile')</a>
         </li>
         <li class="nav-item dropdown">
             <a class="dropdown-item" href="{{ route('eventmie.myevents_form') }}"><i
-                    class="fas fa-calendar-plus"></i> @lang('eventmie-pro::em.create_event')</a>
+                    class="fas fa-calendar-plus"></i> @lang('eventmie::em.create_event')</a>
         </li>
         @endif
 
         <li class="nav-item dropdown">
             <a class="dropdown-item" href="{{ route('eventmie.logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt"></i> @lang('eventmie-pro::em.logout')
+                <i class="fas fa-sign-out-alt"></i> @lang('eventmie::em.logout')
             </a>
             <form id="logout-form" action="{{ route('eventmie.logout') }}" method="POST" style="display: none;">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -110,11 +110,11 @@
 @if (Auth::user()->hasRole('admin'))
     <li class="nav-item">
         <a class="nav-link" href="{{ route('eventmie.ticket_scan') }}"><i class="fas fa-qrcode"></i>
-            @lang('eventmie-pro::em.scan_ticket')</a>
+            @lang('eventmie::em.scan_ticket')</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('eventmie.myevents_form') }}"><i class="fas fa-calendar-plus"></i>
-            @lang('eventmie-pro::em.create_event')</a>
+            @lang('eventmie::em.create_event')</a>
     </li>
 @endif
 
@@ -122,6 +122,6 @@
 @if (Auth::user()->hasRole('customer'))
     <li class="nav-item">
         <a class="nav-link" href="{{ route('eventmie.mybookings_index') }}"><i class="fas fa-money-check-alt"></i>
-            @lang('eventmie-pro::em.mybookings')</a>
+            @lang('eventmie::em.mybookings')</a>
     </li>
 @endif

@@ -14,7 +14,7 @@
 <!-- The above meta tags *must* come first in the head -->
 
 <!-- SITE TITLE -->
-<title>{{ setting('site.site_name') ? setting('site.site_name') : config('app.name') }} - @yield('title', __('eventmie-pro::em.home'))</title>
+<title>{{ setting('site.site_name') ? setting('site.site_name') : config('app.name') }} - @yield('title', __('eventmie::em.home'))</title>
 
 <!-- Facebook Meta -->
 <meta property="og:url"           content="@yield('meta_url', eventmie_url())" />

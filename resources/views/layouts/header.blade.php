@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- GDPR -->
-                <cookie-law theme="gdpr" button-text="@lang('eventmie-pro::em.accept')">
+                <cookie-law theme="gdpr" button-text="@lang('eventmie::em.accept')">
                     <div slot="message">
                         <gdpr-message></gdpr-message>
                     </div>
@@ -62,7 +62,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false"><i
                                             class="fas fa-bars-staggered"></i>
-                                        @lang('eventmie-pro::em.categories')&nbsp;<i class="fas fa-caret-down"></i>
+                                        @lang('eventmie::em.categories')&nbsp;<i class="fas fa-caret-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
                                         @foreach ($categoriesMenu as $val)
@@ -88,7 +88,7 @@
 
                         <a href="{{ route('eventmie.events_index') }}"
                             class="btn btn-primary d-none d-lg-block bg-gradient">
-                            <i class="fas fa-calendar-day"></i> @lang('eventmie-pro::em.browse_events')
+                            <i class="fas fa-calendar-day"></i> @lang('eventmie::em.browse_events')
                         </a>
                     </div>
                 </nav>
