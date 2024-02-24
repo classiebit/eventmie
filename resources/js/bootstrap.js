@@ -9,7 +9,6 @@ window._ = require('lodash');
 
 let base_url                    = document.head.querySelector('meta[name="base-url"]').content;
 window.timezone_default         = document.head.querySelector('meta[name="timezone_default"]').content;
-window.google_map_key           = document.head.querySelector('meta[name="google_map_key"]').content;
 
 window.axios                    = require('axios');
 window.axios.defaults.baseURL   = base_url;
