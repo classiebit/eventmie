@@ -1,98 +1,134 @@
 @extends('eventmie::layouts.app')
 
 @section('title')
-    @lang('eventmie::em.booking') @lang('eventmie::em.details')
+    @lang('eventmie-pro::em.booking_details')
 @endsection
 
 @section('content')
-<main>
-    <div class="lgx-post-wrapper">
-        <section>
-            <div class="container">
+    <main>
+
+        <section class="bg-light">
+
+            <div class="container py-lg-5">
+
                 <div class="row">
-                    
-                    {{-- booking details --}}
-                    <div class="col-md-6 table-responsive">
-                        <h3>@lang('eventmie::em.booking') @lang('eventmie::em.info')</h3>
-                        <table class="table table-striped table-hover">
-                            <tr>
-                                <th>@lang('eventmie::em.order') @lang('eventmie::em.id')</th>
-                                <td>{{$booking['order_number']}}</td>
-                            </tr>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <!-- Card -->
+                        <div class="card border-0 shadow-sm">
 
-                            <tr>
-                                <th>@lang('eventmie::em.event') @lang('eventmie::em.category')</th>
-                                <td>{{$booking['event_category']}}</td>
-                            </tr>
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    {{-- booking details --}}
 
-                            <tr>
-                                <th>@lang('eventmie::em.event')</th>
-                                <td>{{$booking['event_title']}}</td>
-                            </tr>
+                                    <h3 class="text-center bg-light p-3">@lang('eventmie-pro::em.booking_info')</h3>
+                                    <table class="table">
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.order_id')</th>
+                                            <td>{{ $booking['order_number'] }}</td>
+                                        </tr>
 
-                            <tr>
-                                <th>@lang('eventmie::em.total') @lang('eventmie::em.amount') @lang('eventmie::em.paid')</th>
-                                <td>{{$booking['net_price']}}</td>
-                            </tr>     
-                            
-                            <tr>
-                                <th>@lang('eventmie::em.start') @lang('eventmie::em.date')</th>
-                                <td>{{$booking['event_start_date']}}</td>
-                            </tr>   
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.event_category')</th>
+                                            <td>{{ $booking['event_category'] }}</td>
+                                        </tr>
 
-                            <tr>
-                                <th>@lang('eventmie::em.end') @lang('eventmie::em.date')</th>
-                                <td>{{$booking['event_end_date']}}</td>
-                            </tr>   
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.event')</th>
+                                            <td>{{ $booking['event_title'] }}</td>
+                                        </tr>
 
-                            <tr>
-                                <th>@lang('eventmie::em.start') @lang('eventmie::em.time')</th>
-                                <td>{{$booking['event_start_time']}}</td>
-                            </tr>   
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.start_date')</th>
+                                            <td>{{ userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
+                                                {{ showTimezone() }}
+                                            </td>
+                                        </tr>
 
-                            <tr>
-                                <th>@lang('eventmie::em.end') @lang('eventmie::em.time')</th>
-                                <td>{{$booking['event_end_time']}}</td>
-                            </tr>   
-                            <tr>
-                                <th>@lang('eventmie::em.booking') @lang('eventmie::em.date')</th>
-                                <td>{{ $booking['created_at'] }}</td>
-                            </tr>   
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.end_date')</th>
+                                            @if (userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', 'Y-m-d') <=
+                                                userTimezone($booking['event_end_date'] . ' ' . $booking['event_end_time'], 'Y-m-d H:i:s', 'Y-m-d'))
+                                                <td>{{ userTimezone($booking['event_end_date'] . ' ' . $booking['event_end_time'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
+                                                    {{ showTimezone() }}
+                                                </td>
+                                            @else
+                                                <td>{{ userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
+                                                    {{ showTimezone() }}
+                                                </td>
+                                            @endif
+                                        </tr>
 
-                            <tr>
-                                <th>@lang('eventmie::em.booking') @lang('eventmie::em.status')</th>
-                                <td ><span class="label label-success">{{$booking['status'] == 0 ? 'Inactive' : 'Active'}}</span></td>
-                            </tr>   
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.start_time')</th>
+                                            <td>
+                                                {{ userTimezone($booking['event_start_date'] . ' ' . $booking['event_start_time'], 'Y-m-d H:i:s', format_carbon_date(false)) }}
+                                                {{ showTimezone() }}
+                                            </td>
+                                        </tr>
 
-                        </table> 
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.end_time')</th>
+                                            <td>{{ userTimezone($booking['event_end_date'] . ' ' . $booking['event_end_time'], 'Y-m-d H:i:s', format_carbon_date(false)) }}
+                                                {{ showTimezone() }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.booking_date')</th>
+                                            <td>{{ userTimezone($booking['created_at'], 'Y-m-d H:i:s', format_carbon_date(true)) }}
+                                                {{ showTimezone() }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>@lang('eventmie-pro::em.booking_status')</th>
+                                            <td><span
+                                                    class="label label-success">{{ $booking['status'] == 0 ? 'Inactive' : 'Active' }}</span>
+                                            </td>
+                                        </tr>
+
+                                
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {{-- customer details --}}
-                    <div class="col-md-6 table-responsive">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>@lang('eventmie::em.customer') @lang('eventmie::em.info')</h3>
-                                <table class="table table-striped table-hover">
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <!-- Card -->
+                        <div class="card mb-4 border-0 shadow-sm">
+
+                            <!-- Card body -->
+                            <div class="card-body">
+                                {{-- customer details --}}
+
+                                <h3 class="text-center bg-light p-3">@lang('eventmie-pro::em.customer_info')</h3>
+                                <hr>
+                                <table class="table table-hover">
                                     <tr>
-                                        <th>@lang('eventmie::em.name')</th>
-                                        <td>{{$booking['customer_name']}}</td>
+                                        <th>@lang('eventmie-pro::em.name')</th>
+                                        <td>{{ $booking['customer_name'] }}</td>
                                     </tr>
 
                                     <tr>
-                                        <th>@lang('eventmie::em.email')</th>
-                                        <td>{{$booking['customer_email']}}</td>
+                                        <th>@lang('eventmie-pro::em.email')</th>
+                                        <td>{{ $booking['customer_email'] }}</td>
                                     </tr>
 
                                 </table>
+
                             </div>
                         </div>
-                        
-                    </div>    
-                    
-                </div>    
+                    </div>
+
+                </div>
+
+
             </div>
         </section>
-    </div>
-</main>
-         
+
+
+
+    </main>
 @endsection

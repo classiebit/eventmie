@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Classiebit\Eventmie\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -40,6 +44,7 @@ class ResetPasswordController extends Controller
          // language change
         $this->middleware('common');
         $this->middleware('guest');
+        $this->redirectTo = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
     }
 
     /**
@@ -59,38 +64,36 @@ class ResetPasswordController extends Controller
     // forgot password reset 
     public function reset(Request $request)
     {
-        
-        $this->validate($request, [
+        $request->validate([
+            'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'password' => 'required|min:8|confirmed',
         ]);
-
-        // get token from password_resests table 
-        $record     =  \DB::table('password_resets')->where(['email' => $request->email])->first();
-
-        if(!empty($record))
-        {
-            // if token match then will reset password
-            if(\Hash::check($request->token, $record->token));
-            {
-                $user = User::where(['email' => $request->email])->first();
-                
-                if(!empty($user))
-                {
-                    $user->password = \Hash::make($request->password);
-                    $user->save();
-
-                    \Auth::loginUsingId($user->id, TRUE);
-
-                    $msg = __('eventmie::em.password').' '.__('eventmie::em.reset').' '.__('eventmie::em.successfully');
-                    return success_redirect($msg, route('eventmie.events_index'));
-                }    
-
+     
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+     
+                $user->save();
+     
+                event(new PasswordReset($user));
             }
-        }    
+        );
 
-        return redirect()->route('eventmie.login');
+        // login
+        if($status === Password::PASSWORD_RESET)
+        {   
+            $user = User::where(['email' => $request->email])->first();
+            \Auth::loginUsingId($user->id, TRUE);
+        }
+
+        $msg = __('eventmie::em.password').' '.__('eventmie::em.reset').' '.__('eventmie::em.successfully');
+        return $status === Password::PASSWORD_RESET
+                    ? redirect()->route('eventmie.events_index')->with('status', $msg)
+                    : back()->withErrors(['email' => [__($status)]]);
        
     }
 

@@ -5,6 +5,7 @@
         :scrollPerPage="false"
         :perPage="1"
         :paginationEnabled="false"
+        :rtl="dir"
     >
         <slide 
             v-for="(item, index) in banners"
@@ -13,47 +14,42 @@
             v-bind:key="index"
             :class="'lgx-item-common'"
         >
-            <div class="slider-text-single">
-                <figure>
-                    <img :src="'/storage/'+item.image" alt="">
-                    <figcaption>
-                        <div class="lgx-container">
-                            <div class="lgx-hover-link">
-                                <div class="lgx-vertical">
-                                    <div class="lgx-banner-info">
-                                        <h3 class="subtitle lgx-delay lgx-fadeInDown">{{ item.subtitle }}</h3>
-                                        <h2 class="title lgx-delay lgx-fadeInDown">{{ item.title }}</h2>
-
-                                        <div class="action-area">
-                                            <div class="lgx-video-area" v-if="demo_mode">
-                                                <a class="lgx-btn lgx-btn-white" target="_blank" href="https://classiebit.com/eventmie"><i class="fas fa-cloud-download-alt"></i> Download FREE </a>
-                                                
-                                                <a class="lgx-btn lgx-btn-success" target="_blank" href="https://classiebit.com/eventmie-pro"><i class="fas fa-shopping-cart"></i> Purchase PRO </a>
-
-                                                <a class="lgx-btn lgx-btn-white" target="_blank" href="https://eventmie-docs.classiebit.com"><i class="fas fa-book"></i> Docs </a>
-                                            </div>
-                                            <div class="lgx-video-area" v-else>
-                                                <a class="lgx-btn lgx-btn-red" :href="getRoute('eventmie.events_index')"><i class="fas fa-calendar-day"></i> {{ trans('em.browse') }} {{ trans('em.events') }}</a>
-
-                                                <!-- if guest -->
-                                                <a class="lgx-btn" :href="getRoute('eventmie.register')" v-if="!is_logged">
-                                                    <i class="fas fa-door-open"></i> {{ trans('em.register') }}
-                                                </a>
-
-                                                <!-- if admin -->
-                                                <a class="lgx-btn" :href="getRoute('eventmie.myevents_form')" v-if="is_logged && is_admin">
-                                                    <i class="fas fa-calendar-plus"></i> {{ trans('em.create') }} {{ trans('em.event') }}
-                                                </a>
-                                            </div>
-                                        </div>
+            <section>
+                <div class="container-fluid p-0">
+                    <div class="cover-img-bg" :style=" { backgroundImage: 'url(' + (`/storage/${item.image}`) + ')'} ">
+                        <img class="cover-img" :src="'/storage/'+item.image" :alt="item.title" />
+                        <div class="banner-slider-form">
+                            <h1 class="text-white mb-0 fw-bold display-5">{{ item.title }}</h1>
+                            <p class="fw-bold text-white">{{ item.subtitle }}</p>
+                            <div class="d-flex justify-content-center mt-2">
+                                <div v-if="demo_mode">
+                                    <div class="px-2">
+                                        <a class="btn btn-secondary" target="_blank" href="https://classiebit.com/eventmie"><i class="fas fa-cloud-download-alt"></i> Download FREE </a>
+                                        <a class="btn btn-success" target="_blank" href="https://classiebit.com/eventmie-pro"><i class="fas fa-shopping-cart"></i> Purchase PRO </a>
+                                        
                                     </div>
+                                    <div class="px-2 py-2">
+                                        <a class="btn btn-primary" target="_blank" href="https://eventmie-pro-docs.classiebit.com/docs/2.0/changelog/changes"><i class="fas fa-book"></i> See What's New v2.0</a>
+                                    </div>    
+                                </div>
+                                <div v-else>
+                                    <a class="btn btn-primary bg-gradient text-white" :href="getRoute('eventmie.events_index')"><i class="fas fa-calendar-day"></i> {{ trans('em.browse') }} {{ trans('em.events') }}</a>
+
+                                    <!-- if guest -->
+                                    <a class="btn btn-secondary text-white" :href="getRoute('eventmie.register')" v-if="!is_logged">
+                                        <i class="fas fa-door-open"></i> {{ trans('em.register') }}
+                                    </a>
+
+                                    <!-- if admin -->
+                                    <a class="btn btn-primary bg-gradient text-white" :href="getRoute('eventmie.myevents_form')" v-if="is_logged && is_admin">
+                                        <i class="fas fa-calendar-plus"></i> {{ trans('em.create') }} {{ trans('em.event') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </figcaption>
-                </figure>
-            </div>
-            
+                    </div>
+                </div>
+            </section>
         </slide>
     </carousel>
 </template>
@@ -75,11 +71,27 @@ export default {
         'is_admin',
         'demo_mode',
     ],
+
+    
+    data() {
+        return {
+            check       : 0,
+            dir         : false,
+
+        }
+    },    
+
     methods: {
         // return route with event slug
         getRoute(name){
             return route(name);
-        }
+        },
+
+
     },
+
+    mounted() {
+        
+    }
 }
 </script>

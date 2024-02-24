@@ -1,9 +1,10 @@
-<header>
-    <div id="eventmie_auth_app" class="lgx-header">
-        <div id="navbar_vue" class="lgx-header-position lgx-header-position-white lgx-header-position-fixed">
-            <div class="lgx-container" >
+<div id="navbar_vue"
+    class="nav-header nav-header-classic {{ \Str::contains(url()->current(), 'dashboard') ? 'shadow menu-fixed nav-dashboard' : 'menu-space header-position header-white' }}">
+    <div class="{{ \Str::contains(url()->current(), 'dashboard') ? 'dashboard-container' : 'container' }}">
+        <div class="row">
+            <div class="col-md-12">
                 <!-- GDPR -->
-                <cookie-law theme="dark-lime--rounded" button-text="@lang('eventmie::em.accept')">
+                <cookie-law theme="gdpr" button-text="@lang('eventmie-pro::em.accept')">
                     <div slot="message">
                         <gdpr-message></gdpr-message>
                     </div>
@@ -12,162 +13,86 @@
 
                 <!-- Vue Alert message -->
                 @if ($errors->any())
-                    <alert-message :errors="{{ json_encode($errors->all(), JSON_HEX_APOS) }}"></alert-message>    
+                    <alert-message :errors="{{ json_encode($errors->all(), JSON_HEX_APOS) }}"></alert-message>
                 @endif
 
                 @if (session('status'))
-                    <alert-message :message="'{{ session('status') }}'"></alert-message>    
+                    <alert-message :message="'{{ session('status') }}'"></alert-message>
                 @endif
                 <!-- Vue Alert message -->
 
-                <nav class="navbar navbar-default lgx-navbar navbar-expand-lg">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" @click="mobileMenu()">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <div class="lgx-logo">
-                            <a href="{{ eventmie_url() }}" class="lgx-scroll">
-                                <img src="/storage/{{ setting('site.logo') }}" alt="{{ setting('site.site_name') }}"/>
-                                <span class="brand-name">{{ setting('site.site_name') }}</span>
-                                <span class="brand-slogan">{{ setting('site.site_slogan') }}</span>
-                            </a>
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand pr-5" href="{{ url('') }}">
+                        <img src="/storage/{{ setting('site.logo') }}"
+                            class="mx-auto d-blocks {{ App::isLocale('ar') ? 'float-end' : 'float-start' }}"
+                            alt="{{ setting('site.site_name') }}" style="height:50px;" />
+                        <div class="my-2">
+                            <p class="py-0 my-0 l-height site-name">
+                                &nbsp;&nbsp;{{ setting('site.site_name') }}
+                            </p>
+                            <p class="py-0 my-0 site-slogan">
+                                &nbsp;&nbsp;{{ setting('site.site_slogan') }}
+                            </p>
                         </div>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        @if(config('voyager.demo_mode'))
-                        <div class="lgx-nav-right navbar-right">
-                            <div class="lgx-cart-area">
-                                <a class="lgx-btn lgx-btn-white lgx-btn-sm mt-2" target="_blank" href="https://github.com/classiebit/eventmie"><i class="fab fa-github fa-2x col-black"></i></a>
-                            </div>
-                        </div>
-                        @endif
+                    </a>
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-                        <div class="lgx-nav-right navbar-right">
-                            <div class="lgx-cart-area">
-                                <a class="lgx-btn lgx-btn-red" href="{{ route('eventmie.events_index') }}"><i class="fas fa-calendar-day"></i> @lang('eventmie::em.browse') @lang('eventmie::em.events')</a>
-                            </div>
-                        </div>
-                        <ul class="nav navbar-nav lgx-nav navbar-right">
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-lg-3">
                             <!-- Authentication Links -->
                             @guest
-                            <li>
-                                <a class="lgx-scroll" href="{{ route('eventmie.login') }}"><i class="fas fa-fingerprint"></i> @lang('eventmie::em.login')</a>
-                            </li>
+                                @include('eventmie::layouts.guest_header')
                             @else
-
-                                @if(!\Auth::user()->hasRole('admin'))
-                                <li>
-                                    @php
-                                        $data  = notifications();
-                                    @endphp
-
-                                    <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-haspopup="true"            aria-expanded="false" v-pre>
-                                        <i class="fas fa-bell"> </i> 
-                                        
-                                        <span class="badge bg-red">{{$data['total_notify']}}</span> 
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        @if(!empty($data['notifications']))      
-                                            @foreach ($data['notifications'] as $notification) 
-                                            <li>
-                                                <a class="dropdown-item" href="{{route('eventmie.notify_read', [$notification->n_type])}}"> 
-                                                    {{ $notification->total    }}
-                                                    {{ $notification->n_type    }}
-                                                </a>
-                                            </li>
-                                            @endforeach
-                                        @else
-                                        <li>
-                                            <a class="dropdown-item" > @lang('eventmie::em.no') @lang('eventmie::em.notifications')</a>
-                                        </li>
-                                        @endif
-                                    </ul>
-                                </li>
-                                @endif
-                            
-                            <li>
-                                <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    @if(Auth::user()->hasRole('customer'))
-                                    <i class="fas fa-user-circle"></i> 
-                                    @else
-                                    <i class="fas fa-user-shield"></i> 
-                                    @endif
-
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu multi-level">
-
-                                    {{-- for customers --}}
-                                    @if(Auth::user()->hasRole('customer'))
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('eventmie.profile') }}"><i class="fas fa-id-card"></i> @lang('eventmie::em.profile')</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('eventmie.mybookings_index') }}"><i class="fas fa-money-check-alt"></i> @lang('eventmie::em.my') @lang('eventmie::em.bookings')</a>
-                                    </li>
-                                    @endif
-
-                                    @if(Auth::user()->hasRole('admin'))
-                                    <li>
-                                        <a class="dropdown-item" href="{{ eventmie_url().'/'.config('eventmie.route.admin_prefix') }}">
-                                        <i class="fas fa-tachometer-alt"></i>  @lang('eventmie::em.admin_panel')</a>
-                                    </li>
-                                    @endif
-
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('eventmie.logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <i class="fas fa-sign-out-alt"></i> @lang('eventmie::em.logout')
-                                        </a>
-                                        <form id="logout-form" action="{{ route('eventmie.logout') }}" method="POST" style="display: none;">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        </form>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-                                {{-- If user is admin then show admin panel link --}}
-                                @if(Auth::user()->hasRole('admin'))
-                                <li>
-                                    <a class="lgx-scroll" href="{{ route('eventmie.myevents_form') }}">
-                                    <i class="fas fa-calendar-plus"></i> @lang('eventmie::em.create') @lang('eventmie::em.event')</a>
-                                </li>
-                                @endif
-
-                                {{-- If user is customer then show my bookings link --}}
-                                @if(Auth::user()->hasRole('customer'))
-                                <li>
-                                    <a class="lgx-scroll" href="{{ route('eventmie.mybookings_index') }}">
-                                    <i class="fas fa-money-check-alt"></i> @lang('eventmie::em.my') @lang('eventmie::em.bookings')</a>
-                                </li>
-                                @endif
-
+                                @include('eventmie::layouts.member_header')
                             @endguest
 
-                            <li>
-                                <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fas fa-globe"></i> 
-                                    @lang('eventmie::em.'.config('app.locale'))
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    @foreach(lang_selector() as $val)
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('eventmie.change_lang', ['lang' => $val]) }}">@lang('eventmie::em.'.$val)</a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </li>
+                            {{-- Common Header --}}
+                            {{-- categories menu items --}}
+                            @php $categoriesMenu = categoriesMenu() @endphp
+                            @if (!empty($categoriesMenu))
+
+                                <li class="nav-item dropdown ">
+                                    <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><i
+                                            class="fas fa-bars-staggered"></i>
+                                        @lang('eventmie-pro::em.categories')&nbsp;<i class="fas fa-caret-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        @foreach ($categoriesMenu as $val)
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('eventmie.events_index', ['category' => urlencode($val->name)]) }}">
+                                                    {{ $val->name }}
+                                                </a>
+
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+
+                            @endif
+
 
                         </ul>
-                    </div><!--/.nav-collapse -->
+
+                        @if(config('voyager.demo_mode'))
+                        <a class="btn btn-success d-none d-lg-block" target="_blank" href="https://github.com/classiebit/eventmie"><i class="fab fa-github col-black"></i></a>
+                        @endif
+
+                        <a href="{{ route('eventmie.events_index') }}"
+                            class="btn btn-primary d-none d-lg-block bg-gradient">
+                            <i class="fas fa-calendar-day"></i> @lang('eventmie-pro::em.browse_events')
+                        </a>
+                    </div>
                 </nav>
             </div>
-            <!-- //.CONTAINER -->
         </div>
     </div>
-</header>
+</div>

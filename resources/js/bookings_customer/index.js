@@ -7,21 +7,18 @@
 require('../vue_common');
 
 /**
- * Below are the page specific plugins and components
-  */
+ * Local Imports
+*/
 
-// for using time
-window.moment   = require('moment-timezone');  
-
-// add Vue-router with SEO friendly configurations
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-
-// import component for vue routes
+/**
+ * Local Components 
+ */
 import MyBooking from './components/MyBooking';
 
 
-// // vue routes
+/**
+ * Local Vue Routes 
+ */
 const routes = new VueRouter({
     mode: 'history',
     base: '/',
@@ -32,7 +29,7 @@ const routes = new VueRouter({
             // Inject  props based on route.query values for pagination
             props: (route) => ({
                 page: route.query.page,
-               
+                date_format: date_format,
             }),
             name: 'mybookings',
             component: MyBooking,

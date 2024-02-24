@@ -1,17 +1,20 @@
 @extends('eventmie::layouts.app')
 
 @section('content')
-
-<!--BANNER-->
-<section>
-    <div id="lgx-schedule" class="lgx-schedule lgx-schedule-dark">
-        <div class="lgx-inner" style="background-image: url({{ eventmie_asset('img/bg-pattern.png') }});">
+    <!--BANNER-->
+    <section>
+        <div class="bg-gradient">
             <div class="login-wrapper">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 offset-sm-2 col-sm-8 col-lg-offset-3 col-lg-6">
-                            <div class="lgx-registration-form-box lgx-registration-banner-box"> <!--lgx-registration-banner-box-->
-                                @yield('authcontent')
+                        <div class="min-vh-100 py-md-10 py-lg-0">
+                            <div class="container">
+                                <div class="row d-flex align-items-center min-vh-100 justify-content-center">
+                                    <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12 py-10">
+                                        <!--lgx-registration-banner-box-->
+                                        @yield('authcontent')
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -19,11 +22,9 @@
                 </div>
                 <!-- //.CONTAINER -->
             </div>
-            
+
         </div>
         <!-- //.INNER -->
-    </div>
-</section>
-<!--BANNER END-->
-
+    </section>
+    <!--BANNER END-->
 @endsection

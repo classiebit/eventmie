@@ -1,0 +1,63 @@
+.lgx-single-schedule {
+    border-radius: 1rem;
+    
+    &.expired-event .schedule-info,  
+    &.outofstock-event .schedule-info 
+    {
+        background: #bdc1c5;
+        box-shadow: none;
+        cursor: not-allowed;
+        &:hover {
+            transform: none;
+            box-shadow: none;
+            transition: none;
+            background: #bdc1c5;
+        }
+
+        .time.event-ended, 
+        .time.event-outofstock 
+        {
+            background: #bdc1c5;
+            margin-right: 1rem;
+            span {
+                color: #fff;
+            }
+        }
+    }
+
+    .schedule-info {
+        border-radius: 1rem;
+        border: 1px solid $primary;
+        transition: 0.1s all ease-out;
+
+        &:hover {
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: 0.1s all ease-in;
+            background: $primary;
+
+            h6 {
+                color: $white;
+            }
+        }
+
+        ul.date-list {
+            display: inline-block;
+            list-style: disc;
+            padding-left: 0;
+            margin: 0;
+            padding-bottom: 0.8rem;
+            padding-top: .5rem;
+            white-space: initial;
+
+            li {
+                color: #fff;
+                line-height: 1.6rem;
+                font-weight: 600;
+                display: inline-block;
+                list-style: disc;
+                padding: 0 1.6rem;
+                margin: .2rem;
+            }
+        }
+    }
+}

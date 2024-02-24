@@ -1,27 +1,21 @@
 @extends('eventmie::layouts.app')
 
 @section('title')
-    @lang('eventmie::em.my') @lang('eventmie::em.bookings')
+    @lang('eventmie-pro::em.mybookings')
 @endsection
 
 @section('content')
-
 <main>
-    <div class="lgx-post-wrapper">
-        <section>
-            <router-view></router-view>
-        </section>
-    </div>
+    <section class="bg-light">
+        <router-view :is_success="{{ json_encode($is_success, JSON_HEX_APOS) }}"></router-view>
+    </section>
 </main>
-         
 @endsection
 
 
 @section('javascript')
-
-<script>    
+<script>
     var path = {!! json_encode($path, JSON_HEX_TAG) !!};
 </script>
-
 <script type="text/javascript" src="{{ eventmie_asset('js/bookings_customer.js') }}"></script>
 @stop

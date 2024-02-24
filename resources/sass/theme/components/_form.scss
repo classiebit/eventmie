@@ -1,0 +1,21 @@
+// forms
+
+.form-focus-none {
+  &.form-control {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  &.form-select {
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+}
+
+.form-check-input-lg {
+  height: 1.5em;
+  width: 3em !important;
+}

@@ -1,54 +1,90 @@
 @extends('eventmie::auth.authapp')
 
 @section('title')
-    @lang('eventmie::em.login')
+    @lang('eventmie-pro::em.login')
 @endsection
 
 @section('authcontent')
-
-<h2 class="title">@lang('eventmie::em.login')</h2>
-
-@if(config('voyager.demo_mode'))
-<div class="alert alert-info">
-    <a href="https://eventmie-docs.classiebit.com/docs/1.0/demo-accounts" target="_blank">Visit here for Demo Accounts</a>    
-</div>
-@endif
-
-<div class="lgx-registration-form">
-    <form method="POST" action="{{ route('eventmie.login_post') }}">
-        
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input id="email" type="email" class="wpcf7-form-control form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="@lang('eventmie::em.email')">
-        @if ($errors->has('email'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('email') }}</strong>
-            </span>
-        @endif
-
-        <input id="password" type="password" class="wpcf7-form-control form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="@lang('eventmie::em.password')">
-        @if ($errors->has('password'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-        @endif
-        
-        <div class="form-check text-left">
-            <input class="form-check-input" type="checkbox" name="remember" id="remember" checked value="1">
-            <label class="form-check-label" for="remember">@lang('eventmie::em.remember')</label>
-        </div>
-        
-        <button type="submit" class="lgx-btn lgx-btn-white btn-block"><i class="fas fa-sign-in-alt"></i> @lang('eventmie::em.login')</button>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="lgx-links">
-                    <a class="btn btn-link pull-left" href="{{ route('eventmie.password.request') }}">@lang('eventmie::em.forgot') @lang('eventmie::em.password')</a>
-                    <a class="btn btn-link pull-right" href="{{ route('eventmie.register') }}">@lang('eventmie::em.register')</a>
-                </div>
+    <!-- card -->
+    <div class="card shadow border-0">
+        <!-- card body -->
+        @if (config('voyager.demo_mode'))
+            <div class="alert alert-info">
+                <a href="https://eventmie-docs.classiebit.com/docs/2.0/demo-accounts" target="_blank">
+                    @lang('eventmie-pro::em.visit_accounts')
+                </a>
             </div>
+        @endif
+
+        <div class="card-body p-5">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                <span role="alert">
+                                    <strong>{{ $error }}</strong>
+                                </span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <h3 class="mb-4">@lang('eventmie-pro::em.login')</h3>
+            <!-- form -->
+            <form method="POST" action="{{ route('eventmie.login_post') }}">
+                <!-- email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">@lang('eventmie-pro::em.email_address')</label>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input id="email" type="email"
+                        class="wpcf7-form-control form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        name="email" value="{{ old('email') }}" required autofocus placeholder="@lang('eventmie-pro::em.email')">
+                    @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+
+                </div>
+                <!-- password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">@lang('eventmie-pro::em.password')</label>
+                    <input id="password" type="password"
+                        class="wpcf7-form-control form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                        name="password" required placeholder="@lang('eventmie-pro::em.password')">
+                    @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="d-flex justify-content-between mb-2 pb-2 mt-3 text-sm ">
+                    <!-- form check -->
+                    <div class="form-check ">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember" checked
+                            value="1">
+                        <label class="form-check-label" for="remember">@lang('eventmie-pro::em.remember')</label>
+                    </div>
+                    <!-- forgot password -->
+                    <div class="fw-bold">
+                        <a href="{{ route('eventmie.password.request') }}" class="text-inherit"> @lang('eventmie-pro::em.forgot_password')</a>
+                    </div>
+
+                </div>
+                <!-- button -->
+                <button type="submit" class="btn btn-primary btn-block">@lang('eventmie-pro::em.login') <i
+                        class="fas fa-sign-in-alt"></i></button>
+            </form>
+            <div class="mt-4">
+                <p class="mb-0">@lang('eventmie-pro::em.donot_account')<a href="{{ route('eventmie.register_show') }}">
+                        @lang('eventmie-pro::em.register')</a></p>
+            </div>
+            
+
         </div>
-        
-    </form>
-</div>    
+    </div>
+
 
 @endsection

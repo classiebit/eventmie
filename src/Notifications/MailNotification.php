@@ -9,40 +9,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 
-class MailNotification extends Notification
+class MailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public  $mail_data;
+    public  $extra_lines;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($mail_data)
+    public function __construct($mail_data, $extra_lines = [])
     {
-        $this->mail_data =  (object) $mail_data;
-    }
-
-    /**
-     * Check if all mail credentials are available
-     *
-     * @return boolean
-     */
-    private function checkMailCreds()
-    {
-        if(
-            setting('mail.mail_driver') &&
-            setting('mail.mail_host') && 
-            setting('mail.mail_port') &&
-            setting('mail.mail_username') &&
-            setting('mail.mail_sender_email') && 
-            setting('mail.mail_sender_name')
-        )
-            return true;
-
-        return false;
+        $this->mail_data    =  (object) $mail_data;
+        $this->extra_lines  =  (object) $extra_lines;
     }
 
     /**
@@ -54,7 +36,7 @@ class MailNotification extends Notification
     public function via($notifiable)
     {
         // check mail creds
-        if($this->checkMailCreds())
+        if(checkMailCreds())
             return ['mail', CustomDb::class];
             
         // if mail creds not set then send only database notifications
@@ -70,11 +52,11 @@ class MailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject($this->mail_data->mail_subject)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line($this->mail_data->line);
-                    
+                ->subject($this->mail_data->mail_subject)
+                ->markdown('eventmie::mail.common', [
+                    'mail_data'=>$this->mail_data,
+                    'extra_lines'=>$this->extra_lines,
+                ]);
     }
 
     /**

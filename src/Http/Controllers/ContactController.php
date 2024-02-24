@@ -1,15 +1,16 @@
 <?php
 
 namespace Classiebit\Eventmie\Http\Controllers;
-use App\Http\Controllers\Controller; 
 use Facades\Classiebit\Eventmie\Eventmie;
-use Classiebit\Eventmie\Notifications\MailNotification;
 
+use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use Classiebit\Eventmie\Models\Contact;
 use Classiebit\Eventmie\Models\User;
+
+use Classiebit\Eventmie\Notifications\MailNotification;
 
 
 class ContactController extends Controller
@@ -25,9 +26,10 @@ class ContactController extends Controller
     }
 
 
-    public function index()
+    // get featured events
+    public function index($view = 'eventmie::contact', $extra = [])
     {
-        return Eventmie::view('eventmie::contact');
+        return Eventmie::view($view, compact('extra'));
     }
 
     // contact save
@@ -53,24 +55,38 @@ class ContactController extends Controller
         
         if(empty($contact))
         {
-            return redirect()->back()->with('msg', __('eventmie::em.message_sent_fail')); 
+            return redirect()->back()->with('msg', __('eventmie-pro::em.message_sent_fail')); 
         }
         
         // ====================== Notification ====================== 
         //send notification after bookings
-        $mail['mail_message'] = "Email message body";
-        $mail['greeting']     = "Greetings";
-        $mail['mail_subject'] = "Thank you for contacting us";
-        $mail['line']         = "We will get back to you soon!";
-        $mail['n_type']       = "contact";
+        $msg[]                  = __('eventmie-pro::em.name').' - '.$contact->name;
+        $msg[]                  = __('eventmie-pro::em.email').' - '.$contact->email;
+        $msg[]                  = __('eventmie-pro::em.title').' - '.$contact->title;
+        $msg[]                  = __('eventmie-pro::em.message').' - '.$contact->message;
+        $extra_lines            = $msg;
+
+        $mail['mail_subject']   = __('eventmie-pro::em.message_sent');
+        $mail['mail_message']   = __('eventmie-pro::em.get_tickets');
+        $mail['action_title']   = __('eventmie-pro::em.view').' '.__('eventmie-pro::em.all').' '.__('eventmie-pro::em.events');
+        $mail['action_url']     = route('eventmie.events_index');
+        $mail['n_type']         = "contact";
         
-        // send mail notification on any email id
-        $user           = new User();
-        $user->email    = $request->email;
+        // notification for
+        $notification_ids       = [
+            User::whereId(1)->first(), // admin
+            $contact->email
+        ];
         
-        \Notification::send($user, new MailNotification($mail));
+        // $users = User::whereIn('id', $notification_ids)->get();
+
+        $users = $notification_ids;
+
+        try {
+            \Notification::route('mail', $users)->notify(new MailNotification($mail, $extra_lines));
+        } catch (\Throwable $th) {}
         // ====================== Notification ====================== 
         
-        return redirect()->back()->with('msg', __('eventmie::em.message_sent')); 
+        return redirect()->back()->with('msg', __('eventmie-pro::em.message_sent')); 
     }
 }    

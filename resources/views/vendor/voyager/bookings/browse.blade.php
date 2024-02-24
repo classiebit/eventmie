@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="filter" name="filter">
-                                            <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>contains</option>
+                                            <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>{{ __('voyager::generic.contains') }}</option>
                                             <option value="equals" @if($search->filter == "equals"){{ 'selected' }}@endif>=</option>
                                         </select>
                                     </div>
@@ -77,6 +77,7 @@
                                             @endif
                                         </th>
                                         @endforeach
+                                        <th> {{ __('eventmie-pro::em.expired') }} </th>
                                         <th class="actions text-right">{{ __('voyager::generic.actions') }}</th>
                                     </tr>
                                 </thead>
@@ -133,8 +134,14 @@
 
                                                 @elseif(($row->type == 'select_dropdown' || $row->type == 'radio_btn') && property_exists($row->details, 'options'))
 
-                                                    {!! $row->details->options->{$data->{$row->field}} ?? '' !!}
-
+                                                    @if($row->getTranslatedAttribute('display_name') == 'Status')
+                                                        @if($data->{$row->field} == 1)
+                                                            {{ __('voyager::generic.enabled') }}
+                                                        @else
+                                                            {{ __('voyager::generic.disabled') }}
+                                                        @endif
+                                                    @endif
+                                                    
                                                 @elseif($row->type == 'date' || $row->type == 'timestamp')
                                                     @if ( property_exists($row->details, 'format') && !is_null($data->{$row->field}) )
                                                         {{ \Carbon\Carbon::parse($data->{$row->field})->formatLocalized($row->details->format) }}
@@ -170,7 +177,7 @@
                                                         @endforeach
                                                     @else
                                                         <a href="{{ Storage::disk(config('voyager.storage.disk'))->url($data->{$row->field}) }}" target="_blank">
-                                                            Download
+                                                            {{ __('voyager::generic.download') }}
                                                         </a>
                                                     @endif
                                                 @elseif($row->type == 'rich_text_box')
@@ -226,16 +233,26 @@
                                                 @endif
                                             </td>
                                         @endforeach
+
+                                        <td>
+                                            
+                                            {{
+                                            
+                                            (\Carbon\Carbon::parse($data->event_end_date.' '.$data->event_end_time)->timezone(setting('regional.timezone_default')) <= \Carbon\Carbon::now()->timezone(setting('regional.timezone_default'))) ?  __('voyager::generic.yes') : __('voyager::generic.no') 
+                                        
+                                            }}
+                                        
+                                        </td>
+                                       
                                         <td class="no-sort no-click" id="bread-actions">
 
-                                            <a href="{{ route('voyager.bookings.edit',[$data->id])}}" class="btn btn-sm btn-info pull-right edit">
+                                            <a href="{{ route('voyager.bookings.edit',[$data->id])}}" class="btn btn-sm btn-info edit pull-right">
                                                 <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
                                             </a>
 
-                                            <a href="{{ route('voyager.bookings.show',['id' => $data->id])}}" class="btn btn-sm btn-warning pull-right view">
+                                            <a href="{{ route('eventmie.obookings_organiser_bookings_show',[$data->id])}}" class="btn btn-sm btn-warning view pull-right">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
-                                            </a>
-
+                                            </a>                                            
                                         </td>
                                     </tr>
                                     @endforeach

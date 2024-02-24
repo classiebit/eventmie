@@ -10,6 +10,7 @@ use Illuminate\Routing\Router;
 // Voyager serviceProvider
 use TCG\Voyager\VoyagerServiceProvider as VoyagerServiceProvider;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Models\Setting;
 
 // Ziggy service provider
 use Tightenco\Ziggy\ZiggyServiceProvider as ZiggyServiceProvider;
@@ -18,6 +19,9 @@ use Config;
 
 
 use  Classiebit\Eventmie\Commands\InstallCommand;
+
+/* Bootstrap Pagination as default */
+use Illuminate\Pagination\Paginator;
 
 class EventmieServiceProvider extends ServiceProvider
 {
@@ -70,15 +74,18 @@ class EventmieServiceProvider extends ServiceProvider
             \Illuminate\Contracts\Debug\ExceptionHandler::class,
             \Classiebit\Eventmie\Exceptions\MyHandler::class
         );
-
-        if (\Schema::hasTable('settings')) {
-            // setup mail configs
-            $this->mailConfiguration(setting('mail'));
-            
-            // setup regional settings
-            $this->setRegional(setting('regional'));
-        }
         
+        if (\Schema::hasTable('settings')) 
+        {
+            if (Setting::find(1)) 
+            {
+                // setup mail configs
+                $this->mailConfiguration(setting('mail'));
+                
+                // setup regional settings
+                $this->setRegional(setting('regional'));
+            }
+        }
         
         // load eventmie resources.views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'eventmie');
@@ -87,10 +94,14 @@ class EventmieServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(realpath(__DIR__.'/../publishable/lang'), 'eventmie');
         
         // load eventmie database migrations
-        if (config('eventmie.database.autoload_migrations', true)) {
+        if (config('eventmie.database.autoload_migrations', true)) 
             $this->loadMigrationsFrom(realpath(__DIR__.'/../publishable/database/migrations'));
+
+        /* Pagination default: Bootstrap (for Laravel 8+) */
+        if($this->app->version() >= 8) {
+            Paginator::useBootstrap();
         }
-        
+
     }
 
     /**
@@ -115,6 +126,7 @@ class EventmieServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('admin', \Classiebit\Eventmie\Middleware\AdminMiddleware::class);
         $this->app['router']->aliasMiddleware('guest', \Classiebit\Eventmie\Middleware\RedirectIfAuthenticated::class);
         $this->app['router']->aliasMiddleware('common', \Classiebit\Eventmie\Middleware\CommonMiddleware::class);
+        $this->app['router']->aliasMiddleware('admin.user', \Classiebit\Eventmie\Middleware\VoyagerAdminMiddleware::class);
     }
 
     /**
@@ -171,7 +183,7 @@ class EventmieServiceProvider extends ServiceProvider
       */
     private function customVoyagerTheme()
     {
-        $theme_url = eventmie_url().'/eventmie-assets?path='.urlencode('css/voyager.css');
+        $theme_url = url('').'/frontend-assets?path='.urlencode('css/voyager.css');
         $this->app['config']->set('voyager.additional_css.custom_theme', $theme_url);
     }
 
@@ -192,10 +204,10 @@ class EventmieServiceProvider extends ServiceProvider
         $MAIL_MAILER        = 'smtp';
         $MAIL_HOST          = 'smtp.mailtrap.io';
         $MAIL_PORT          = '2525';
-        $MAIL_USERNAME      = null;
-        $MAIL_PASSWORD      = null;
-        $MAIL_ENCRYPTION    = null;
-        $MAIL_FROM_ADDRESS  = null;
+        $MAIL_USERNAME      = '666ec0af4b63db';
+        $MAIL_PASSWORD      = '1a2b9dd547ac7f';
+        $MAIL_ENCRYPTION    = 'tls';
+        $MAIL_FROM_ADDRESS  = 'no-reply@classiebit.com';
         $MAIL_FROM_NAME     = "EventmiePro@classiebit";
         if(
             !empty($mail['mail_host']) && 
@@ -203,7 +215,6 @@ class EventmieServiceProvider extends ServiceProvider
             !empty($mail['mail_driver']) && 
             !empty($mail['mail_sender_email']) && 
             !empty($mail['mail_sender_name']) && 
-            !empty($mail['mail_encryption']) && 
             !empty($mail['mail_username']) && 
             !empty($mail['mail_password'])  
         )
@@ -241,12 +252,7 @@ class EventmieServiceProvider extends ServiceProvider
 
         // change only frontend language
         $default_lang = config('eventmie.default_lang');
-
-        // do not change language on admin panel
-        $current_url = url()->current();
-        $admin_prefix = config('eventmie.route.admin_prefix');
-        if (! (strpos($current_url, $admin_prefix) !== false) )
-            $this->app->setLocale($default_lang);
+        $this->app->setLocale($default_lang);
     }
 
 }

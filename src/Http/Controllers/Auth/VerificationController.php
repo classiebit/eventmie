@@ -5,7 +5,12 @@ use Facades\Classiebit\Eventmie\Eventmie;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\Request;
 
+
+
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Access\AuthorizationException;
 class VerificationController extends Controller
 {
     /*
@@ -35,11 +40,14 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
+        $this->redirectTo = route('eventmie.events_index');
+        
          // language change
         $this->middleware('common');
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+        
     }
 
     /**
@@ -54,6 +62,29 @@ class VerificationController extends Controller
                         ? redirect($this->redirectPath())
                         : Eventmie::view('eventmie::auth.verify');
     }
+
+      /**
+     * Mark the authenticated user's email address as verified.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
+     */
+	public function verify(Request $request)
+	{
+    	if ($request->route('id') != $request->user()->getKey()) {
+			throw new AuthorizationException();
+		}
+
+		if ($request->user()->markEmailAsVerified()) {
+			event(new Verified($request->user()));
+        }
+
+        // redirect no matter what so that it never turns back
+        $msg = __('eventmie::em.email_success');
+        session()->flash('status', $msg);
+		return redirect($this->redirectPath())->with('verified', true);
+	}
     
      
 }

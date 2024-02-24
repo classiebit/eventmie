@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="filter" name="filter">
-                                            <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>contains</option>
+                                            <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>{{ __('voyager::generic.contains') }}</option>
                                             <option value="equals" @if($search->filter == "equals"){{ 'selected' }}@endif>=</option>
                                         </select>
                                     </div>
@@ -170,7 +170,7 @@
                                                         @endforeach
                                                     @else
                                                         <a href="{{ Storage::disk(config('voyager.storage.disk'))->url($data->{$row->field}) }}" target="_blank">
-                                                            Download
+                                                            {{ __('voyager::generic.download') }}
                                                         </a>
                                                     @endif
                                                 @elseif($row->type == 'rich_text_box')
@@ -227,11 +227,36 @@
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click" id="bread-actions">
-                                            @foreach($actions as $action)
-                                                @if (!method_exists($action, 'massAction'))
-                                                    @include('voyager::bread.partials.actions', ['action' => $action])
-                                                @endif
-                                            @endforeach
+                                            {{-- delete event from frontend --}}
+                                            <a href="javascript:;" title="{{ __('voyager::generic.delete') }}" class="btn btn-sm btn-danger delete pull-right" onclick='openDeleteModal("{{ $data->id }}")'>
+                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.delete') }}</span>
+                                            </a>
+
+                                            <a href="{{ route('voyager.contacts.show',[$data->id])}}" class="btn btn-sm btn-warning view pull-right">
+                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
+                                            </a>
+
+                                            {{-- Single delete modal --}}
+                                            <div class="modal modal-danger fade" tabindex="-1" id="delete_modal{{ $data->id }}" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower($dataType->display_name_singular) }}?</h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ route('voyager.'.$dataType->slug.'.destroy', [$data->id]) }}" id="delete_form" method="POST">
+                                                                {{ method_field('DELETE') }}
+                                                                {{ csrf_field() }}
+                                                                <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                                                                    value="{{ __('voyager::generic.delete_confirm') }} {{ strtolower($dataType->display_name_singular) }}">
+                                                            </form>
+                                                            
+                                                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
                                         </td>
                                     </tr>
                                     @endforeach
@@ -263,26 +288,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Single delete modal --}}
-    <div class="modal modal-danger fade" tabindex="-1" id="delete_modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower($dataType->getTranslatedAttribute('display_name_singular')) }}?</h4>
-                </div>
-                <div class="modal-footer">
-                    <form action="#" id="delete_form" method="POST">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="{{ __('voyager::generic.delete_confirm') }}">
-                    </form>
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 @stop
 
 @section('css')
@@ -325,13 +330,6 @@
             });
         });
 
-
-        var deleteFormAction;
-        $('td').on('click', '.delete', function (e) {
-            $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', '__id') }}'.replace('__id', $(this).data('id'));
-            $('#delete_modal').modal('show');
-        });
-
         @if($usesSoftDeletes)
             @php
                 $params = [
@@ -363,5 +361,11 @@
             });
             $('.selected_ids').val(ids);
         });
+
+        var deleteFormAction;
+        function openDeleteModal(id) {
+            $('#delete_modal'+id).modal('show');
+        }
+
     </script>
 @stop

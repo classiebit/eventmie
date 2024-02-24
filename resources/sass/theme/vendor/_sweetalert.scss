@@ -1,0 +1,120 @@
+// Sweetalert component
+.custom-swal {
+    &-container {
+        padding: 2rem 1rem 2rem 2rem !important;
+        z-index: 99999999 !important;
+    }
+    &-popup {
+        border-radius: 8px !important;
+        border: 2px solid transparent !important;
+        box-shadow: $box-shadow-smooth-md;
+        padding: 0rem 0.7rem 0.7rem 0.2rem !important;
+
+        .swal2-icon.swal2-error, 
+        .swal2-icon.swal2-question,
+        .swal2-icon.swal2-warning,
+        .swal2-icon.swal2-info,
+        .swal2-icon.swal2-success,
+        .swal2-icon.swal2-success .swal2-success-ring {
+            border: none !important;
+        }
+
+        &-error {
+            border-color: $danger !important;
+            background-color: $light-danger !important;
+
+            p, .custom-swal-content {
+                color: $danger !important;
+                padding: 0 !important;
+            }
+
+            .swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+                background-color: $danger !important;
+            }
+
+            .custom-swal-confirm-button {
+                background-color: $danger !important;
+            }
+        }
+
+        &-success {
+            border-color: $success !important;
+            background-color: $light-success !important;
+
+            p, .custom-swal-content {
+                color: $success !important;
+                padding: 0 !important;
+            }
+
+            .swal2-icon.swal2-success [class^=swal2-success-line] {
+                background-color: $success !important;
+            }
+        }
+
+        &-info {
+            border-color: $info !important;
+            background-color: $light-info !important;
+
+            p, .custom-swal-content {
+                color: $info !important;
+                padding: 0 !important;
+            }
+
+            .swal2-icon.swal2-info {
+                color: $info;
+            }
+        }
+
+        &-warning {
+            border-color: $warning !important;
+            background-color: $light-warning !important;
+
+            p, .custom-swal-content {
+                color: $warning !important;
+                padding: 0 !important;
+            }
+
+            .swal2-icon.swal2-warning {
+                color: $warning !important;
+            }
+        }
+    }
+    &-header {
+        padding-left: 0.6rem !important;
+        padding-right: 0.2rem !important;
+        font-size: 1.5rem !important;
+    }
+    &-content {
+        padding: 0.5rem !important; 
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        p {
+            text-align: left;
+            padding: 0.25rem;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            font-size: 1rem;
+            font-weight: 600 !important;
+            font-family: inherit !important;
+        }
+    }
+}
+.custom-swal-confirm-button {
+    font-size: 1.4rem !important;
+}
+.custom-swal-cancel-button {
+    font-size: 1.2rem !important;
+}
+.swal2-loading .custom-swal-title {
+    padding-top: 2rem;
+    font-size: 1.5rem;
+    color: $success;
+}
+.custom-swal-actions.swal2-loading {
+    margin-bottom: 1rem;
+    margin-top: 0;
+
+    .swal2-loader {
+        border-color: $success transparent $success transparent;
+    }
+}

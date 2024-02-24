@@ -29,6 +29,72 @@ if (!function_exists('eventmie_url'))
 }
 
 /**
+ * Eventmie Dateformat carbon
+ * 
+ * dateformat helper
+ * 
+*/
+if (!function_exists('format_carbon_date')) 
+{
+    function format_carbon_date($only_date = false)
+    {
+        $df = explode('::', setting('regional.date_format'))[0];
+
+        if($only_date)
+           return $df; 
+        
+        $tf = 'h:i A';
+        if(setting('regional.time_format') == '24')
+            $tf = 'H:i';
+
+        $dtf = $df.' '.$tf;
+
+        return $dtf;
+    }
+}
+
+/**
+ * Eventmie Dateformat Javascript
+ * 
+ * javascript dateformat helper
+ * 
+*/
+if (!function_exists('format_js_date')) 
+{
+    function format_js_date()
+    {
+        $df = explode('::', setting('regional.date_format'))[1];
+
+        /* TEST */
+        // $df = '';
+        /* TEST */
+        
+        return $df;
+    }
+}
+
+/**
+ * Eventmie Timeformat Javascript
+ * 
+ * javascript timeformat helper
+ * 
+*/
+if (!function_exists('format_js_time')) 
+{
+    function format_js_time()
+    {
+        $tf = 'hh:mm A';
+        if(setting('regional.time_format') == '24')
+            $tf = 'HH:mm';
+
+        return $tf;
+    }
+}
+
+
+
+
+/**
  * Notifications
  * 
  * show notifications
@@ -46,7 +112,7 @@ if (!function_exists('notifications'))
         $user           = \Classiebit\Eventmie\Models\User::find($user_id);
         $mode           = config('database.connections.mysql.strict');
 
-        $table          = 'notifications'; 
+        $table    = 'notifications'; 
         $query          = DB::table($table);
         
 
@@ -82,11 +148,11 @@ if (!function_exists('notifications'))
                             ->where(["$table.read_at" =>  null])
                             ->where("$table.n_type", '!=',  null)
                             ->groupBy("$table.n_type")
-                            ->get()
-                            ->toArray();
-        
-        
-        return  ['notifications' => $notifications, 'total_notify' => $user->unreadNotifications->count()];                    
+                            ->get();
+
+        $notifications  = to_array($notifications);
+                            
+        return  ['notifications' => $notifications, 'total_notify' => !empty($user) ? $user->unreadNotifications->count() : 0];                    
     } 
 }
     
@@ -130,10 +196,139 @@ if (!function_exists('lang_selector'))
         $lang_path = resource_path('lang'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'eventmie');
         if(config('voyager.pkg_dev_mode') || config('voyager.demo_mode'))
             $lang_path = dirname(__DIR__).'/../publishable/lang';
-
-        $directories = array_map('basename', File::directories($lang_path));
+        
+        // fetch langs from folder
+        $directories = File::directories($lang_path);
+        $directories = array_map('basename', $directories);
 
         return $directories;
     } 
 }
+
+/**
+ *  eloquent data to array
+ */
+if (!function_exists('to_array')) 
+{
+    /**
+     * return array
+     */
+    function to_array($data)
+    {
+        if(empty($data))
+            return [];
+
+        return $data->toArray();
+    }
+}
+
+
     
+/**
+ *  checkMailCreds
+ */
+if (!function_exists('checkMailCreds')) 
+{
+    /**
+     * don't send in demo mode
+     *
+     * @return boolean
+     */
+    function checkMailCreds()
+    {
+        // don't send in demo mode
+        if (config('voyager.demo_mode')) 
+            return false;
+
+        // if mail credentials entered
+        $mail = setting('mail');
+        if(
+            !empty($mail['mail_host']) && 
+            !empty($mail['mail_port']) && 
+            !empty($mail['mail_driver']) && 
+            !empty($mail['mail_sender_email']) && 
+            !empty($mail['mail_sender_name']) && 
+            !empty($mail['mail_username']) && 
+            !empty($mail['mail_password'])  
+        ) 
+            return true;
+
+        return false;
+    }
+}
+
+    
+/**
+ *  categoriesMenu
+ */
+if (!function_exists('categoriesMenu')) 
+{
+    /**
+     * add categories menu items added from Admin Panel
+     *
+     * @return boolean
+     */
+    function categoriesMenu()
+    {
+        $categories      = DB::table('categories')->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        if(empty($categories))
+            return [];
+
+        return $categories;
+    }
+}
+
+/**
+ *  change time into user timezone
+ */
+if (!function_exists('userTimezone')) 
+{
+    function userTimezone($date = null, $from_format = null, $to_formate = null)
+    {
+        return \Carbon\Carbon::createFromFormat($from_format, $date, setting('regional.timezone_default') )->setTimezone(session('local_timezone'))->translatedFormat($to_formate);
+    }
+}
+
+/**
+ *  show timezone
+ */
+if (!function_exists('showTimezone')) 
+{
+    function showTimezone()
+    {
+        if(!empty(setting('regional.timezone_conversion')))
+            return '('. \Carbon\Carbon::now()->tz(session('local_timezone'))->isoFormat('z') .')';
+    }
+}
+
+/**
+ *  change time into user timezone
+ */
+if (!function_exists('serverTimezone')) 
+{
+    function serverTimezone($date = null, $from_format = null, $to_formate = null)
+    {
+        return \Carbon\Carbon::createFromFormat($from_format, $date, session('local_timezone') )->setTimezone(setting('regional.timezone_default'))->translatedFormat($to_formate);
+    }
+}
+
+/**
+ *  checkPrefix
+ */
+if (!function_exists('checkPrefix')) 
+{
+    function checkPrefix()
+    {
+        if(empty(\Route::current())) 
+            return false;
+        
+        if(empty(\Route::current()->getPrefix()))
+            return false;
+
+        if(\Str::contains(\Route::current()->getPrefix(), 'api/v2'))
+            return true;
+
+
+        return false;
+    }
+}

@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="filter" name="filter">
-                                            <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>contains</option>
+                                            <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>{{ __('voyager::generic.contains') }}</option>
                                             <option value="equals" @if($search->filter == "equals"){{ 'selected' }}@endif>=</option>
                                         </select>
                                     </div>
@@ -172,7 +172,7 @@
                                                         @endforeach
                                                     @else
                                                         <a href="{{ Storage::disk(config('voyager.storage.disk'))->url($data->{$row->field}) }}" target="_blank">
-                                                            Download
+                                                            {{ __('voyager::generic.download') }}
                                                         </a>
                                                     @endif
                                                 @elseif($row->type == 'rich_text_box')
@@ -229,19 +229,18 @@
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click" id="bread-actions">
-
                                             {{-- delete event from frontend --}}
-                                            <a href="javascript:;" title="Delete" class="btn btn-sm btn-danger pull-right delete" onclick='openDeleteModal("{{ $data->id }}")'>
-                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Delete</span>
+                                            <a href="javascript:;" title="Delete" class="btn btn-sm btn-danger delete pull-right" onclick='openDeleteModal("{{ $data->id }}")'>
+                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.delete') }}</span>
                                             </a>
                                             {{-- Single delete modal --}}
 
-                                            <a href="{{ route('eventmie.myevents_form',[$data->slug])}}" class="btn btn-sm btn-primary pull-right edit">
+                                            <a href="{{ route('eventmie.myevents_form',[$data->slug])}}" class="btn btn-sm btn-primary edit pull-right">
                                                 <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
                                             </a>
 
                                             @if($data->publish > 0)
-                                            <a href="{{ route('eventmie.events_show', [$data->slug]) }}" class="btn btn-sm btn-warning pull-right view">
+                                            <a href="{{ route('eventmie.events_show', [$data->slug]) }}" class="btn btn-sm btn-warning pull-right">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
                                             </a>
                                             @endif 

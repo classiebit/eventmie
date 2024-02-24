@@ -40,8 +40,6 @@ if ( !function_exists('error') )
             $err_response['error'][0] = $errors;
         }
         
-        // dd(Response::HTTP_UNPROCESSABLE_ENTITY);
-
         return response(['errors'=>$err_response], $status);
     }
 
@@ -55,6 +53,9 @@ if ( !function_exists('error') )
     */
     function error_redirect($errors = null)
     {   
+        if(request()->wantsJson())
+            return response()->json(['status' => false, 'message' => $errors], 422);
+
         // laravel default error style
         $err_response = [];
         
@@ -85,6 +86,12 @@ if ( !function_exists('error') )
     */
     function success_redirect($message = null, $url = null)
     {   
+        if(request()->wantsJson())
+            return response()->json(['status' => true, 'message' => $message], 200);
+
+        if(checkPrefix()) {
+            return response()->json(['redirect_url' => $url, 'status' => true]);
+        }
         return redirect($url)->with('status', $message);
     }
 	

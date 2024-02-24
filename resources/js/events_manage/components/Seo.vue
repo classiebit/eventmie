@@ -1,56 +1,51 @@
 <template>
-    <div class="tab-pane active">
-        <div class="panel-group">
-            <div class="panel panel-default lgx-panel">
-                <div class="panel-heading">
-                    <form ref="form" @submit.prevent="validateForm" method="POST" enctype="multipart/form-data" class="lgx-contactform">
-                        <input type="hidden" name="event_id" v-model="event_id">
-                        
-                        <div class="form-group">
-                            <label>{{ trans('em.meta') }} {{ trans('em.title') }}</label>
-                            <input type="text" class="form-control"  name="meta_title" v-model="meta_title" v-validate="'required'">
-                            <span v-show="errors.has('meta_title')" class="help text-danger">{{ errors.first('meta_title') }}</span>
-                        </div>
-        
-                        <div class="form-group">
-                            <label>{{ trans('em.meta') }} {{ trans('em.tags') }}</label>
-                            <input type="text" class="form-control" name="meta_keywords" v-model="meta_keywords">
-                            <span v-show="errors.has('meta_keywords')" class="help text-danger">{{ errors.first('meta_keywords') }}</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label>{{ trans('em.meta') }} {{ trans('em.description') }}</label>
-                            <input type="text" class="form-control" name="meta_description" v-model="meta_description" v-validate="'required'">
-                            <span v-show="errors.has('meta_description')" class="help text-danger">{{ errors.first('meta_description') }}</span>
-                        </div>
-
-                        <button type="submit" class="btn lgx-btn btn-block"><i class="fas fa-sd-card"></i> {{ trans('em.save') }}</button>
-                    </form>                
-                    
-                </div>
+    <div>
+   
+        <form ref="form" @submit.prevent="validateForm" method="POST" enctype="multipart/form-data" class="lgx-contactform">
+            <input type="hidden" name="event_id" v-model="event_id">
+            
+            <div class="mb-2">
+                <label class="form-label">{{ trans('em.meta_title') }}</label>
+                <input type="text" class="form-control"  name="meta_title" v-model="meta_title" @change="isDirty()">
+                <span v-show="errors.has('meta_title')" class="help text-danger">{{ errors.first('meta_title') }}</span>
             </div>
-        </div>
 
-        
-        
+            <div class="mb-2">
+                <label class="form-label">{{ trans('em.meta_tags') }}</label>
+                <input type="text" class="form-control" name="meta_keywords" v-model="meta_keywords" @change="isDirty()">
+                <span v-show="errors.has('meta_keywords')" class="help text-danger">{{ errors.first('meta_keywords') }}</span>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">{{ trans('em.meta_description') }}</label>
+                <input type="text" class="form-control" name="meta_description" v-model="meta_description" @change="isDirty()">
+                <span v-show="errors.has('meta_description')" class="help text-danger">{{ errors.first('meta_description') }}</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-2"><i class="fas fa-sd-card"></i> {{ trans('em.save') }}</button>
+        </form>                
+                    
     </div>
 </template>
 
 <script>
 import { mapState, mapMutations} from 'vuex';
 import mixinsFilters from '../../mixins.js';
-import Vue from 'vue';
 
 export default {
+    props: [
+        'event_prop',
+    ],
+
     mixins:[
         mixinsFilters
     ],
+
     data() {
         return {
             meta_title       : null,
-            meta_keywords    : null,
             meta_description : null,
-            
+            meta_keywords   : null,
         }
     },
 
@@ -85,18 +80,15 @@ export default {
             // prepare form data for post request
             let post_url = route('eventmie.myevents_store_seo');
             let post_data = new FormData(this.$refs.form);
-            let post_progress = {
-                onUploadProgress: uploadEvent => {
-                    // console.log('Upload progress: '+ Math.round(uploadEvent.loaded / uploadEvent.total * 100)+ '%');
-                }
-            };
+            
             // axios post request
-            axios.post(post_url, post_data, post_progress)
+            axios.post(post_url, post_data)
             .then(res => {
                 // on success
+                // use vuex to update global sponsors array
                 if(res.data.status)
                 {
-                    this.showNotification('success', trans('em.seo')+' '+trans('em.saved')+' '+trans('em.successfully'));
+                    this.showNotification('success', trans('em.seo_saved_successfully'));
                     // reload page   
                     setTimeout(function() {
                         location.reload(true);
@@ -119,14 +111,22 @@ export default {
             if(Object.keys(this.event).length > 0)
             {
                 this.meta_title         =  this.event.meta_title;
-                this.meta_keywords          =  this.event.meta_keywords;
+                this.meta_keywords      =  this.event.meta_keywords;
                 this.meta_description   =  this.event.meta_description;
               
             }    
         },
+
+        isDirty() {
+            this.add({is_dirty: true});
+        },
+        isDirtyReset() {
+            this.add({is_dirty: false});
+        },
     },
     
     mounted(){
+        this.isDirtyReset();
         // if user have no event_id then redirect to details page
         let event_step     = this.eventStep();
         

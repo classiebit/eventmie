@@ -9,10 +9,14 @@ window.axios.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 window.axios.interceptors.response.use(function (response) {
+    hideSkeleton();    
+
     window.app.$Progress.finish(); // finish when a response is received
 
     return response;
 }, function (error) {
+    hideSkeleton();    
+    
     window.app.$Progress.finish(); // finish when a response is received
 
     if (error.response.status === 401) {
@@ -23,3 +27,9 @@ window.axios.interceptors.response.use(function (response) {
 
     return Promise.reject(Vue.helpers.axiosErrors(error));
 });
+
+function hideSkeleton() {
+    [].forEach.call(document.querySelectorAll('.skeleton-loader'), function (el) {
+        el.style.display = 'none';
+    });
+}

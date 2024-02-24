@@ -1,0 +1,66 @@
+// Chat layout
+
+.chat-item {
+  position: relative;
+  transition: background-color 0.3s;
+  .chat-actions {
+    background-color: $light;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 3rem;
+  }
+  &:hover {
+    background-color: $light;
+    .chat-actions {
+      opacity: 1;
+      pointer-events: initial;
+      transition: opacity 0.5s;
+    }
+  }
+}
+
+.chat-layout {
+  // height: 100vh;
+  // overflow-y: hidden;
+
+  @media (max-width: 1199.98px) {
+    .chat-body {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 1020;
+      visibility: hidden;
+      transform: translateX(100%);
+      transition: transform 0.3s ease, visibility 0.3s ease;
+      background: $gray-100;
+    }
+  }
+
+}
+
+@media (max-width: 1199.98px) {
+  .chat-layout .chat-body.chat-body-visible {
+    visibility: visible;
+    transform: translateX(0);
+  }
+}
+
+.chat-footer {
+  @media (min-width: 1200px) {
+    bottom: 60px;
+  }
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}

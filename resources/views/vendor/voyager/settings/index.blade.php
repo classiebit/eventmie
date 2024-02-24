@@ -249,7 +249,7 @@
                             @if($setting->key == 'apps.google_client_id')
                             <br>
                             <div class="alert alert-info">
-                                Set Callback URL on your Google App Dashboard - <code>{{ route('eventmie.google_callback') }}</code>
+                                {{ __('voyager::generic.Set Callback URL on your Google App Dashboard') }} - <code>{{ route('eventmie.oauth_callback', ['social' => 'google']) }}</code>
                             </div>
                             @endif
 
@@ -257,7 +257,7 @@
                             @if($setting->key == 'apps.facebook_app_id')
                             <br>
                             <div class="alert alert-info">
-                                Set Callback URL on your Facebook App Dashboard - <code>{{ route('eventmie.facebook_callback') }}</code>
+                                {{ __('voyager::generic.Set Callback URL on your Facebook App Dashboard') }} - <code>{{ route('eventmie.oauth_callback', ['social' => 'facebook']) }}</code>
                             </div>
                             @endif
 
@@ -265,7 +265,7 @@
                             @if($setting->key == 'apps.paypal_client_id')
                             <br>
                             <div class="alert alert-info">
-                                Set Callback URL on your PayPal Dashboard - <code>{{ route('eventmie.bookings_paypal_callback') }}</code>
+                                {{ __('voyager::generic.Set Callback URL on your PayPal Dashboard') }} - <code>{{ route('eventmie.bookings_paypal_callback') }}</code>
                             </div>
                             @endif
 
@@ -273,7 +273,7 @@
                                 <h3 class="panel-title">
                                     {{ $setting->display_name }} @if(config('voyager.show_dev_tips'))<code>setting('{{ $setting->key }}')</code>@endif
                                 </h3>
-                                
+
                                 @if (config('voyager.pkg_dev_mode')) 
                                 <div class="panel-actions">
                                     <a href="{{ route('voyager.settings.move_up', $setting->id) }}">
@@ -297,6 +297,8 @@
                                 <div class="col-md-10 no-padding-left-right">
                                     @if ($setting->type == "text")
                                         <input type="text" class="form-control" name="{{ $setting->key }}" value="{{ $setting->value }}">
+                                    @elseif ($setting->type == "password")
+                                        <input type="password" class="form-control" name="{{ $setting->key }}" value="{{ $setting->value }}">
                                     @elseif($setting->type == "text_area")
                                         <textarea class="form-control" name="{{ $setting->key }}">{{ $setting->value ?? '' }}</textarea>
                                     @elseif($setting->type == "rich_text_box")
@@ -335,7 +337,7 @@
                                             <?php $default = (isset($options->default)) ? $options->default : NULL; ?>
                                             @if(isset($options->options))
                                                 @foreach($options->options as $index => $option)
-                                                    <option value="{{ $index }}" @if($default == $index && $selected_value === NULL){{ 'selected="selected"' }}@endif @if($selected_value == $index){{ 'selected="selected"' }}@endif>{{ $option }}</option>
+                                                    <option value="{{ $index }}" @if($default == $index && $selected_value === NULL) selected="selected" @endif @if($selected_value == $index) selected="selected" @endif>{{ $option }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -349,7 +351,7 @@
                                                 @foreach($options->options as $index => $option)
                                                     <li>
                                                         <input type="radio" id="option-{{ $index }}" name="{{ $setting->key }}"
-                                                               value="{{ $index }}" @if($default == $index && $selected_value === NULL){{ 'checked' }}@endif @if($selected_value == $index){{ 'checked' }}@endif>
+                                                               value="{{ $index }}" @if($default == $index && $selected_value === NULL) checked @endif @if($selected_value == $index) checked @endif>
                                                         <label for="option-{{ $index }}">{{ $option }}</label>
                                                         <div class="check"></div>
                                                     </li>
@@ -365,6 +367,12 @@
                                             <input type="checkbox" name="{{ $setting->key }}" @if($checked) checked @endif class="toggleswitch">
                                         @endif
                                     @endif
+
+                                    <?php $options = json_decode($setting->details); ?>
+                                    @if(isset($options->description))
+                                    <small class="form-text text-muted">{{ $options->description }}</small>
+                                    @endif
+
                                 </div>
                                 <div class="col-md-2 no-padding-left-right">
                                     @if(config('voyager.pkg_dev_mode'))
@@ -399,6 +407,7 @@
 
         <div style="clear:both"></div>
         @if (config('voyager.pkg_dev_mode')) 
+
         @can('add', Voyager::model('Setting'))
         <div class="panel" style="margin-top:10px;">
             <div class="panel-heading new-setting">
@@ -552,7 +561,6 @@
 
         var options_textarea = document.getElementById('options_textarea');
         options_editor.getSession().on('change', function() {
-            console.log(options_editor.getValue());
             options_textarea.value = options_editor.getValue();
         });
     </script>

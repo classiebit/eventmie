@@ -1,0 +1,87 @@
+// Avatar
+
+.avatar {
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+}
+
+.avatar-xs {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+}
+
+.avatar-sm {
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+}
+
+.avatar-md {
+  width: 4rem !important;
+  height: 4rem !important;
+}
+
+.avatar-lg {
+  width: 6rem !important;
+  height: 6rem !important;
+}
+
+// Avatar indicators
+.avatar-offline:before {
+  background-color: $gray-400;
+}
+.avatar-online:before {
+  background-color: $success;
+}
+.avatar-away:before {
+  background-color: $warning;
+}
+.avatar-busy:before {
+  background-color: $danger;
+}
+.avatar-info:before {
+  background-color: $info;
+}
+.avatar-indicators:before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: 5%;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  border: 2px solid $white;
+  display: table;
+}
+
+// Avatar img
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+
+// Image aspect ratio 4:3
+
+.img-4by3-xxl {
+  width: $img-4by3-xxl;
+}
+.img-4by3-xl {
+  width: $img-4by3-xl;
+}
+.img-4by3-lg {
+  width: $img-4by3-lg;
+}
+.img-4by3-md {
+  width: $img-4by3-md;
+}
+.img-4by3-sm {
+  width: $img-4by3-sm;
+}
+.img-4by3-xs {
+  width: $img-4by3-xs;
+}

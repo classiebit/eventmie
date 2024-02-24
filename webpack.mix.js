@@ -1,5 +1,7 @@
 let mix = require('laravel-mix');
 
+require('laravel-mix-polyfill');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,9 +14,6 @@ let mix = require('laravel-mix');
  */
 
 mix
-// common auth instance
-.js('resources/js/auth/index.js', 'publishable/assets/js/auth.js')
-
 // events create seperate vue js
 .js('resources/js/events_manage/index.js', 'publishable/assets/js/events_manage.js')
 
@@ -24,14 +23,39 @@ mix
 // events listing seperate vue js
 .js('resources/js/events_listing/index.js', 'publishable/assets/js/events_listing.js')
 
+// organiser events
+.js('resources/js/myevents/index.js', 'publishable/assets/js/myevents.js')
+
 // customer bookings seperate vue js
 .js('resources/js/bookings_customer/index.js', 'publishable/assets/js/bookings_customer.js')
 
 // events welcome seperate vue js
 .js('resources/js/welcome/index.js', 'publishable/assets/js/welcome.js')
+// profile vue js
+.js('resources/js/profile/index.js', 'publishable/assets/js/profile.js')
+
+// use vue 2
+.vue({ version: 2 })
 
 // compile sass files
-.sass('resources/sass/app.scss', 'publishable/assets/css')
+.sass('resources/sass/theme.scss', 'publishable/assets/css')
+.options({
+    processCssUrls: false,
+    autoprefixer: {
+        browsers: [
+            'last 6 versions',
+        ]
+    }
+})
+.polyfill({
+    corejs: 3,
+    enabled: true,
+    useBuiltIns: "usage",
+    targets: {"firefox": "50", "safari": "11.3"}
+})
+
+// third-party css
+.sass('resources/sass/vendor.scss', 'publishable/assets/css')
 .options({
     processCssUrls: false,
     autoprefixer: {
@@ -42,9 +66,21 @@ mix
         }
     }
 })
+.polyfill({
+    corejs: 3,
+    enabled: true,
+    useBuiltIns: "usage",
+    targets: {"firefox": "50", "safari": "11.3"}
+})
 
-// third-party css
-.sass('resources/sass/vendor.scss', 'publishable/assets/css')
+.webpackConfig({
+    optimization: {
+        providedExports: false,
+        sideEffects: false,
+        usedExports: false
+    }
+})
 
-// compile node modules in seperate vendor.js file
-.extract();
+.override((config) => {
+    delete config.watchOptions;
+});

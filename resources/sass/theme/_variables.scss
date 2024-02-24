@@ -1,0 +1,311 @@
+// Color system
+$white: #fff;
+$min-contrast-ratio: 3.5 !default;
+// Variables
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+// Color system
+$white: #fff !default;
+$gray-100: #F1F5F9 !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+// fusv-disable
+$grays: ("100": $gray-100, "200": $gray-200, "300": $gray-300, "400": $gray-400, "500": $gray-500, "600": $gray-600, "700": $gray-700, "800": $gray-800, "900": $gray-900, ) !default;
+
+// Light color
+$light-primary: #EDE9FE !default; // NEW
+$light-secondary: #F1F5F9 !default; // NEW
+$light-success: #DCFCE7 !default; // NEW
+$light-danger: #FFE4E6 !default; // NEW
+$light-warning: #FEF3C7 !default; // NEW
+$light-info: #CFFAFE !default; // NEW
+
+
+
+// scss-docs-start theme-colors-map
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "white": $white,
+  "light-primary": $light-primary,
+  "light-danger": $light-danger,
+  "light-info": $light-info,
+  "light-warning": $light-warning,
+  "light-secondary": $light-secondary,
+  "light-success": $light-success,
+  "gray-400": $gray-400,
+  
+);
+
+
+// scss-docs-end theme-colors-map
+// Body
+//
+// Settings for the `<body>` element.
+$body-bg: $white !default;
+$body-color: $gray-600 !default;
+$body-text-align: null !default;
+// Typography
+//
+
+
+$h1-font-size: 2.25rem !default;
+$h2-font-size: 1.75rem !default;
+$h3-font-size: 1.5rem !default;
+$h4-font-size: 1.25rem !default;
+$h5-font-size: 1rem !default;
+$h6-font-size: 0.8125rem !default;
+
+// scss-docs-end font-variables
+
+// scss-docs-start font-sizes
+$font-sizes: (1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size) !default;
+
+
+
+// line height
+$h1-line-height: 1.3 !default;
+$h2-line-height: 1.35 !default;
+$h3-line-height: 1.4 !default;
+$h4-line-height: 1.45 !default;
+$h5-line-height: 1.5 !default;
+$h6-line-height: 1.55 !default;
+// scss-docs-end font-sizes
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: $gray-900 !default;
+$line-height-base: 1.5 !default;
+$font-family-sans-serif: "Archivo",
+"sans-serif;" !default;
+$font-family-base: $font-family-sans-serif !default;
+$font-material-design: "Material Design Icons";
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 600 !default;
+// Components
+//
+// Define common padding and border radius sizes and more.
+$border-radius: 0.5rem !default;
+$border-radius-sm: 0.25rem !default;
+$border-radius-lg: 0.75rem !default;
+// card
+$card-border-radius: $border-radius-lg !default;
+$card-border-color: $gray-300 !default;
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+$input-btn-padding-y: 0.5rem !default;
+$input-btn-padding-x: 1rem !default;
+// $btn-font-weight:             $font-weight-medium !default;
+$btn-box-shadow: none !default;
+$btn-focus-width: none !default;
+$btn-focus-box-shadow: none !default;
+$form-label-margin-bottom: 0.5rem !default;
+$form-label-font-size: null !default;
+$form-label-font-style: null !default;
+$form-label-font-weight: null !default;
+$form-label-color: $dark !default;
+$zindex-dropdown: 1001 !default;
+
+
+// line height
+
+$line-height-base: 1.5 !default;
+$line-height-sm: 1.4 !default;
+$line-height-lg: 2 !default;
+
+// pagination
+
+$pagination-padding-y: .375rem !default;
+$pagination-padding-x: 1rem !default;
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+/* beautify ignore:start */
+
+$container-max-widths: ( sm: 540px, md: 720px, lg: 960px, xl: 1140px, ) !default;
+
+/* beautify ignore:end */
+
+// Settings for the `<body>` element.
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+$spacer: 1rem !default;
+$spacers: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$spacers: map-merge((0: 0, 1: ($spacer * 0.25), // 4px
+    2: ($spacer * 0.5), // 8px
+    3: ($spacer * 1), // 16px
+    4: ($spacer * 1.5), // 24px
+    5: ($spacer * 2), // 32px
+    6: ($spacer * 2.5), // 40px
+    7: ($spacer * 3), // 48px
+    8: ($spacer * 3.5), // 56px
+    9: ($spacer * 4), // 64px
+    10: ($spacer * 4.5), // 72px
+    11: ($spacer * 5), // 80px
+    12: ($spacer * 5.5), // 88px
+    13: ($spacer * 6), // 96px
+    14: ($spacer * 6.5), // 104px
+    15: ($spacer * 7), // 112px
+    16: ($spacer * 7.5), // 120px
+    17: ($spacer * 8), // 128px
+    18: ($spacer * 8.5), // 136px
+    19: ($spacer * 9), // 144px
+    20: ($spacer * 9.5), // 152px
+    21: ($spacer * 10), // 160px
+    22: ($spacer * 14), // 224px
+    23: ($spacer * 18), // 224px
+    24: ($spacer * 19), // 224px
+  ), $spacers);
+$enable-negative-margins: true;
+// Avatar
+$avatar-size-xs: 1.5rem !default;
+$avatar-size-sm: 2rem !default;
+$avatar-size-md: 2.5rem !default;
+$avatar-size-lg: 3.5rem !default;
+$avatar-size-xl: 5rem !default;
+$avatar-size-xxl: 7.5rem !default;
+// Icon
+$icon-size-xs: 1.5rem !default;
+$icon-size-sm: 2rem !default;
+$icon-size-md: 2.5rem !default;
+$icon-size-lg: 3rem !default;
+$icon-size-xl: 3.5rem !default;
+$icon-size-xxl: 4rem !default;
+$icon-size-xxxl: 5rem !default;
+// Breadcrumbs
+$breadcrumb-font-size: 0.875rem !default;
+$carousel-control-color: $dark !default;
+$carousel-control-icon-width: 1rem !default;
+$carousel-control-opacity: 1 !default;
+$carousel-indicator-width: 8px !default;
+$carousel-indicator-height: 8px !default;
+$carousel-control-transition: none !default;
+
+// Images aspect ratio 4:3
+$img-4by3-xxl: 9rem;
+$img-4by3-xl: 7.75rem;
+$img-4by3-lg: 6.5rem;
+$img-4by3-md: 5.25rem;
+$img-4by3-sm: 4rem;
+$img-4by3-xs: 2.75rem;
+
+// Smooth Box Shadow
+$box-shadow-smooth-sm: 0px 2px 4px rgba(0, 0, 20, 0.08),0px 1px 2px rgba(0, 0, 20, 0.08)!default;
+$box-shadow-smooth-md: 0px 9px 26px rgba(0, 0, 0, 0.19), 0px 1.4932px 5.38611px rgba(0, 0, 0, 0.0823856), 0px 0.826568px 1.06088px rgba(0, 0, 0, 0.063299)!default;
+$box-shadow-smooth-lg: 0 1px 1px rgba(21,30,40,0.11),0 2px 2px rgba(21,30,40,0.11),0 4px 4px rgba(21,30,40,0.11),0 8px 8px rgba(21,30,40,0.11),0 16px 16px rgba(21,30,40,0.11),0 32px 32px rgba(21,30,40,0.11)!default;
+
+
+$table-cell-padding-y:        1rem;
+$table-cell-padding-x:        1.5rem;
+$table-cell-color:        $black;
+
+// Dark color mode variables
+//
+// Custom variables for the `[data-bs-theme="dark"]` theme. Use this as a starting point for your own custom color modes by creating a new theme-specific file like `_variables-dark.scss` and adding the variables you need.
+
+//
+// Global colors
+//
+
+// scss-docs-start sass-dark-mode-vars
+// scss-docs-start theme-text-dark-variables
+$primary-text-emphasis-dark:        tint-color($primary, 40%) !default;
+$secondary-text-emphasis-dark:      tint-color($secondary, 40%) !default;
+$success-text-emphasis-dark:        tint-color($success, 40%) !default;
+$info-text-emphasis-dark:           tint-color($info, 40%) !default;
+$warning-text-emphasis-dark:        tint-color($warning, 40%) !default;
+$danger-text-emphasis-dark:         tint-color($danger, 40%) !default;
+$light-text-emphasis-dark:          $gray-100 !default;
+$dark-text-emphasis-dark:           $gray-300 !default;
+// scss-docs-end theme-text-dark-variables
+
+// scss-docs-start theme-bg-subtle-dark-variables
+$primary-bg-subtle-dark:            shade-color($primary, 80%) !default;
+$secondary-bg-subtle-dark:          shade-color($secondary, 80%) !default;
+$success-bg-subtle-dark:            shade-color($success, 80%) !default;
+$info-bg-subtle-dark:               shade-color($info, 80%) !default;
+$warning-bg-subtle-dark:            shade-color($warning, 80%) !default;
+$danger-bg-subtle-dark:             shade-color($danger, 80%) !default;
+$light-bg-subtle-dark:              $gray-800 !default;
+$dark-bg-subtle-dark:               mix($gray-800, $black) !default;
+// scss-docs-end theme-bg-subtle-dark-variables
+
+// scss-docs-start theme-border-subtle-dark-variables
+$primary-border-subtle-dark:        shade-color($primary, 40%) !default;
+$secondary-border-subtle-dark:      shade-color($secondary, 40%) !default;
+$success-border-subtle-dark:        shade-color($success, 40%) !default;
+$info-border-subtle-dark:           shade-color($info, 40%) !default;
+$warning-border-subtle-dark:        shade-color($warning, 40%) !default;
+$danger-border-subtle-dark:         shade-color($danger, 40%) !default;
+$light-border-subtle-dark:          $gray-700 !default;
+$dark-border-subtle-dark:           $gray-800 !default;
+// scss-docs-end theme-border-subtle-dark-variables
+
+$body-color-dark:                   $gray-500 !default;
+$body-bg-dark:                      $gray-900 !default;
+$body-secondary-color-dark:         rgba($body-color-dark, .75) !default;
+$body-secondary-bg-dark:            $gray-800 !default;
+$body-tertiary-color-dark:          rgba($body-color-dark, .5) !default;
+$body-tertiary-bg-dark:             mix($gray-800, $gray-900, 50%) !default;
+$body-emphasis-color-dark:          $white !default;
+$border-color-dark:                 $gray-700 !default;
+$border-color-translucent-dark:     rgba($white, .15) !default;
+$headings-color-dark:               inherit !default;
+$link-color-dark:                   tint-color($primary, 40%) !default;
+$link-hover-color-dark:             tint-color($primary, 40%) !default;
+$code-color-dark:                   tint-color(#000, 40%) !default;
+
+
+//
+// Forms
+//
+
+$form-select-indicator-color-dark:  $body-color-dark !default;
+$form-select-indicator-dark:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
+
+$form-switch-color-dark:            rgba($white, .25) !default;
+$form-switch-bg-image-dark:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color-dark}'/></svg>") !default;
+
+// scss-docs-start form-validation-colors-dark
+$form-valid-color-dark:             $success !default;
+$form-valid-border-color-dark:      $success !default;
+$form-invalid-color-dark:           $danger !default;
+$form-invalid-border-color-dark:    $danger !default;
+// scss-docs-end form-validation-colors-dark
+
+
+//
+// Accordion
+//
+
+$accordion-icon-color-dark:         $primary-text-emphasis-dark !default;
+$accordion-icon-active-color-dark:  $primary-text-emphasis-dark !default;
+
+$accordion-button-icon-dark:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+$accordion-button-active-icon-dark:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+// scss-docs-end sass-dark-mode-vars

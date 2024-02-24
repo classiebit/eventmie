@@ -1,0 +1,3 @@
+.table > :not(caption) > * > * {
+    color: $table-cell-color;
+}

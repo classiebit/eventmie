@@ -1,0 +1,20 @@
+.mx-datepicker {
+    font-family: inherit !important;
+    width: 100%;
+    
+    .mx-input-wrapper {
+        position: initial !important;
+
+        .mx-input {
+            border: none;
+            box-shadow: none;
+            height: auto;
+        }
+    }
+}
+.mx-datepicker-sidebar {
+    width: 15rem;
+}
+.mx-datepicker-sidebar+.mx-datepicker-content {
+    margin-left: 15rem;
+}

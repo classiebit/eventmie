@@ -25,9 +25,8 @@ class ForgotPasswordNotification extends Notification
     {   
         $reset_link = route('eventmie.password.reset',['token' => $this->token]);
         return (new MailMessage)
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', $reset_link)
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line(__('eventmie::em.reset_password'))
+            ->action(__('eventmie::em.reset_password'), $reset_link);
     }
 
     /**

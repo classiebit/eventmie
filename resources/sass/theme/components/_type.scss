@@ -1,0 +1,69 @@
+//
+// type.scss
+// Extended from Bootstrap
+//
+
+// blockquote
+.blockquote-left {
+  border-left: 4px solid $primary;
+  padding-left: 20px;
+}
+
+// headings
+
+h1,
+h2,
+.h1,
+.h2 {
+  margin-bottom: 1rem;
+}
+
+h1,
+.h1 {
+  line-height: $h1-line-height;
+}
+
+h2,
+.h2 {
+  line-height: $h2-line-height;
+}
+
+h3,
+.h3 {
+  line-height: $h3-line-height;
+}
+
+h4,
+.h4 {
+  line-height: $h4-line-height;
+}
+
+h5,
+.h5 {
+  line-height: $h5-line-height;
+}
+
+h6,
+.h6 {
+  line-height: $h6-line-height;
+
+  &.text-uppercase {
+    letter-spacing: 0.08em;
+  }
+}
+
+// line height
+
+.lh-0 {
+  line-height: 0 !important;
+}
+
+
+// text link
+
+.text-link{
+  color: $gray-500;
+  &:hover{
+    color: $white;
+  }
+}

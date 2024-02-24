@@ -49,6 +49,18 @@ class ContactsController extends VoyagerBaseController
     }
 
 
+    //***************************************
+    //               ____
+    //              |  _ \
+    //              | |_) |
+    //              |  _ <
+    //              | |_) |
+    //              |____/
+    //
+    //      Browse our Data Type (B)READ
+    //
+    //****************************************
+
     public function index(Request $request)
     {
         // GET THE SLUG, ex. 'posts', 'pages', etc.
@@ -69,13 +81,17 @@ class ContactsController extends VoyagerBaseController
             $searchable = SchemaManager::describeTable(app($dataType->model_name)->getTable())->pluck('name')->toArray();
             $dataRow = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->get();
             foreach ($searchable as $key => $value) {
-                $displayName = $dataRow->where('field', $value)->first()->getTranslatedAttribute('display_name');
-                $searchNames[$value] = $displayName ?: ucwords(str_replace('_', ' ', $value));
+                $field = $dataRow->where('field', $value)->first();
+                $displayName = ucwords(str_replace('_', ' ', $value));
+                if ($field !== null) {
+                    $displayName = $field->getTranslatedAttribute('display_name');
+                }
+                $searchNames[$value] = $displayName;
             }
         }
 
         $orderBy = $request->get('order_by', $dataType->order_column);
-        $sortOrder = $request->get('sort_order', null);
+        $sortOrder = $request->get('sort_order', $dataType->order_direction);
         $usesSoftDeletes = false;
         $showSoftDeleted = false;
 
@@ -90,7 +106,7 @@ class ContactsController extends VoyagerBaseController
             }
 
             // Use withTrashed() if model uses SoftDeletes and if toggle is selected
-            if ($model && in_array(SoftDeletes::class, class_uses($model)) && Auth::user()->can('delete', app($dataType->model_name))) {
+            if ($model && in_array(SoftDeletes::class, class_uses_recursive($model)) && Auth::user()->can('delete', app($dataType->model_name))) {
                 $usesSoftDeletes = true;
 
                 if ($request->get('showSoftDeleted')) {
@@ -129,9 +145,10 @@ class ContactsController extends VoyagerBaseController
         }
 
         // Check if BREAD is Translatable
-        if (($isModelTranslatable = is_bread_translatable($model))) {
-            $dataTypeContent->load('translations');
-        }
+        $isModelTranslatable = is_bread_translatable($model);
+
+        // Eagerload Relations
+        $this->eagerLoadRelations($dataTypeContent, $dataType, 'browse', $isModelTranslatable);
 
         // Check if server side pagination is enabled
         $isServerSide = isset($dataType->server_side) && $dataType->server_side;
@@ -167,13 +184,7 @@ class ContactsController extends VoyagerBaseController
         $orderColumn = [];
         if ($orderBy) {
             $index = $dataType->browseRows->where('field', $orderBy)->keys()->first() + ($showCheckboxColumn ? 1 : 0);
-            $orderColumn = [[$index, 'desc']];
-            if (!$sortOrder && isset($dataType->order_direction)) {
-                $sortOrder = $dataType->order_direction;
-                $orderColumn = [[$index, $dataType->order_direction]];
-            } else {
-                $orderColumn = [[$index, 'desc']];
-            }
+            $orderColumn = [[$index, $sortOrder ?? 'desc']];
         }
 
         $view = 'eventmie::vendor.voyager.contacts.browse';
@@ -196,7 +207,7 @@ class ContactsController extends VoyagerBaseController
         ));
     }
 
-     //***************************************
+    //***************************************
     //                _____
     //               |  __ \
     //               | |__) |
@@ -220,7 +231,7 @@ class ContactsController extends VoyagerBaseController
             $model = app($dataType->model_name);
 
             // Use withTrashed() if model uses SoftDeletes and if toggle is selected
-            if ($model && in_array(SoftDeletes::class, class_uses($model))) {
+            if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
                 $model = $model->withTrashed();
             }
             if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
@@ -246,6 +257,9 @@ class ContactsController extends VoyagerBaseController
 
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
+
+        // Eagerload Relations
+        $this->eagerLoadRelations($dataTypeContent, $dataType, 'read', $isModelTranslatable);
 
         $view = 'eventmie::vendor.voyager.contacts.read';
 

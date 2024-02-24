@@ -1,0 +1,39 @@
+/* Horizontal scroller */
+.h-scroll{
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.h-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 5px;
+    background-color: #F5F5F5;
+}
+
+.h-scroll::-webkit-scrollbar-thumb {
+    background-color: #dee2e6;
+}
+
+/* Vertical scroller */
+.v-scroll{
+    overflow-x: hidden;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-y: auto;
+}
+
+.v-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 5px;
+    background-color: #F5F5F5;
+}
+
+.v-scroll::-webkit-scrollbar-thumb {
+    background-color: #dee2e6;
+}
+
+.mh-30 {
+    max-height: 30rem;
+}

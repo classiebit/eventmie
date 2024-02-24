@@ -1,0 +1,164 @@
+// half map
+
+.listing-map {
+  height: 350px;
+}
+.map {
+  height: 100%;
+  position: fixed !important;
+  left: auto;
+  right: 0;
+  width: 1116px;
+  top: 72px;
+}
+.gm-style {
+  .gm-style-iw-c {
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -100%);
+    background-color: $white;
+    border-radius: 6px;
+    padding: 0px;
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
+    div {
+      overflow: hidden !important;
+      max-width: 350px !important;
+      max-height: 242px !important;
+    }
+  }
+  .gm-style-iw {
+    font-weight: 300;
+    font-size: 13px;
+    overflow: hidden;
+    max-width: 350px !important;
+    button {
+      position: absolute !important;
+      right: 0px !important;
+      top: 0px !important;
+      background-color: $white !important;
+      border-radius: 100%;
+      opacity: 1;
+    }
+  }
+  .gm-style-iw-t {
+    position: absolute;
+    width: 100%;
+  }
+}
+.gm-style-iw {
+  min-height: 238px;
+}
+.tooltip-block {
+  width: 240px;
+  height: auto;
+  background-color: $white;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.12);
+  border-radius: .5rem;
+}
+.tooltip-img {
+  img {
+    border-radius: .5rem .5rem 0 0;
+  }
+}
+.tooltip-content {
+  padding: 18px;
+}
+.tooltip-content-title {
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 5px;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+  .title {
+    color: $black;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}
+.tooltip-content-text {
+  font-size: 14px;
+  line-height: 20px;
+
+  color: $gray-900;
+}
+
+// Listing half map + listing
+
+
+.listinghalfmap-body {
+  .listingmap-content {
+    padding: 10px 12px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #f0f1f6;
+    position: relative;
+    z-index: 9;
+  }
+}
+
+.listinghalfmap-map {
+  height: 100%;
+  min-height: 800px;
+}
+
+.more-filter-link {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 15px;
+}
+
+.price-menu {
+  .price-menu-body {
+    padding: 40px 0px 30px 0px !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .listinghalfmap-content {
+    top: 82px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .listinghalfmap-content {
+    top: 82px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .map {
+    position: relative !important;
+    width: initial;
+    top: 152px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .map {
+    position: relative !important;
+    width: initial;
+    top: 152px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .map {
+    position: relative !important;
+    width: initial;
+    top: 0px;
+  }
+}
+
+@media (max-width: 1850px) {
+  .map {
+    position: relative !important;
+    width: initial;
+    top: 0px;
+  }
+}

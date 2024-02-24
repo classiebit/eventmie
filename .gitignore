@@ -1,16 +1,11 @@
-/node_modules
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
-.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-
-package-lock.json
 
 # OSX Specific files
 .DS_Store
@@ -18,3 +13,9 @@ package-lock.json
 
 # Vscode Specific files
 /.vscode
+
+/vendor
+/node_modules
+/images
+
+**/dist

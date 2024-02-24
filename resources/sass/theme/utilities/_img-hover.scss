@@ -1,0 +1,12 @@
+// img hover
+
+.img-hover{
+
+    transition: all 0.3s;
+
+    &:hover{
+        transform: translateY(-6px);
+    box-shadow: $box-shadow-lg;
+    }
+
+}

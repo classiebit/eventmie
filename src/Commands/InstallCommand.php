@@ -4,11 +4,14 @@ namespace Classiebit\Eventmie\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Intervention\Image\ImageServiceProviderLaravel5;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
 use Classiebit\Eventmie\Traits\Seedable;
+
 use Classiebit\Eventmie\EventmieServiceProvider;
+use Facades\Classiebit\Eventmie\Eventmie;
+
+use File;
 
 class InstallCommand extends Command
 {
@@ -28,7 +31,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install the Eventmie package';
+    protected $description = 'Eventmie Lite Installer';
 
     protected function getOptions()
     {
@@ -65,8 +68,12 @@ class InstallCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $this->info('Initiate the installation process...');
+        $this->info('Initializing installation process...');
+        $this->install($filesystem);
+    }
 
+    private function install(Filesystem $filesystem)
+    {
         // 1. Publish the core assets defined in the EventmieServiceProvider
         $this->info('1. Publishing Eventmie core assets: config, languages & dummy content');
         $this->call('vendor:publish', ['--provider' => EventmieServiceProvider::class]);
@@ -113,12 +120,20 @@ class InstallCommand extends Command
         // 5. Run database seeder
         $this->info('5. Running Eventmie database seeders');
         $this->seed('EventmieDatabaseSeeder');
+        
+        // 6. Copy missing extras folder's files to storage
+        $this->info('6. Adding Placeholders');
+        $dir = str_replace('src/Commands', '', __DIR__);
+        File::copyDirectory($dir.'publishable/assets/ep_img/', public_path('/'));
+        File::copyDirectory($dir.'publishable/dummy_content/', storage_path('app/public/'));
+        
 
-        // 6. Add storage symlink
-        $this->info('6. Adding the storage symlink to your public folder');
+        // 7. Add storage symlink
+        $this->info('7. Adding the storage symlink to your public folder');
         $this->call('storage:link');
         
-        // Finish
-        $this->info('Congrats!!! Eventmie installed successfully! Wish you all the best :)');
+        $version = Eventmie::getVersion();
+        $this->info("Congrats! Eventmie Lite version $version installed successfully! Make sure to check Eventmie Pro FullyLoaded on our website- https://classiebit.com/eventmie-pro-fullyloaded");
     }
+    
 }

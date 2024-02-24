@@ -13,22 +13,25 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        $category = Category::count();
+        if($category) 
+            return true;
+
         $category = $this->category('id', 1);
         if (!$category->exists) {
             $category->fill([
-                'id'    => 1,
                 'name' => 'Business & Seminars',
                 'slug' => 'business-&-seminars',
-                'created_at' => '2019-09-02 06:26:33',
-                'updated_at' => '2019-10-05 06:01:50',
                 'status' => 1,
-                'thumb' => 'categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg',
+                'thumb' => 'categories/September2019/qXRVg2PfJlS58FgCocap.jpg',
                 'image' => NULL,
                 'template' => 1,
+                'created_at' => '2019-09-02 06:26:33',
+                'updated_at' => '2019-10-05 06:01:50',
             ])->save();
         }
     }
-
+    
     protected function category($field, $for)
     {
         return Category::firstOrNew([$field => $for]);

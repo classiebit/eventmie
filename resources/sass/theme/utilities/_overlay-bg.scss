@@ -1,0 +1,28 @@
+/* overlay bg */
+.overlay-bg {
+    position: relative;
+    &:after {
+        content: "";
+        top: 0;
+        left: 0;
+        right:0;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 1;
+        background: linear-gradient(
+            to bottom,
+            rgba(35, 32, 46, 0.39) 40%,
+            rgba(34, 31, 46, 0.38) 35%,
+            rgba(42, 38, 55, 0.36) 60%,
+            rgba(183, 181, 190, 0.08) 100%
+        );
+        border-radius: $border-radius-lg;
+    }
+    .overlay-content {
+        position: absolute;
+        top: 0;
+        padding: 25px;
+        z-index: 55;
+    }
+}

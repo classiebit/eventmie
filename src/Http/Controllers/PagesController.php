@@ -7,7 +7,7 @@ use Facades\Classiebit\Eventmie\Eventmie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-use DB;
+use Classiebit\Eventmie\Models\Page;
 
 
 class PagesController extends Controller
@@ -19,10 +19,10 @@ class PagesController extends Controller
         $this->middleware('common');
     }
     
-    public function view($page = null)
+    // get featured events
+    public function view($page = null, $view = 'eventmie::pages', $extra = [])
     {
-        $page   = DB::table('pages')->where(['slug' => $page])->first();
-        
-        return Eventmie::view('eventmie::pages', compact('page'));
+        $page   = Page::where(['slug' => $page])->firstOrFail();
+        return Eventmie::view($view, compact('page', 'extra'));
    }
 }    

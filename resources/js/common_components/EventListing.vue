@@ -1,95 +1,116 @@
 <template>
-    <div class="row">
-                    
-        <div class="col-12 col-sm-6 col-lg-4" 
-            v-match-heights="{
-                el: ['h5.sub-title'],  // Array of selectors to fix
-            }"
-            v-for="(event, index) in events" 
-            :key="index"
-        >
-            <div class="lgx-event">
-                <a :href="eventSlug(event.slug)" >
+    <div>
+        <div class="row" v-if="events_slider == true">
+            <carousel 
+                :autoplay="true"
+                :autoplayTimeout="3000"
+                :scrollPerPage="false"
+                :paginationEnabled="false"
+                :autoplayHoverPause="true"
+                :perPage="local_item_count"
+                :rtl="dir"
+                :class="'custom-carousel px-1'"
+            >
+                <slide
+                    v-match-heights="{
+                        el: ['h5.sub-title'],  // Array of selectors to fix
+                    }"
+                    v-for="(event, index) in events" 
+                    :key="index"
+                    :class="'col-md-6 col-lg-4 col-12'"
+                >
+                    <Event :event="event" :currency='currency' :date_format='date_format'/>
 
-                    <!-- Upcomming -->
-                    <div class="lgx-event__tag" 
-                        v-if="moment().format('YYYY-MM-DD') < convert_date_to_local(event.start_date, 'YYYY-MM-DD')"
-                    >
-                        <span>{{ trans('em.upcoming') }}</span>
-                        <span>{{countDays(moment().format("YYYY-MM-DD"), convert_date_to_local(event.start_date, "YYYY-MM-DD"))-1}} {{ trans('em.days') }}</span>
-                    </div>
+                </slide>
+            </carousel>
+        </div>
+         
+        <div class="row" v-else>
+            <div 
+                class="col-md-4 col-12 mb-4 px-0"
+                    v-match-heights="{
+                        el: ['h5.sub-title'],  // Array of selectors to fix
+                    }"
+                    v-for="(event, index) in events" 
+                    :key="index"
+            >
+                <Event :event="event" :currency='currency' :date_format='date_format'/>
+            </div>    
+        </div>
 
-                    <!-- today-->
-                    <div class="lgx-event__tag" 
-                        v-if="moment().format('YYYY-MM-DD') == convert_date_to_local(event.start_date, 'YYYY-MM-DD') "
-                    >
-                        <span>{{ trans('em.event') }}</span>
-                        <span>{{ trans('em.today') }}</span>
-                    </div>
-
-                     <!-- ended -->
-                    <div class="lgx-event__tag" 
-                        v-if="moment().format('YYYY-MM-DD') > convert_date_to_local(event.start_date,'YYYY-MM-DD')"
-                    >
-                        <span>{{ trans('em.event') }}</span>
-                        <span>{{ trans('em.ended') }}</span>
-                    </div>
-
-                    <div class="lgx-event__image">
-                        <img :src="'/storage/'+event.thumbnail" alt="">
-                    </div>
-
-                    <div class="lgx-event__info">
-                        <div class="lgx-event__featured-left">
-                            <span>{{ trans('em.free') }}</span>
-                        </div>
-
-                        <div class="meta-wrapper">
-                            <span> {{changeDateFormat(convert_date_to_local(event.start_date), "YYYY-MM-DD")}}</span> 
-                            <span>{{ changeDateFormat(convert_date_to_local(event.end_date), "YYYY-MM-DD")}} </span>
-                            <span>{{event.city}}</span>
-                        </div>
-                        
-                        <h3 class="title">{{ event.title }}</h3>
-                        <h5 class="sub-title">{{ event.venue}}</h5>
-                    </div>
-
-                    <div class="lgx-event__footer">
-                        <div>Free</div>
-                    </div>
-
-                    <div class="lgx-event__category">
-                        <span>{{ event.category_name }}</span>
-                    </div>
-                </a>
+        <div class="row" v-if="not_found">
+            <div class="col-12">
+                <h4 class="heading text-center mt-30"><i class="fas fa-exclamation-triangle"></i> {{ trans('em.events_not_found') }}</h4>
             </div>
         </div>
-        
     </div>
+    
 </template>
 
 <script>
-import VueMatchHeights from 'vue-match-heights';
- 
-Vue.use(VueMatchHeights);
 
 import mixinsFilters from '../mixins.js';
-var moment = require('moment');
+
+import { Carousel, Slide } from 'vue-carousel';
+
+import Event from './Event.vue';
+
 export default {
-    props: ['events'],
+    
+    props: ['events', 'date_format', 'item_count'],
+
+    components: {
+        Carousel,
+        Slide,
+        Event
+    },
+
     mixins:[
         mixinsFilters
     ],
+
     data() {
         return {
-            moment : moment,
+            not_found   : false,
+            events_slider   : events_slider,
+            dir         : false,
+            local_item_count  : this.item_count,
         }
     },
-    methods: {
-    // return route with event slug
-        eventSlug(slug){
-            return route('eventmie.events_show',[slug]);
+
+    methods:{
+        
+        // return route with event slug
+        eventSlug: function eventSlug(slug) {
+            return route('eventmie.events_show', [slug]);
+        },
+
+        getDirection(){
+            document.documentElement.dir == 'rtl' ? this.dir = true : this.dir = false;
+        },
+
+        mobileView(){
+            var androidMobile = window.matchMedia("(max-width: 768px)");
+            if (androidMobile.matches)
+                this.local_item_count = 1;
         }
+  
+    },
+
+
+    watch: {
+        events: function () {
+            this.not_found = false;
+            if(this.events.length <= 0)
+                this.not_found = true;
+        
+        },
+        
+    },
+    mounted(){    
+        this.getDirection();
+        this.mobileView();
     }
+
 }
 </script>

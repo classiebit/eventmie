@@ -1,0 +1,61 @@
+// Extended from bootstrap
+// Carousel
+
+.carousel {
+  .carousel-control-prev, .carousel-control-next {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .carousel-control-prev, .carousel-control-next {
+      visibility: visible;
+    }
+  }
+
+  .carousel-control-prev i, .carousel-control-next i {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    .carousel-control-prev i, .carousel-control-next i {
+      -webkit-transform: scale(1.1);
+      -moz-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      -o-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+
+
+}
+
+
+
+.banner-slider-form {
+  position: absolute;
+  z-index: 99999;
+  top: 55%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+// Mobile
+@include media-breakpoint-only(xs) { 
+  .banner-slider-form {
+    top: 33%;
+
+
+    h1 {
+      font-size: 1.1rem ;
+    }
+    p {
+      font-size: .7rem ;
+    }
+  }
+}

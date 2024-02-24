@@ -186,7 +186,7 @@ return [
     |
     */
 
-    'primary_color' => '#1b89ef',
+    'primary_color' => '#2176FF',
 
     'show_dev_tips' => env('EVENTMIE_PKG_DEV', false) && env('DEMO_MODE', false) ? true : false, // Show development tip "How To Use:" in Menu and Settings
 

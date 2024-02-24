@@ -9,9 +9,8 @@ class AdminMiddleware {
     {
         if(Auth::check() && Auth::user()->hasRole('admin') )
         {
-            return $next($request);
+            return redirect()->route('voyager.dashboard');
         }
-
-        return redirect()->route('eventmie.welcome');
+        return $next($request);
     }
 }

@@ -13,18 +13,22 @@ class BannersTableSeeder extends Seeder
      */
     public function run()
     {
+        $banner = Banner::count();
+        if($banner) 
+            return true;
+
         $banner = $this->banner('id', 1);
         if (!$banner->exists) {
             $banner->fill([
-                'id' => 1,
-                'title' => 'Event Planning Platform Reimagined',
-                'subtitle' => 'Laravel 2020',
-                'image' => 'banners/August2019/3MIAC8BaLwk8ytlYYvVi.jpg',
+                'title' => 'Eventmie Lite',
+                'subtitle' => 'Free Event management & booking platform',
+                'image' => 'banners/November2023/A8XifDakbgJ3B3zgKzWD.webp',
                 'status' => 1,
-                'created_at' => '2019-08-31 09:50:13',
-                'updated_at' => '2019-10-05 05:32:44',
+                'created_at' => '2024-01-25 09:50:13',
+                'updated_at' => '2024-01-25 05:32:44',
             ])->save();
         }
+        
     }
 
     protected function banner($field, $for)

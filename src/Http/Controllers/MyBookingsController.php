@@ -42,14 +42,16 @@ class MybookingsController extends Controller
      *
      * @return array
      */
-    public function index()
+    public function index($view = 'eventmie::bookings.customer_bookings', $extra = [])
     {
-        // get prefix from eventmie config
+        // get prifex from eventmie config
         $path = false;
         if(!empty(config('eventmie.route.prefix')))
             $path = config('eventmie.route.prefix');
 
-        return Eventmie::view('eventmie::bookings.customer_bookings', compact('path'));    
+        // if have booking email data then send booking notification
+        $is_success = 1;    
+        return Eventmie::view($view, compact('path', 'is_success','extra'));
     }
 
     /**
@@ -63,8 +65,10 @@ class MybookingsController extends Controller
 
         $bookings    = $this->booking->get_my_bookings($params);
 
-        if($bookings->isEmpty())
-            return error(__('eventmie::em.booking').' '.__('eventmie::em.not_found'), Response::HTTP_BAD_REQUEST );
+        // check expired booking
+        // event end_date <= today_date
+        foreach($bookings as $key => $val) 
+            $val->expired              = $val->event_end_date <= Carbon::now()->format('Y-m-d') ? 1 : 0;
         
         return response([
             'bookings'  => $bookings->jsonSerialize(),

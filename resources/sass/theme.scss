@@ -1,0 +1,17 @@
+// Fonts Noto Sans ---> use this font
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:300,400,500,600,700');
+
+// Bootstrap functions
+@import 'node_modules/bootstrap/scss/bootstrap-grid';
+@import "node_modules/bootstrap/scss/functions";
+// User Variables
+@import "user-variables";
+// theme variablestheme
+@import "theme/variables";
+//utilities
+@import "theme/utilities";
+
+// Components
+@import "theme/components";
+// User
+@import "user";

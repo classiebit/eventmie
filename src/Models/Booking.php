@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 
 use Classiebit\Eventmie\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class Booking extends Model
 {
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * Table used
@@ -24,13 +25,13 @@ class Booking extends Model
 
     // get booking for customer
     public function get_my_bookings($params = [])
-    {
-        return Booking::select('bookings.*')
+    {   
+        return Booking::select('bookings.*', 'E.slug as event_slug', 'E.thumbnail as event_thumbnail')
                 ->from('bookings')
-                ->selectRaw("(SELECT E.slug FROM events E WHERE E.id = bookings.event_id) event_slug")
-                ->where(['customer_id' => $params['customer_id'] ])
-                ->orderBy('id', 'desc')
-                ->paginate(10);
+                ->leftJoin('events as E', 'E.id', '=', 'bookings.event_id')
+                ->where(['bookings.customer_id' => $params['customer_id'] ])
+                ->orderBy('bookings.id', 'desc')
+                ->paginate(20);
     }
 
 }

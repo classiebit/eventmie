@@ -7,16 +7,14 @@
 require('../vue_common');
 
 /**
- * Below are the page specific plugins and components
-  */
+ * Local Imports
+*/
+Vue.component('VueCarousel', require('vue-carousel').default);
+Vue.component('VueMatchHeights', require('vue-match-heights').default);
 
-// for using time
-window.moment   = require('moment-timezone');  
-
-// Image slider
-window.VueCarousel = require('vue-carousel');
-Vue.use(VueCarousel);
-
+/**
+ * Local Components 
+ */
 Vue.component('event-listing', require('../common_components/EventListing').default);
 Vue.component('banner-slider', require('./components/BannerSlider').default);
 

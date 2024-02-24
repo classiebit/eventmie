@@ -1,0 +1,213 @@
+// Extended from Bootstrap
+// Utilites
+
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/maps";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/utilities";
+@import "node_modules/bootstrap/scss/utilities/api";
+
+
+// flex
+
+@for $flex from 0 to 10 {
+  .flex-#{$flex} {
+    flex: #{$flex} !important;
+  }
+}
+
+
+$utilities: () !default;
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "z-index": (
+      property: z-index,
+      class: z,
+      values: (
+          0:0,
+          1:1,
+          2:2,
+          3:3,
+          4:4,
+          5:5,
+
+
+          ),
+    ),
+    "width": (
+        property: width,
+        class: w,
+        responsive: true,
+        values: (
+          25: 25%,
+          50: 50%,
+          75: 75%,
+          100: 100%,
+          auto: auto
+        )
+    ),
+    "min-viewport-height": (
+      property: min-height,
+      class: min-vh,
+      responsive: true,
+      values: (100: 100vh)
+    ),
+    "border": (
+      property: border,
+      responsive: true,
+      values: (
+        null: $border-width solid $border-color,
+        0: 0,
+      )
+    ),
+    "border-top": (
+      property: border-top,
+      responsive: true,
+      values: (
+        null: $border-width solid $border-color,
+        0: 0,
+      )
+    ),
+    "border-end": (
+      property: border-right,
+      class: border-end,
+      responsive: true,
+      values: (
+        null: $border-width solid $border-color,
+        0: 0,
+      )
+    ),
+    "border-bottom": (
+      property: border-bottom,
+      responsive: true,
+      values: (
+        null: $border-width solid $border-color,
+        0: 0,
+      )
+    ),
+    "border-start": (
+      property: border-left,
+      class: border-start,
+      responsive: true,
+      values: (
+        null: $border-width solid $border-color,
+        0: 0,
+      )
+    ),
+    "border-color": (
+      property: border-color,
+      class: border,
+      responsive: true,
+      values: map-merge($theme-colors, ("white": $white))
+    ),
+    "border-width": (
+      property: border-width,
+      responsive: true,
+      class: border,
+      values: $border-widths
+    ),
+
+    "font-size": (
+      rfs: true,
+      property: font-size,
+      class: fs,
+      values: $font-sizes
+    ),
+
+    "rounded": (
+      property: border-radius,
+      class: rounded,
+      responsive: true,
+      values: (
+        null: $border-radius,
+        0: 0,
+        1: $border-radius-sm,
+        2: $border-radius,
+        3: $border-radius-lg,
+        circle: 50%,
+        pill: $border-radius-pill
+      )
+    ),
+    "color": (
+      property: color,
+      class: text,
+      values: map-merge(
+        $theme-colors,
+        (
+
+        "gray-100": $gray-100,
+        "gray-200": $gray-200,
+        "gray-300": $gray-300,
+        "gray-400": $gray-400,
+        "gray-500": $gray-500,
+        "gray-600": $gray-600,
+        "gray-700": $gray-700,
+        "gray-800": $gray-800,
+        "gray-900": $gray-900,
+         "white": $white,
+         "body": $body-color,
+         "muted": $text-muted,
+         "black-50": rgba($black, .5),
+         "white-50": rgba($white, .5),
+         "reset": inherit,
+         "pink": $pink,
+         "pink-100": $pink-100
+        )
+      )
+    ),
+    "background-color": (
+      property: background-color,
+      class: bg,
+      values: map-merge(
+        $theme-colors,
+        (
+          "gray-100": $gray-100,
+        "gray-200": $gray-200,
+        "gray-300": $gray-300,
+        "gray-400": $gray-400,
+        "gray-500": $gray-500,
+        "gray-600": $gray-600,
+        "gray-700": $gray-700,
+        "gray-800": $gray-800,
+        "gray-900": $gray-900,
+          "body": $body-bg,
+          "white": $white,
+          "transparent": transparent,
+          "pink": $pink,
+          "pink-100": $pink-100,
+          "success-100": $green-100,
+          "purple-100": $purple-100,
+        )
+      )
+    ),
+    "smooth-shadow": (
+      property: box-shadow,
+      class: smooth-shadow,
+      values: (
+        sm: $box-shadow-smooth-sm,
+        md: $box-shadow-smooth-md,
+        lg: $box-shadow-smooth-lg,
+      )
+    ),
+    "position": (
+      property: position,
+      responsive: true,
+      values: static relative absolute fixed sticky
+    ),
+  )
+);
+
+
+
+
+// Utitlities classes
+
+@import "utilities/_overlay-bg.scss";
+@import "utilities/_text-size.scss";
+@import "utilities/_icon-shape.scss";
+@import "utilities/_img-hover.scss";
+@import "utilities/_color.scss";
+@import "utilities/_spacing.scss";

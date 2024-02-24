@@ -50,11 +50,12 @@ class ForgotPasswordController extends Controller
     {
         $this->validate($request, ['email' => 'required|email']);
         
-        $response = $this->broker()->sendResetLink(
-            $request->only('email')
-        );
+        try {
+            $response = $this->broker()->sendResetLink(
+                $request->only('email')
+            );
+        } catch (\Throwable $th) {}
 
-        
         return back()->with('status', __('eventmie::em.reset_email_info'));
     }
 

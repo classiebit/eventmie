@@ -16,4 +16,3 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/storage/{{ setting('site.site_favicon') }}">
 <link rel="icon" type="image/png" sizes="96x96" href="/storage/{{ setting('site.site_favicon') }}">
 <link rel="icon" type="image/png" sizes="16x16" href="/storage/{{ setting('site.site_favicon') }}">
-<link rel="manifest" href="/storage/{{ setting('site.site_favicon') }}">

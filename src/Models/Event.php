@@ -5,10 +5,13 @@ namespace Classiebit\Eventmie\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use DB;
+use Classiebit\Eventmie\Models\Booking;
 
 class Event extends Model
 {
+    
     protected $guarded = [];
+    protected $with    = ['bookings'];
 
     /**
      * Get the route key for the model.
@@ -28,7 +31,7 @@ class Event extends Model
     {
         return Event::where(['status' => 1])->count();
     }
-    
+
     // get event
     public function get_event($slug = null, $event_id = null)
     {   
@@ -51,12 +54,10 @@ class Event extends Model
     public function save_event($params = [], $event_id = null)
     {
        // if have no event id then create new event
-        if(empty($event_id))
-        {
-            return Event::create($params);
-        }
-        // if have event id then update     
-        return Event::where(['id' => $event_id])->update($params);
+       return Event::updateOrCreate(
+            ['id' => $event_id],
+            $params
+        );
     }
 
     
@@ -68,81 +69,153 @@ class Event extends Model
      */
     public function events($params  = [])
     {   
-        $query = DB::table('events'); 
-
+        $query = Event::query(); 
+        
         $query
-        ->select("events.*");
+        ->leftJoin("categories", "categories.id", '=', "events.category_id")
+        ->select(["events.*", "categories.name as category_name"]);
+
         if(!empty($params['search']))    
         {
             $query
             ->whereRaw("( title LIKE '%".$params['search']."%' 
                 OR venue LIKE '%".$params['search']."%' OR state LIKE '%".$params['search']."%' OR city LIKE '%".$params['search']."%')");
         }
+
+        if(!empty($params['city']))
+        {
+            $query
+            ->where('city','LIKE',"%{$params['city']}%");
+        }
+
+        if(!empty($params['state']))
+        {
+            $query
+            ->where('state','LIKE',"%{$params['state']}%");
+        }
             
-        $query->selectRaw("(SELECT CN.country_name FROM countries CN WHERE CN.id = events.country_id) country_name")
-                ->selectRaw("(SELECT  CT.name FROM categories CT WHERE CT.id = events.category_id) category_name");
+        $query->selectRaw("(SELECT CN.country_name FROM countries CN WHERE CN.id = events.country_id) country_name");
         
         if(!empty($params['category_id']))
-            $query ->where('category_id',$params['category_id']);
+            $query->where('category_id',$params['category_id']);
 
+        if(!empty($params['country_id']))
+            $query->where('country_id',$params['country_id']);
+
+ 
         if(!empty($params['start_date']) && !empty($params['end_date']))
         {
             $query ->where('start_date', '>=' , $params['start_date']);
             $query ->where('start_date', '<=' , $params['end_date']);
         }
         
-        if(!empty($params['start_date']) && empty($params['end_date']))
-            $query ->where('start_date', $params['start_date']);
 
-        $query->where(["events.status" => 1, "events.publish" => 1]);
-
+        $query
+        ->where(["events.status" => 1, "events.publish" => 1, "categories.status" => 1]);
+        
         // if hide expired events is on
         if(!empty(setting('booking.hide_expire_events')))
-        {
+        {   
             $today  = \Carbon\carbon::now(setting('regional.timezone_default'))->format('Y-m-d');    
             $query->whereRaw('(IF(events.repetitive = 1, events.end_date >= "'.$today.'", events.start_date >= "'.$today.'"))');
         }
 
-        return $query->orderBy('events.start_date', 'ASC')
-                    ->paginate(9);
+        return $query->orderBy('events.start_date', 'ASC')->paginate(9);
     }
     
     // get top selling event
     public function get_top_selling_events()
     {
-        return Event::select('events.*')->from('events')
-            ->selectRaw("(SELECT SUM(BK.quantity) FROM bookings BK WHERE BK.event_id = events.id) total_booking")
-            ->selectRaw("(SELECT CN.country_name FROM countries CN WHERE CN.id = events.country_id) country_name")
-            ->selectRaw("(SELECT CT.name FROM categories CT WHERE CT.id = events.category_id) category_name")
-            ->where(['publish' => 1, 'status' => 1])
-            ->orderBy('total_booking', 'desc')
-            ->limit(6)
-            ->get();
+        return Event::leftJoin("categories", "categories.id", '=', "events.category_id")
+                ->select(["events.*", "categories.name as category_name"])
+                ->selectRaw("(SELECT SUM(BK.quantity) FROM bookings BK WHERE BK.event_id = events.id) total_booking")
+                ->selectRaw("(SELECT CN.country_name FROM countries CN WHERE CN.id = events.country_id) country_name")
+                ->where(['events.publish' => 1, 'events.status' => 1, 'categories.status' => 1])
+                ->whereDate('end_date', '>=', Carbon::today()->toDateString())
+                ->orderBy('total_booking', 'desc')
+                ->limit(6)
+                ->get();
     }
     
     // get upcomming events
     public function get_upcomming_events()
     {
-        return  Event::select('events.*')
+        return  Event::leftJoin("categories", "categories.id", '=', "events.category_id")
+                    ->select(["events.*", "categories.name as category_name"])
                     ->whereDate('start_date', '!=', Carbon::now()->format('Y-m-d'))
                     ->whereDate('start_date', '>', Carbon::now()->format('Y-m-d'))
                     ->selectRaw("(SELECT CN.country_name FROM countries CN WHERE CN.id = events.country_id) country_name")
-                    ->selectRaw("(SELECT CT.name FROM categories CT WHERE CT.id = events.category_id) category_name")
-                    ->where(['publish' => 1, 'status' => 1])
+                    ->where(['events.publish' => 1, 'events.status' => 1, 'categories.status' => 1])
+                    ->whereDate('end_date', '>', Carbon::today()->toDateString())
                     ->orderBy('start_date')
                     ->limit(6)
                     ->get();
 
     }
 
-    // get customers
-    public function get_customers($params = [])
+    // get cities events
+    public function get_cities_events()
     {
-        return  DB::table('users')
-                    ->select('name', 'id')
-                    ->where('role_id', 2)
-                    ->get()
-                    ->toArray();
+        $mode           = config('database.connections.mysql.strict');
+
+        $table          = 'events'; 
+        $query          = DB::table($table);
+
+        if(!$mode)
+        {
+            // safe mode is off
+            $select = array(
+                            "city",
+                            "poster",
+                            DB::raw("COUNT(*) AS cities"),
+                        );
+        }
+        else
+        {
+            // safe mode is on
+            $select = array(
+                            "city",
+                            DB::raw("ANY_VALUE(poster) AS poster"),
+                            DB::raw("COUNT(*) AS cities"),
+                        );
+        }
+
+        $query->select($select)
+                ->where(['publish' => 1, 'status' => 1]);
+                
+                        
+        // if hide expired events is on
+        if(!empty(setting('booking.hide_expire_events')))
+        {
+            $today  = \Carbon\carbon::now(setting('regional.timezone_default'))->format('Y-m-d');    
+            $query->whereRaw('(IF(events.repetitive = 1, events.end_date >= "'.$today.'", events.start_date >= "'.$today.'"))');
+            
+        }
+        
+        $result = $query->where(['events.publish' => 1, 'events.status' => 1])->groupBy('city')
+                        ->orderBy('cities', 'DESC')
+                        ->limit(6)->get();
+                        
+        return to_array($result);
+    }
+
+   
+    // get customers
+    public function get_customers($search = null)
+    {
+        $query = DB::table('users'); 
+        $query->select('name', 'id')
+                ->where('role_id', 2);
+        if(!empty($search))
+        {
+            $query
+            ->where(function ($query) use($search) {
+                $query->where('name','LIKE',"%{$search}%")
+                      ->orWhere('email','LIKE',"%{$search}%");
+            });
+        }   
+        $result = $query->limit(10)->get();
+        return to_array($result);
     }
 
     
@@ -153,5 +226,9 @@ class Event extends Model
             ->delete();
     }
 
-     
-}
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+ 
+}   

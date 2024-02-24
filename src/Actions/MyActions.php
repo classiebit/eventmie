@@ -8,7 +8,7 @@ class MyActions extends AbstractAction
 {
     public function getTitle()
     {
-        return __('eventmie::em.my').' '.__('eventmie::em.actions');
+        return __('eventmie::em.actions');
     }
 
     public function getIcon()

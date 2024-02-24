@@ -101,6 +101,10 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
                 continue;
             }
 
+            if ($setting->type == 'password') {
+                $content = $request->mail_mail_password;
+            }
+
             $key = preg_replace('/^'.Str::slug($setting->group).'./i', '', $setting->key);
 
             $setting->group = $request->input(str_replace('.', '_', $setting->key).'_group');

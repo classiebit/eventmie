@@ -4,227 +4,220 @@
 @section('meta_title', $event->meta_title)
 @section('meta_keywords', $event->meta_keywords)
 @section('meta_description', $event->meta_description)
-@section('meta_image', '/storage/'.$event['poster'])
+@section('meta_image', '/storage/' . $event['thumbnail'])
 @section('meta_url', url()->current())
 
-    
+
 @section('content')
 
-<!--BANNER-->
-<section>
-    <div class="lgx-banner event-poster" style="background-image: url({{ '/storage/'.$event['poster'] }});">
-        <div class="lgx-banner-style">
-            <div class="lgx-inner lgx-inner-fixed">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="lgx-banner-info-area">
-                                <div class="lgx-banner-info">
-                                    <h2 class="title">{{$event->title}}</span></h2>
-                                    <h3 class="location"><i class="fas fa-map-marked-alt"></i> {{$event->venue}},{{$event->address}}.</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--//.ROW-->
-                </div>
-                <!-- //.CONTAINER -->
+    <!--Cover-->
+    <section>
+        <div class="container-fluid p-0">
+            <div class="cover-img-bg" style="background-image: url({{ '/storage/' . $event['poster'] }});">
+                <img class="cover-img" src="{{ '/storage/' . $event['poster'] }}" alt="{{ $event['title'] }}" />
             </div>
-            <!-- //.INNER -->
         </div>
-    </div>
-</section>
-<!--BANNER END-->
+    </section>
 
-<!--ABOUT-->
-<section>
-    <div id="lgx-about" class="lgx-about">
-        <div class="lgx-inner">
-            <div class="container-fluid">
+    <!--ABOUT-->
+    <section>
+        <div class="pt-lg-4 pb-lg-11 py-4">
+            <div class="container">
                 <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-12">
+                        <div class="card mb-4">
+                            <!-- listing detail head -->
+                            <div class="card-body p-4 py-3">
+                                <h2 class="mb-2">{{ $event['title'] }}</h2>
+                                <p class="fs-6 mb-2">
+                                    <span class="badge bg-primary text-white">{{ $category['name'] }}</span>
 
-                    <div class="col-12 col-sm-12 col-lg-4 offset-lg-1">
-                        <div class="lgx-banner-info-area">
-                            <div class="lgx-banner-info-circle lgx-info-circle">
-                                <div class="info-circle-inner" style="background-image: url({{ eventmie_asset('img/bg-wave-circle.png') }});">
-                                    <h3 class="date">
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $event->start_date)->format('d')}} 
-                                        <span>
-                                            {{\Carbon\Carbon::createFromFormat('Y-m-d', $event->start_date)->format('M-Y')}}
-                                        </span>
-                                    </h3>
-                                    <div class="lgx-countdown-area">
-                                        <!-- Date Format :"Y/m/d" || For Example: 1017/10/5  -->
-                                        <div id="lgx-countdown" 
-                                            data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d', $event->start_date)
-                                                ->format('Y/m/d')}}">
+                                    <span class="badge bg-primary text-white">@lang('eventmie-pro::em.free_tickets')</span>
+
+                                    @if ($ended)
+                                    <span class="badge bg-danger text-white">@lang('eventmie-pro::em.event_ended')</span>
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="card-footer bg-gradient">
+                                <div class="text-white">
+                                    <span><strong>@lang('eventmie-pro::em.share_event') &nbsp;</strong></span>
+                                    <a class="me-1 text-white  badge text-bg-primary" target="_blank"
+                                        href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                    <a class="me-1 text-white  badge text-bg-primary" target="_blank"
+                                        href="https://twitter.com/intent/tweet?text={{ urlencode($event->title) }}&url={{ url()->current() }}">
+
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a class="me-1 text-white  badge text-bg-primary" target="_blank"
+                                        href="http://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}&title={{ urlencode($event->title) }}">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a class="me-1 text-white  badge text-bg-primary" target="_blank"
+                                        href="https://wa.me/?text={{ url()->current() }}">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                    <a class="me-1 text-white  badge text-bg-primary" target="_blank"
+                                        href="https://www.reddit.com/submit?title={{ urlencode($event->title) }}&url={{ url()->current() }}">
+                                        <i class="fab fa-reddit"></i>
+                                    </a>
+
+                                    <a class="me-1 text-white  badge text-bg-primary" href="javascript:void(0)"
+                                        onclick="copyToClipboard()"><i class="fas fa-link"></i></a>
+
+                                </div>
+
+                            </div>
+                            <!-- listing detail head -->
+                        </div>
+                        <!--SCHEDULE-->
+                        <div class="card mb-4 bg-light" id="buy-tickets">
+                            <div class="card-body p-4">
+                                <div class="mb-4 text-left">
+                                    <h4 class="mb-0 fw-bold h4">@lang('eventmie-pro::em.get_tickets')</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <select-dates :event="{{ json_encode($event, JSON_HEX_APOS) }}"
+                                                    :max_ticket_qty="{{ json_encode($max_ticket_qty, JSON_HEX_APOS) }}"
+                                                    :login_user_id="{{ json_encode(\Auth::id(), JSON_HEX_APOS) }}"
+                                                    :is_customer="{{ Auth::id() ? (Auth::user()->hasRole('customer') ? 1 : 0) : 1 }}"
+                                                    :is_admin="{{ Auth::id() ? (Auth::user()->hasRole('admin') ? 1 : 0) : 0 }}"
+                                                    :total_capacity="{{ $total_capacity }}"
+                                                    :date_format="{{ json_encode(
+                                                        [
+                                                            'vue_date_format' => format_js_date(),
+                                                            'vue_time_format' => format_js_time(),
+                                                        ],
+                                                        JSON_HEX_APOS,
+                                                    ) }}">
+
+                                                </select-dates>
+                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+                        <!--SCHEDULE END-->
+
+                        <!-- post single -->
+                        <div class="card mb-4">
+                            <div class="card-body p-4">
+                                <h4>@lang('eventmie-pro::em.overview')</h4>
+                                <p>{!! $event['description'] !!}</p>
+                            </div>
+                        </div>
+
+                        <!-- post single -->
+
+                        <!--Event FAQ-->
+                        @if ($event['faq'])
+                            <div class="card mb-4">
+                                <div class="card-body p-4">
+                                    <h4 class=" text-left">@lang('eventmie-pro::em.event_info')</h4>
+                                    <p>{!! $event['faq'] !!}</p>
+                                </div>
+                            </div>
+                        @endif
+                        <!--Event FAQ END-->
+
+                        <!--PHOTO GALLERY-->
+                        @if (!empty($event->images))
+                            <div class="card mb-4">
+                                <div class="card-body p-4 pb-0">
+                                    <h4 class="mb-3">@lang('eventmie-pro::em.event_gallery')</h4>
+                                    <gallery-images :gimages="{{ $event->images }}" :style=''>
+                                    </gallery-images>
+                                </div>
+                            </div>
+                        @endif
+                        <!--PHOTO GALLERY END-->
+
                     </div>
 
-                    <div class="col-12 offset-sm-1 col-sm-10 col-lg-5">
-                        <div class="lgx-about-content-area">
-                            <div class="lgx-heading">
-                                <h2 class="heading">{{ $event['title'] }}</h2>
-                                <h3 class="subheading">
-                                    <span class="lgx-badge lgx-badge-info">{{ $category['name'] }}</span>
-                                    <span class="lgx-badge lgx-badge-success">@lang('eventmie::em.free') @lang('eventmie::em.tickets')</span>
-                                    
-                                    @if($ended)   
-                                    <span class="lgx-badge lgx-badge-danger">@lang('eventmie::em.event') @lang('eventmie::em.ended')</span>
+                    <!-- comment-form -->
+
+                    {{-- Event Start Date Start --}}
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-12">
+
+                        <!-- widget -->
+                        <div class="card mb-4">
+                            <div class="card-body p-4">
+                                <div class="d-grid">
+                                    <a class="btn btn-primary btn-lg " href="#buy-tickets">
+                                        <i class="fas fa-ticket-alt"></i>
+                                        @lang('eventmie-pro::em.get_tickets')
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <!-- card-->
+                                <h4 class="mb-2 fw-bold">@lang('eventmie-pro::em.where')</h4>
+                                <p>
+                                    <strong>{{ $event->venue }}</strong>
+
+                                    <br>
+                                    @if ($event->address)
+                                        {{ $event->address }} {{ $event->zipcode }} <br>
                                     @endif
-                                </h3>
-                            </div>
-                            <div class="lgx-about-content">{!! $event['description'] !!}</div>
-                        </div>
-                    </div>
 
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-12 col-sm-5 col-md-5 offset-md-1">
-                        <div class="lgx-about-service">
-                            <div class="lgx-single-service lgx-single-service-color">
-                                <span class="icon"><i class="fas fa-map-marked-alt" aria-hidden="true"></i></span>
-                                <div class="text-area">
-                                    <h2 class="title">@lang('eventmie::em.where')</h2>
+                                    @if ($event->city)
+                                        {{ $event->city }},
+                                    @endif
+
+                                    @if ($event->state)
+                                        {{ $event->state }},
+                                    @endif
+
+                                    @if ($country)
+                                        {{ $country->get('country_name') }}
+                                    @endif
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <!-- card-->
+                        <div class="card  mb-4">
+                            <div class="card-body">
+                                <h4 class="mb-2 fw-bold">@lang('eventmie-pro::em.when')</h4>
                                     <p>
-                                        <strong>{{$event->venue}}</strong> <br>
-                                        {{$event->address}} {{ $event->zipcode }} <br>
-                                        {{ $event->city }}, 
-                                        {{ $event->state }}, 
-                                        {{ $country['country_name'] }}
+                                        {{ userTimezone($event->start_date . ' ' . $event->start_time, 'Y-m-d H:i:s', format_carbon_date(false)) }}
+
+                                        {{ showTimezone() }}
+
+                                        -
+
+                                        {{ userTimezone($event->end_date . ' ' . $event->end_time, 'Y-m-d H:i:s', format_carbon_date(false)) }}
+
+                                        {{ showTimezone() }}
                                     </p>
-                                </div>
+                                
+
                             </div>
                         </div>
+
                     </div>
-                    <div class="col-12 col-sm-5 col-md-5">
-                        <div class="lgx-about-service">
-                             <div class="lgx-single-service lgx-single-service-color">
-                                <span class="icon"><i class="fas fa-stopwatch" aria-hidden="true"></i></span>
-                                <div class="text-area">
-                                    <h2 class="title">@lang('eventmie::em.when')</h2>
-                                    <p>
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $event->start_date)->format('d M Y') }}, 
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $event->start_date)->format('l') }}, 
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $event->start_date.''.$event->start_time)->format('h:m A') }}
-
-                                        <br>@lang('eventmie::em.till')<br>
-
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $event->end_date)->format('d M Y') }}, 
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $event->end_date)->format('l') }}, 
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $event->end_date.''.$event->end_time)->format('h:m A') }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- //.CONTAINER -->
-        </div><!-- //.INNER -->
-    </div>
-</section>
-<!--ABOUT END-->
-
-<!--Ticket Booking-->
-<section>
-    <div id="lgx-schedule" class="lgx-schedule">
-        <div class="lgx-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-registration-area-simple">
-                            <div class="lgx-heading lgx-heading-white">
-                                <h2 class="heading">@lang('eventmie::em.get_tickets')</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <select-dates :event="{{ json_encode($event, JSON_HEX_APOS) }}" 
-                        :max_ticket_qty="{{ json_encode($max_ticket_qty, JSON_HEX_APOS) }}">
-                    </select-dates>
-                </div>
-                <!--//.ROW-->
-            </div>
-            <!-- //.CONTAINER -->
-        </div>
-        <!-- //.INNER -->
-    </div>
-</section>
-<!--Ticket Booking END-->
-
-
-
-<!--Event FAQ-->
-<section>
-    <div id="lgx-about" class="lgx-about">
-        <div class="lgx-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-heading">
-                            <h2 class="heading">@lang('eventmie::em.event') @lang('eventmie::em.info')</h2>
-                        </div>
-                    </div>
-                    <!--//main COL-->
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-about-content-area text-center">
-                            <div class="lgx-about-content">{!! $event['faq'] !!}</div>
-                        </div>
-                    </div>
-                </div>
-                <!--//.ROW-->
-            </div>
-            <!-- //.CONTAINER -->
-        </div>
-    </div>
-</section>
-<!--Event FAQ END-->
-
-
-<!--PHOTO GALLERY-->
-@if(!empty($event->images))
-<section>
-    <div id="lgx-photo-gallery" class="lgx-gallery-popup lgx-photo-gallery-normal lgx-photo-gallery-black">
-        <div class="lgx-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-heading lgx-heading-white">
-                            <h2 class="heading">@lang('eventmie::em.event') @lang('eventmie::em.gallery')</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-gallery-area">
-                            @foreach(json_decode($event->images, true) as $item)
-                            <div  class="lgx-gallery-single">
-                                <figure>
-                                    <img title="{{ $event->title }}" src="/storage/{{ $item }}" alt="{{ $event->slug }}" style="height: 280px;"/>
-                                </figure>
-                            </div> <!--Single photo-->
-                            @endforeach
-                        </div>
-                    </div>
+                    {{-- Event Start Date End --}}
                 </div>
             </div>
         </div>
-    </div>
-</section>
-@endif
-<!--PHOTO GALLERY END-->
 
+    </section>
+    <!--ABOUT END-->
 @endsection
 
-
 @section('javascript')
-<script type="text/javascript" src="{{ eventmie_asset('js/events_show.js') }}"></script>
+    <script type="text/javascript" src="{{ eventmie_asset('js/events_show.js') }}"></script>
 @stop

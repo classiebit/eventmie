@@ -1,34 +1,26 @@
 <template>
     <div class="tab-pane active">
         <div class="panel-group">
-            <div class="panel panel-default lgx-panel">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <form ref="form" @submit.prevent="cropThumbnailPoster" method="POST" enctype="multipart/form-data" class="lgx-contactform form-horizontal">
+                    <form ref="form" @submit.prevent="cropThumbnailPoster" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="event_id" v-model="event_id">
                         <input type="hidden" v-model="thumbnail" name="thumbnail">
                         <input type="hidden" v-model="poster" name="poster">
 
-                        <div class="form-group">
-                            <ol>
-                                <li><span class="help-block">{{ trans('em.thumbnail_info') }} 500x500 px (jpg/jpeg/png) </span></li>
-                                <li><span class="help-block">{{ trans('em.poster_info') }} 1920x1080 px (jpg/jpeg/png) </span></li>
-                                <li><span class="help-block">{{ trans('em.zoom_info') }}</span></li>
-                                <li><span class="help-block">{{ trans('em.drag_info') }}</span></li>
-                            </ol>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">{{ trans('em.thumbnail') }} {{ trans('em.image') }}</label>
-                            
-                            <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label mb-0">{{ trans('em.thumbnail_image') }}</label>
+
+                                <p class="mb-2 mt-0"><small class="text-muted">{{ trans('em.zoom_info') }} {{ trans('em.drag_info') }}</small></p>
                                 <croppa v-model="thumbnail_croppa"
                                     :placeholder="trans('em.drag_drop')+' '+trans('em.or')+' '+trans('em.browse')+' '+trans('em.thumbnail')"
                                     :placeholder-font-size="16"
-                                    :class="'croppa-thumbnail'"
-
-                                    :width="256"
-                                    :height="256"
-                                    :quality="2"
+                                    :placeholder-color="'#000'"
+                                    :class="'croppa-thumbnail '"
+                                    :quality="1"
+                                    :width="854"
+                                    :height="480"
 
                                     :prevent-white-space="true"
                                     :show-remove-button="true"
@@ -39,26 +31,31 @@
                                     @file-size-exceed="onFileSizeExceed"
                                     
                                     :initial-image="thumbnail_preview"
+
+                                    @file-choose="isDirty()"
                                 >
-                                <img crossOrigin="anonymous" :src="thumbnail_preview"
-                                slot="initial">
+                                    <img crossOrigin="anonymous" :src="thumbnail_preview" slot="initial" :class="' p-2'">
                                 </croppa>
                                 <span v-show="errors.has('thumbnail')" class="help-block text-danger">{{ errors.first('thumbnail') }}</span>
+
+                                <p class="mb-0 text-muted">{{ trans('em.thumbnail_info') }}</p>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">{{ trans('em.poster') }} {{ trans('em.image') }}</label>
-                            
-                            <div class="col-md-10">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label mb-0">{{ trans('em.poster_image') }}</label>
+
+                                <p class="mb-2 mt-0"><small class="text-muted">{{ trans('em.zoom_info') }} {{ trans('em.drag_info') }}</small></p>
                                 <croppa v-model="poster_croppa"
                                     :placeholder="trans('em.drag_drop')+' '+trans('em.or')+' '+trans('em.browse')+' '+trans('em.poster')"
                                     :placeholder-font-size="16"
-                                    :class="'croppa-cover'"
+                                    :placeholder-color="'#000'"
+                                    :class="'croppa-cover  p-2'"
 
-                                    :width="480"
-                                    :height="270"
-                                    :quality="4"
+                                    :quality="1"
+                                    :width="1280"
+                                    :height="720"
 
                                     :prevent-white-space="true"
                                     :show-remove-button="true"
@@ -69,52 +66,59 @@
                                     @file-size-exceed="onFileSizeExceed"
 
                                     :initial-image="poster_preview"
+
+                                    @file-choose="isDirty()"
                                 >
-                                <img crossOrigin="anonymous" :src="poster_preview"
-                                slot="initial">
+                                    <img crossOrigin="anonymous" :src="poster_preview"
+                                    slot="initial" :class="''">
                                 </croppa>
                                 <span v-show="errors.has('poster')" class="help text-danger">{{ errors.first('poster') }}</span>
+
+                                <p class="mb-0 text-muted">{{ trans('em.poster_info') }}</p>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">{{ trans('em.images') }} {{ trans('em.gallery') }}</label>
-                            <div class="col-md-4">
-                                <input multiple="multiple" type="file" class="form-control" ref="images" name="images[]">
-                                <span class="help-block">{{ trans('em.gallery_info') }}</span>
+                        <div class="mb-3">
+                            <label class="form-label">{{ trans('em.images_gallery') }}</label>
+                            <div class="col-md-12 mb-3">
+                                <input multiple="multiple" type="file" class="form-control" ref="images" name="images[]" @change="isDirty()">
+                                <span class="text-muted">{{ trans('em.gallery_info') }}</span>
                                 <span v-show="errors.has('images')" class="help text-danger">{{ errors.first('images') }}</span>
                             </div>
-                            <div class="col-md-6">
+                            <div class="w-100">
                                 <div class="row" v-if="multiple_images.length > 0">
-                                    <div class="col-3" 
+                                    <div class="col-md-2"
                                         v-for="(image,index) in multiple_images" 
                                         :key="index">
-                                        <img :src="'/storage/'+image" class="img-responsive img-rounded">
+                                        
+                                        <button type="button" class="btn-sm btn-remove-image bg-light-danger text-danger" @click="deleteGalleryImages(image)">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <img :src="'/storage/'+image" class="rounded img-fluid">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn lgx-btn btn-block"><i class="fas fa-sd"></i> {{ trans('em.save') }}</button>
+                        <div class="mb-3">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-sd-card"></i> {{ trans('em.save') }}</button>
                             </div>
                         </div>
                         
                     </form>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import { mapState, mapMutations} from 'vuex';
-import Croppa from 'vue-croppa';
+
 import mixinsFilters from '../../mixins.js';
 
-Vue.use(Croppa);
+
 export default {
 
     mixins:[
@@ -124,12 +128,12 @@ export default {
         return {
             // thumbnail
             thumbnail           : null,
-            thumbnail_preview   : null,
+            thumbnail_preview   : '',
             thumbnail_croppa    : null,
 
             // poster
             poster              : null,
-            poster_preview      : null,
+            poster_preview      : '',
             poster_croppa       : null,
             
             images              : [],
@@ -144,8 +148,8 @@ export default {
 
     methods: {
         // update global variables
-        ...mapMutations(['add']),
-        
+        ...mapMutations(['add', 'update']),
+
         // ======================CROPPER METHODS==================
         // cropper validation error
         onFileTypeMismatch (file) {
@@ -155,6 +159,8 @@ export default {
             Vue.helpers.showToast('error', trans('em.max_file')+' 10MB');
         },
         // ======================CROPPER METHODS==================
+
+        
 
         // validate data on form submit
         validateForm(event) {
@@ -199,22 +205,18 @@ export default {
             // prepare form data for post request
             let post_url = route('eventmie.myevents_store_media');
             let post_data = new FormData(this.$refs.form);
-            let post_progress = {
-                onUploadProgress: uploadEvent => {
-                    // console.log('Upload progress: '+ Math.round(uploadEvent.loaded / uploadEvent.total * 100)+ '%');
-                }
-            };
-
+            
             // axios post request
-            axios.post(post_url, post_data, post_progress)
+            axios.post(post_url, post_data)
             .then(res => {
                 // on success
+                // use vuex to update global sponsors array
                 if(res.data.status)
                 {
                     // res.data.data
                     this.images  = res.data.images;
                     this.multiple_images = this.images.images ? JSON.parse(this.images.images) : [];
-                    this.showNotification('success', trans('em.event')+' '+trans('em.saved')+' '+trans('em.successfully'));
+                    this.showNotification('success', trans('em.event_save_success'));
                     // reload page   
                     setTimeout(function() {
                         location.reload(true);
@@ -239,9 +241,54 @@ export default {
                 this.multiple_images           = this.event.images ? JSON.parse(this.event.images) : [];
             }    
         },
+
+        //delete 
+        deleteGalleryImages(image = null){
+               this.showConfirm(trans('em.delete')).then((res) => {
+                if(res) {
+                    // prepare form data for post request
+                    let post_url = route('eventmie.delete_image');
+                    let post_data = {
+                        'event_id' : this.event.id,
+                        'image'    : image,
+                        'organiser_id'     : this.organiser_id
+                    };
+                    
+                    // axios post request
+                    axios.post(post_url, post_data)
+                    .then(res => {
+                        // on success
+                        // use vuex to update global sponsors array
+                        if(res.data.status)
+                        {
+                            this.images           = res.data.images;
+                            
+                            this.multiple_images  = this.images.images ? JSON.parse(this.images.images) : [];
+
+                            this.showNotification('success', trans('em.event_save_success'));
+                        }    
+                    })
+                    .catch(error => {
+                        let serrors = Vue.helpers.axiosErrors(error);
+                        if (serrors.length) {
+                            this.serverValidate(serrors);
+                        }
+                    });
+                }
+            })
+
+        },
+
+        isDirty() {
+            this.add({is_dirty: true});
+        },
+        isDirtyReset() {
+            this.add({is_dirty: false});
+        },
         
     },
     mounted(){
+        this.isDirtyReset();
         // if user have no event_id then redirect to details page
         // if user have no event_id then redirect to details page
         let event_step  = this.eventStep();

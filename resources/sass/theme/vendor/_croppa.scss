@@ -1,0 +1,31 @@
+// Image cropper
+.croppa-container {
+    background: lighten($gray-400, 10%);
+    border: none;
+    border-radius: 0;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+    }
+    
+    // &.croppa-thumbnail {
+    //     width: 342px;
+    //     height: 192px;
+    // }
+
+    // &.croppa-cover {
+    //     width: 480px;
+    //     height: 270px;
+    // }
+
+    svg {
+        position: absolute !important;
+        z-index: 999 !important;
+        top: 0 !important;
+        right: 0 !important;
+    }
+}

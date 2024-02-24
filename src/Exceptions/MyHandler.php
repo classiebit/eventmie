@@ -5,7 +5,8 @@ namespace Classiebit\Eventmie\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Auth\AuthenticationException;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class MyHandler extends ExceptionHandler
 {
     /**
@@ -51,13 +52,26 @@ class MyHandler extends ExceptionHandler
     */
     public function render($request, Throwable $exception)
     {
+        
+        if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
+            
+            if(request()->wantsJson())
+            {
+                return response()->json(['message' => 'Not Found!'], 404);
+            }
+            else
+            {
+                return response()->view('eventmie::errors.404');
+            }
+            
+        }
         return parent::render($request, $exception);
     }
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         return $request->expectsJson()
-                    ? response()->json(['message' => 'Unauthenticated.', 'status' => false, 'url' => route('eventmie.login')], 401)
+                    ? response()->json(['message' => __('unauthenticated'), 'status' => false, 'url' => route('eventmie.login')], 401)
                     : redirect()->guest(route('eventmie.login'));
     }
 }

@@ -1,0 +1,26 @@
+// Gallery
+
+.gallery-img {
+  position: relative;
+  .zoom-icon {
+    position: absolute;
+    top: 0;
+    left: 46%;
+    font-size: 18px;
+    background-color: $primary;
+    border-radius: 50px;
+    height: 35px;
+    width: 35px;
+    padding: 1px 9px;
+    line-height: 33px;
+    opacity: 0;
+    transition: 0.5s ease;
+    color: $white;
+  }
+  &:hover {
+    .zoom-icon {
+      opacity: 1;
+      transition: 0.5s ease;
+    }
+  }
+}

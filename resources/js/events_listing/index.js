@@ -7,21 +7,21 @@
 require('../vue_common');
 
 /**
- * Below are the page specific plugins and components
-  */
+ * Local Imports
+*/
+Vue.component('DatePicker', require('vue2-datepicker').default);
+Vue.component('VueMatchHeights', require('vue-match-heights').default);
 
-// for using time
-window.moment   = require('moment-timezone');  
 
-// add Vue-router with SEO friendly configurations
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-
-// import component for vue routes
+/**
+ * Local Components 
+ */
 import Events from './components/Events';
 
 
-// vue routes
+/**
+ * Local Vue Routes 
+ */
 const routes = new VueRouter({
     mode: 'history',
     base: '/',
@@ -29,6 +29,7 @@ const routes = new VueRouter({
     routes: [
         {
             path: path ? '/'+path+'/events' : '/events',
+
             // Inject  props based on route.query values for pagination
             props: (route) => ({
                 page: route.query.page,
@@ -36,6 +37,11 @@ const routes = new VueRouter({
                 search: route.query.search,
                 start_date: route.query.start_date,
                 end_date: route.query.end_date,
+                city: route.query.city,
+                state: route.query.state,
+                country: route.query.country,
+                date_format: date_format
+                
             }),
             name: 'events',
             component: Events,
@@ -43,7 +49,6 @@ const routes = new VueRouter({
         },
     ],
 });
-
 
 
 /**
