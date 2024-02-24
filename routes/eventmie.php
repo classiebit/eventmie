@@ -118,7 +118,7 @@ Route::group([
         Route::get('/signup-first', "$controller@signup_first")->name('signup_first');
 
         // API
-        Route::post('/api/get_customers', "$controller@get_customers")->name('bookings_get_customers');  // axios route
+        Route::post('/api/booking_customers', "$controller@get_customers")->name('get_customers');
         Route::post('/api/book_tickets', "$controller@book_tickets")->name('bookings_book_tickets');
     });
     

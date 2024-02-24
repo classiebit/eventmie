@@ -95,20 +95,29 @@ class BookingsController extends Controller
         ], Response::HTTP_OK);
     }
 
-     // get customers
-    public function get_customers(Request $request)
-    {   
-        $customers     = [];
-        // get customers when admin is making booking
-        if(Auth::check())
-            if(Auth::user()->hasRole('admin'))
-                $customers  = $this->event->get_customers();
+    /**
+     *  get customers
+     */
 
-        return response()->json([
-            'customers' => $customers, 
-            'status' => true, 
-        ]);
-    }
+     public function get_customers(Request $request)
+     {
+         $request->validate([
+             'search'        => 'required|email|max:256',
+         ]);
+ 
+         $search     = $request->search;
+         $customers  = $this->event->search_customers($search);
+ 
+         if(empty($customers))
+         {
+             return response()->json(['status' => false, 'customers' => $customers]);    
+         }
+ 
+         foreach($customers as $key => $val)
+             $customers[$key]->name = $val->name.'  ( '.$val->email.' )';
+ 
+         return response()->json(['status' => true, 'customers' => $customers ]);
+     }
 
 
 

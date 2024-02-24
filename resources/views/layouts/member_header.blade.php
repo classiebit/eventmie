@@ -22,22 +22,12 @@
                         {{ $notification->total }}
                         @if ($notification->n_type == 'user')
                             @lang('eventmie::em.user')
-                        @elseif($notification->n_type == 'cancel')
-                            @lang('eventmie::em.booking_cancellation')
-                        @elseif($notification->n_type == 'review')
-                            @lang('eventmie::em.show_reviews')
                         @elseif($notification->n_type == 'contact')
                             @lang('eventmie::em.contact')
                         @elseif($notification->n_type == 'events')
                             @lang('eventmie::em.event')
-                        @elseif($notification->n_type == 'Approve-Organizer')
-                            @lang('eventmie::em.requested_to_become_organiser')
-                        @elseif($notification->n_type == 'Approved-Organizer')
-                            @lang('eventmie::em.became_organiser_successful')
                         @elseif($notification->n_type == 'bookings')
                             @lang('eventmie::em.booking')
-                        @elseif($notification->n_type == 'forgot_password')
-                            @lang('eventmie::em.reset_password')
                         @endif
                     </a>
                 </li>
@@ -108,10 +98,6 @@
 
 {{-- Admin --}}
 @if (Auth::user()->hasRole('admin'))
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('eventmie.ticket_scan') }}"><i class="fas fa-qrcode"></i>
-            @lang('eventmie::em.scan_ticket')</a>
-    </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('eventmie.myevents_form') }}"><i class="fas fa-calendar-plus"></i>
             @lang('eventmie::em.create_event')</a>

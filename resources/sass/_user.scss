@@ -213,7 +213,6 @@
 .model-extra-large .modal-content {
     width: 85vw;
     height: auto;
-    min-height: 70vh;
 }
 @media (max-width: 768px) {
     .model-extra-large {
@@ -224,7 +223,6 @@
     .model-extra-large .modal-content {
         width: 100vw;
         height: auto;
-        min-height: 70vh;
     }
 }
 .pointer:hover{

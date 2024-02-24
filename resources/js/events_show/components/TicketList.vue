@@ -1,156 +1,326 @@
 <template>
-    <div>
-        <!-- Button trigger modal -->
-        <button class="lgx-btn lgx-btn-success text-center" type="button" @click="openModal = true"><i class="fas fa-ticket-alt"></i> {{ trans('em.get') }} {{ trans('em.tickets') }}</button>
-
-        <div class="modal modal-mask" v-if="openModal">
-            <div class="modal-dialog modal-container modal-lg">
+<div>
+    <!-- Button trigger modal -->
+    <div class="d-grid">
+        <button class="btn btn-primary btn-lg" type="button" @click="openModal = true"><i class="fas fa-ticket-alt"></i> {{ trans('em.get_tickets') }}</button>
+    </div>
+    <div class="custom_model">
+        <div class="modal show" v-if="openModal">
+            <div class="modal-dialog modal-xl model-extra-large">
+                
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" @click="close()"><span aria-hidden="true">&times;</span></button>
-                        <h3 class="title text-uppercase">{{ trans('em.booking') }}: {{ event.title }}</h3>
-                    </div>
+                    <div class="modal-header text-center border-0">
+                        <div class="modal-title w-100">
+                            <div>
+                                <h5 class="mb-0 h3">{{ event.title }}</h5>
 
-                    <form ref="form" @submit.prevent="validateForm" method="POST" >
-                        <input type="hidden" class="form-control" name="event_id" :value="event.id" >
-                        
-                        <!-- only for admin -->
-                        <div class="row ml-1" v-if="customers.length > 0">
-                            <div class="col-md-4">
-                                <div class="form-group text-left">
-                                    <label class="text-left">{{ trans('em.select') }} {{ trans('em.customer') }}</label>
-                                
-                                    <select class="form-control" name="customer_id" v-model="customer_id"  v-validate="'required|decimal|is_not:0'">
-                                        <option value="0">-- {{ trans('em.customer') }} --</option>
-                                        <option :value="customer.id" v-for=" (customer, index) in customers" :key="index">{{customer.name }}</option>
-                                    </select>
-                                    <span v-show="errors.has('customer_id')" class="danger">
-                                            {{ errors.first('customer_id') }}
-                                    </span>
-                                </div>
+                                <ul class="list-group list-group-horizontal list-group-flush justify-content-center">
+                                    <li class="list-group-item text-sm border-0 px-0 pe-sm-3">
+                                        <small><i class="fas fa-location-dot text-primary"></i> {{ event.venue }}</small>
+                                        &nbsp;
+                                    </li>
+                                    <li class="list-group-item text-sm border-0 px-0 pe-sm-3">
+                                        <small><i class="fas fa-calendar-day text-primary"></i> {{ serverTimezone(moment(booking_date).format('dddd LL')+' '+start_time, 'dddd LL HH:mm a').locale('en').format('Y-MM-DD') }}</small>
+                                        &nbsp;
+                                    </li>
+                                    <li class="list-group-item text-sm border-0 px-0 pe-sm-3">
+                                        <small><i class="fas fa-clock text-primary"></i> {{ changeTimeFormat(start_time) }} {{ showTimezone() }}</small>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        
 
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ul class="list-group">
-                                    <li class="list-group-item" >
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <h3>{{ trans('em.free') }} {{ trans('em.ticket') }}</h3>
-                                                <div class="form-group text-left">
-                                                    <label class="text-left">{{ trans('em.select') }} {{ trans('em.quantity') }}</label>
-                                                    <select class="form-control" name="quantity" v-model="quantity">
-                                                        <option value="0" selected>0</option>
-                                                        <option :value="itm" v-for=" (itm, ind) in max_ticket_qty"  :key="ind">{{itm }}</option>
-                                                    </select>
+                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close" @click="close()"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <form ref="form" @submit.prevent="validateForm" method="POST" >
+                            
+                            <input type="hidden" class="form-control" name="event_id" :value="event.id" >
+                            <input type="hidden" class="form-control" name="booking_date" :value="serverTimezone(booking_date+' '+start_time, 'dddd LL HH:mm a').format('YYYY-MM-DD')" >
+                            <input type="hidden" name="customer_id" v-model="customer_id" v-validate="'required'" >
+
+                            <div class="px-lg-3">
+                                <!-- only for admin -->
+                                <div class="row" v-if="is_admin > 0">
+                                    <div class="col-md-4 mb-3">
+                                        <div>
+                                            <label class="form-label h6" for="customer_id">{{ trans('em.select_customer') }}</label>
+                                            <v-select 
+                                                label="name" 
+                                                class="form-control px-0 py-0 border-0 mb-2" 
+                                                :placeholder="trans('em.search_customer_email')"
+                                                v-model="customer" 
+                                                :required="!customer" 
+                                                :filterable="false" 
+                                                :options="options" 
+                                                @search="onSearch" 
+                                            ><div slot="no-options">{{ trans('em.customer_not_found') }}</div></v-select>
+                                            <div class="invalid-feedback danger" v-show="errors.has('customer_id')">{{ errors.first('customer_id') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tickets -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4 class="mb-2 h4">{{ trans('em.free') }} {{ trans('em.ticket') }}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group text-left">
+                                            <select class="form-control form-control-lg" name="quantity" v-model="quantity">
+                                                <option value="0" selected>--{{ trans('em.select_tickets') }}--</option>
+                                                <option :value="itm" v-for=" (itm, ind) in max_ticket_qty"  :key="ind">{{itm }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="mb-2 h6">{{ trans('em.cart') }}</p>
+                                        <ul class="list-group">
+                                            <li class="list-group-item mb-3 rounded border-2">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6 class="my-0"><strong>{{ trans('em.total_tickets') }}</strong></h6>
+                                                    <strong :class="{'ticket-selected-text': quantity > 0 }">{{ quantity }}</strong>
                                                 </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h6 class="my-0"><strong>{{ trans('em.total_order') }}</strong></h6>
+                                                    <strong> 0 </strong>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                
+
+                                <!-- Payment -->
+                                <div class="row" v-if="quantity > 0">
+                                    <div class="col-12">
+                                        <p class="mb-2 h6">{{ trans('em.payment')+' '+trans('em.free') }}</p>
+                                    </div>
+                                    <div class="col-12 mt-2 pb-4">
+                                        <div class="d-grid">
+                                            <div class="btn-group btn-group-md btn-block  btn-group-justified">
+                                                <button :class="{ 'disabled' : disable }" :disabled="disable" type="button" class="btn btn-primary btn-lg btn-block text-white" @click="bookTickets()"><i class="fas fa-cash-register"></i> {{ trans('em.checkout') }}</button>
                                             </div>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <span class="badge bg-green"><strong>{{ quantity }}</strong></span>
-                                        <h4>{{ trans('em.total') }} {{ trans('em.tickets') }}</h4>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="badge bg-green"><strong>0</strong></span>
-                                        <h4>{{ trans('em.order') }} {{ trans('em.total') }}</h4>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="badge bg-blue"><strong>{{ trans('em.free') }} </strong></span>
-                                        <h4>{{ trans('em.payment') }} {{ trans('em.method') }}</h4>
-                                    </li>
-                                </ul>
                             </div>
-                        </div>
-                        
-                        <div class="row mt-2">
-                            <div class="col-xs-12">
-                                <button type="button" class="lgx-btn lgx-btn-red btn-block" @click="bookTickets()"><i class="fas fa-cash-register"></i> {{ trans('em.checkout') }}</button>
-                            </div>
-                        </div>
-                        
-                    </form>
 
+                        </form>
+                        
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
+</div>
 </template>
 
 <script>
 
+import { mapState} from 'vuex';
 import mixinsFilters from '../../mixins.js';
+import _ from 'lodash';
 
 export default {
+    
     mixins:[
         mixinsFilters
     ],
     props : [
-        'customers', 'max_ticket_qty', 'event'
+        'max_ticket_qty', 
+        'event', 
+        'customers', 
+        'is_customer', 
+        'is_admin', 
+        
     ],
+
     data() {
         return {
             openModal           : false,
-            quantity            : 1,
+            moment              : moment,
+            quantity            : 0,
             customer_id         : 0,
         }
     },
+
+    computed: {
+        // get global variables
+        ...mapState( ['booking_date', 'start_time', 'end_time']),
+    },
+
     methods: {
         // reset form and close modal
         close: function () {    
             this.quantity       = 1;
             this.openModal      = false;
         },
+
         bookTickets(){
+            // show loader
+            this.showLoaderNotification(trans('em.processing'));
+
             // prepare form data for post request
+            this.disable = true;
+
             let post_url = route('eventmie.bookings_book_tickets');
             let post_data = new FormData(this.$refs.form);
             
             // axios post request
             axios.post(post_url, post_data)
             .then(res => {
-                // if booking success
-                if(res.data.status && res.data.message != '' && res.data.url != '') {
+                
+                if(res.data.status && res.data.message != ''  && typeof(res.data.message) != "undefined") {
+                   
+                    // hide loader
+                    Swal.hideLoading();
+
                     // close popup
                     this.close();
+                    this.showNotification('success', res.data.message);
                     
-                    this.showNotification('success', trans('em.congrats')+' '+trans('em.booking')+' '+trans('em.successful'));
+                }
+                else if(!res.data.status && res.data.message != '' && res.data.url != ''  && typeof(res.data.url) != "undefined"){
+                    
+                    // hide loader
+                    Swal.hideLoading();
+                    
+                    // close popup
+                    this.close();
+                    this.showNotification('error', res.data.message);
+                    
                     setTimeout(() => {
                         window.location.href = res.data.url;    
-                    }, 2000);
+                    }, 1000);
                 }
+
+                if(res.data.url != '' && res.data.status  && typeof(res.data.url) != "undefined") {
+                    
+                    // hide loader
+                    Swal.hideLoading();
+
+                    setTimeout(() => {
+                        window.location.href = res.data.url;    
+                    }, 1000);
+                }
+
+                if(!res.data.status && res.data.message != ''  && typeof(res.data.message) != "undefined") {
+                   
+                    // hide loader
+                    Swal.hideLoading();
+
+                    // close popup
+                    this.close();
+                    this.showNotification('error', res.data.message);
+                    
+                }
+
             })
             .catch(error => {
-                // only in case or serverValidate
-                if (error.length) {
-                    this.serverValidate(error);
+                this.disable = false;
+                let serrors = Vue.helpers.axiosErrors(error);
+                if (serrors.length) {
+                    
+                    this.serverValidate(serrors);
+                    
                 }
             });
         },
+        
+
         // validate data on form submit
         validateForm(e) {
             this.$validator.validateAll().then((result) => {
                 if (result) {
+                    this.disable = true;
                     this.formSubmit(e);
+                }
+                else{
+                    this.disable = false;
                 }
             });
         },
+
         // show server validation errors
         serverValidate(serrors) {
+            this.disable = false;
             this.$validator.validateAll().then((result) => {
                 this.$validator.errors.add(serrors);
             });
         },
+
+        // get customers
+
+        getCustomers(loading, search = null){
+            var postUrl     = route('eventmie.get_customers');
+            var _this       = this;
+            axios.post(postUrl,{
+                'search' :search,
+            }).then(res => {
+                
+                var promise = new Promise(function(resolve, reject) { 
+                    
+                    _this.options = res.data.customers;
+                    
+                    resolve(true);
+                }) 
+                
+                promise 
+                    .then(function(successMessage) { 
+                        loading(false);
+                    }, function(errorMessage) { 
+                    //error handler function is invoked 
+                        console.log(errorMessage); 
+                    }) 
+            })
+            .catch(error => {
+                let serrors = Vue.helpers.axiosErrors(error);
+                if (serrors.length) {
+                    this.serverValidate(serrors);
+                }
+            });
+        },
+        
+        // v-select methods
+        onSearch(search, loading) {
+            loading(true);
+            this.search(loading, search, this);
+        },
+
+        // v-select methods
+        search: _.debounce((loading, search, vm) => {
+            
+            if(vm.validateEmail(search))
+                vm.getCustomers(loading, search);
+            else
+                loading(false);    
+            
+        }, 350),
+
+        validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        },
+        scrollToBottom() {
+            this.$refs["bottom-down"].scrollIntoView({ block: "end", inline: "nearest" })
+        },
+
+    },
+
+    watch: {
+        // active when customer search 
+        customer: function () {
+            this.customer_id = this.customer != null ?  this.customer.id : null;
+        },
+    
     },
 }
 </script>

@@ -23,9 +23,6 @@ mix
 // events listing seperate vue js
 .js('resources/js/events_listing/index.js', 'publishable/assets/js/events_listing.js')
 
-// organiser events
-.js('resources/js/myevents/index.js', 'publishable/assets/js/myevents.js')
-
 // customer bookings seperate vue js
 .js('resources/js/bookings_customer/index.js', 'publishable/assets/js/bookings_customer.js')
 

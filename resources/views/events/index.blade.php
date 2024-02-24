@@ -8,17 +8,6 @@
 @section('content')
 
     <main>
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    @component('eventmie::skeleton.event')
-                    @endcomponent
-                </div>
-            </div>
-        </div>
-
         <router-view
             :date_format="{{ json_encode(
                 [

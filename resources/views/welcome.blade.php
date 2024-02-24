@@ -9,7 +9,6 @@
     <!--Banner slider start-->
     <section>
         <div class="col-sm-12">
-            @component('eventmie::skeleton.banner') @endcomponent
             @guest
                 <banner-slider :banners="{{ json_encode($banners, JSON_HEX_APOS) }}" :is_logged="{{ 0 }}"
                     :is_customer="{{ 0 }}" :is_admin="{{ 0 }}"
@@ -94,8 +93,6 @@
                     </div>
                 </div>
 
-                @component('eventmie::skeleton.event') @endcomponent
-
                 <event-listing :events="{{ json_encode($top_selling_events, JSON_HEX_APOS) }}"
                  :item_count="{{ 3 }}"
                     :date_format="{{ json_encode(
@@ -127,8 +124,6 @@
                                 class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
-
-                @component('eventmie::skeleton.event') @endcomponent
 
                 <event-listing :events="{{ json_encode($upcomming_events, JSON_HEX_APOS) }}"
                  :item_count="{{ 3 }}"
@@ -235,5 +230,8 @@
 @endsection
 
 @section('javascript')
+<script type="text/javascript">
+    var events_slider = true;
+</script>
 <script type="text/javascript" src="{{ eventmie_asset('js/welcome.js') }}"></script>
 @stop

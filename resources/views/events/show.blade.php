@@ -87,7 +87,6 @@
                                                     :login_user_id="{{ json_encode(\Auth::id(), JSON_HEX_APOS) }}"
                                                     :is_customer="{{ Auth::id() ? (Auth::user()->hasRole('customer') ? 1 : 0) : 1 }}"
                                                     :is_admin="{{ Auth::id() ? (Auth::user()->hasRole('admin') ? 1 : 0) : 0 }}"
-                                                    :total_capacity="{{ $total_capacity }}"
                                                     :date_format="{{ json_encode(
                                                         [
                                                             'vue_date_format' => format_js_date(),

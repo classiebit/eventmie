@@ -230,5 +230,17 @@ class Event extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    // search customers
+    public function search_customers($email = null)
+    {
+        $query = DB::table('users'); 
+        $query->select('name', 'id', 'email')
+                ->where('role_id', 2)
+                ->where('email', $email);
+        
+        $result = $query->get();
+        return to_array($result);
+    }
  
 }   
