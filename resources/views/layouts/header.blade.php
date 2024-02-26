@@ -83,7 +83,7 @@
                         </ul>
 
                         @if(config('voyager.demo_mode'))
-                        <a class="btn btn-success d-none d-lg-block" target="_blank" href="https://github.com/classiebit/eventmie"><i class="fab fa-github col-black"></i></a>
+                        <a class="btn btn-success d-none d-lg-block me-2" target="_blank" href="https://github.com/classiebit/eventmie"><i class="fab fa-github col-black"></i></a>
                         @endif
 
                         <a href="{{ route('eventmie.events_index') }}"

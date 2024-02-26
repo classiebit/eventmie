@@ -24,13 +24,9 @@
                             <div class="d-flex justify-content-center mt-2">
                                 <div v-if="demo_mode">
                                     <div class="px-2">
-                                        <a class="btn btn-secondary" target="_blank" href="https://classiebit.com/eventmie"><i class="fas fa-cloud-download-alt"></i> Download FREE </a>
-                                        <a class="btn btn-success" target="_blank" href="https://classiebit.com/eventmie-pro"><i class="fas fa-shopping-cart"></i> Purchase PRO </a>
-                                        
+                                        <a class="btn btn-secondary" target="_blank" href="https://classiebit.com/eventmie"><i class="fas fa-cloud-download-alt"></i> Download FREE </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-success text-white" target="_blank" href="https://classiebit.com/eventmie-pro"><i class="fas fa-shopping-cart"></i> Purchase PRO </a>
                                     </div>
-                                    <div class="px-2 py-2">
-                                        <a class="btn btn-primary" target="_blank" href="https://eventmie-pro-docs.classiebit.com/docs/2.0/changelog/changes"><i class="fas fa-book"></i> See What's New v2.0</a>
-                                    </div>    
                                 </div>
                                 <div v-else>
                                     <a class="btn btn-primary bg-gradient text-white" :href="getRoute('eventmie.events_index')"><i class="fas fa-calendar-day"></i> {{ trans('em.browse') }} {{ trans('em.events') }}</a>
