@@ -1,4 +1,4 @@
-@extends('eventmie::o_dashboard.index')
+@extends('eventmie::layouts.app')
 
 {{-- Page title --}}
 @section('title')
@@ -9,8 +9,7 @@
     @endif
 @endsection
 
-
-@section('o_dashboard')
+@section('content')
 <div class="container-fluid my-2">
     <div class="row">
         <div class="col-xl-12 col-md-12 col-12">

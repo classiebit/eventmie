@@ -139,6 +139,7 @@ Route::group([
         
         Route::get('/', "$controller@index")->name('myevents_index');
         Route::get('/manage/{slug?}', "$controller@form")->name('myevents_form');  
+        Route::get('/delete/{slug}', "$controller@delete_event")->name('delete_event');
         
         // API
         Route::get('/api/get_myevents', "$controller@get_myevents")->name('myevents'); 

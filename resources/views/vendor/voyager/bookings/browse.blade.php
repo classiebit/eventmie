@@ -136,9 +136,9 @@
 
                                                     @if($row->getTranslatedAttribute('display_name') == 'Status')
                                                         @if($data->{$row->field} == 1)
-                                                            {{ __('voyager::generic.enabled') }}
+                                                            {{ __('voyager::generic.yes') }}
                                                         @else
-                                                            {{ __('voyager::generic.disabled') }}
+                                                            {{ __('voyager::generic.no') }}
                                                         @endif
                                                     @endif
                                                     
@@ -249,10 +249,6 @@
                                             <a href="{{ route('voyager.bookings.edit',[$data->id])}}" class="btn btn-sm btn-info edit pull-right">
                                                 <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
                                             </a>
-
-                                            <a href="{{ route('eventmie.obookings_organiser_bookings_show',[$data->id])}}" class="btn btn-sm btn-warning view pull-right">
-                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
-                                            </a>                                            
                                         </td>
                                     </tr>
                                     @endforeach

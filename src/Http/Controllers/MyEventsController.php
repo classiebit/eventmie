@@ -297,12 +297,12 @@ class MyEventsController extends Controller
         ]);
 
         $params = [
-            "country_id"    => !empty($venue) ? $venue->country_id : 0,
-            "venue"         => !empty($venue) ? $venue->title : null,
-            "address"       => !empty($venue) ? $venue->address : null,
-            "city"          => !empty($venue) ? $venue->city : null,
-            "zipcode"       => !empty($venue) ? $venue->zipcode : null,
-            "state"         => !empty($venue) ? $venue->state : null,
+            "country_id"    => $request->country_id,
+            "venue"         => $request->venue,
+            "address"       => $request->address,
+            "city"          => $request->city,
+            "zipcode"       => $request->zipcode,
+            "state"         => $request->state,
         ];
 
         // check this event id have login user or not
@@ -625,9 +625,6 @@ class MyEventsController extends Controller
 
     public function delete_image(Request $request)
     {
-        // if logged in user is admin
-        $this->is_admin($request);
-        
         // 1. validate data
         $request->validate([
             'event_id'             => 'required|numeric|min:1|regex:^[1-9][0-9]*$^',
@@ -635,7 +632,7 @@ class MyEventsController extends Controller
             
         ]);
 
-        $event      = $this->event->get_user_event($request->event_id, $this->organiser_id);
+        $event      = $this->event->get_user_event($request->event_id);
 
         if(empty($event))
         {
@@ -666,6 +663,25 @@ class MyEventsController extends Controller
         // get media  related event_id who have created now
         return response()->json(['images' => $event, 'status' => true]);
 
+    }
+
+    // Make event title -> slug properly
+    protected function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        
+        // trim
+        $text = trim($text, '-');
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
     }
 
 }

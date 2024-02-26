@@ -1,15 +1,5 @@
 <template>
     <div>
-        <form ref="form" @submit.prevent="validateForm" method="POST" enctype="multipart/form-data" class="lgx-contactform">
-            <!-- add tags directly from this page -->
-
-            <div>
-                <button :disabled="disable" type="submit" class="btn btn-primary btn-lg mt-3"><i class="fas fa-sd-card"></i> {{ trans('em.save') }}</button>
-            </div>
-        </form>
-
-        <hr />
-
         <div class="bg-light card shadow-sm mt-3">
             <!-- Card header -->
             <div class="card-header p-4 bg-white">
@@ -68,63 +58,7 @@ export default {
     methods: {
         ...mapMutations(['add', 'update']),
 
-           // validate data on form submit
-        validateForm(event) {
-            this.$validator.validateAll().then((result) => {
-                if (result) {
-                    this.formSubmit(event);            
-                }
-            });
-        },
-
-        // show server validation errors
-        serverValidate(serrors) {
-            this.$validator.validateAll().then((result) => {
-                this.$validator.errors.add(serrors);
-            });
-        },
-
-        // submit form
-        formSubmit(event) {
-             // show loader
-            this.showLoaderNotification(trans('em.processing'));
-
-            // prepare form data for post request
-            this.disable = true;
-
-            // prepare form data for post request
-            let post_url    = route('eventmie.myevents_store_event_tags');
-            
-            let post_data   = {
-                'event_id'     : this.event_id,
-            };
-            
-            // axios post request
-            axios.post(post_url, post_data)
-            .then(res => {
-
-                if(res.data.status)
-                {
-                    this.showNotification('success', trans('em.event_save_success'));
-                    // reload page   
-                    // setTimeout(function() {
-                    //     location.reload(true);
-                    // }, 1000);
-
-
-                }
-                this.disable = false;
-                Swal.hideLoading();
-            })
-            .catch(error => {
-                this.disable = false;
-                Swal.hideLoading();
-                let serrors = Vue.helpers.axiosErrors(error);
-                if (serrors.length) {
-                    this.serverValidate(serrors);
-                }
-            });
-        },
+          
 
         // publish event
         publishEvent(){
@@ -150,18 +84,10 @@ export default {
             });
         },
 
-        isDirty() {
-            this.add({is_dirty: true});
-        },
-        isDirtyReset() {
-            this.add({is_dirty: false});
-        },
-
     },
     
     mounted(){
-        this.isDirtyReset();
-      // if user have no event_id then redirect to details page
+        // if user have no event_id then redirect to details page
         // if user have no event_id then redirect to details page
         let event_step  = this.eventStep();
         
