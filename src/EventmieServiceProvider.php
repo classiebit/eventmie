@@ -19,6 +19,7 @@ use Config;
 
 
 use  Classiebit\Eventmie\Commands\InstallCommand;
+use  Classiebit\Eventmie\Commands\UpdateCommand;
 
 /* Bootstrap Pagination as default */
 use Illuminate\Pagination\Paginator;
@@ -193,6 +194,7 @@ class EventmieServiceProvider extends ServiceProvider
     private function registerConsoleCommands()
     {
         $this->commands(Commands\InstallCommand::class);
+        $this->commands(Commands\UpdateCommand::class);
     }
     
     /**
