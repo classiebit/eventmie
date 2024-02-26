@@ -137,7 +137,7 @@ export default {
     props : [
         'max_ticket_qty', 
         'event', 
-        'customers', 
+        'customer', 
         'is_customer', 
         'is_admin', 
         
@@ -149,6 +149,7 @@ export default {
             moment              : moment,
             quantity            : 0,
             customer_id         : 0,
+            options             : [],
         }
     },
 

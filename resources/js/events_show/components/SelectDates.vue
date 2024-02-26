@@ -42,7 +42,6 @@ export default {
         return {
             moment              : moment,
             modal_active        : 0,
-            customers          : [],
         }
     },
 
