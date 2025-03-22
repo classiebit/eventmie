@@ -57,10 +57,8 @@ Just **install** it into a brand new Laravel application or an existing one and 
 
 Eventmie can be installed via composer. Easy... 🍻
 
-
-    ```php
     composer require classiebit/eventmie
-    ```
+    
 
 ## Prerequisites
 
