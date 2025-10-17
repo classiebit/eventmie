@@ -222,14 +222,15 @@ class InstallCommand extends Command
         // 7. Merge npm dependencies
         $this->info('7. Merging npm dependencies into package.json');
         $this->mergePackageJson();
-        $this->info('Please run "npm install" to install the dependencies');
-
+        
         // 8. Add storage symlink
         $this->info('8. Adding the storage symlink to your public folder');
         $this->call('storage:link');
         
         $version = Eventmie::getVersion();
-        $this->info("Congrats! Eventmie Lite version $version installed successfully! Best of Luck!");
+        $this->info("Congrats! Eventmie Lite successfully updated to version $version! Make sure to check Eventmie Pro FullyLoaded on our website- https://classiebit.com/eventmie-pro-fullyloaded");
+
+        $this->info('!!! Final Important Step: Please run "npm install" and "npm run build" to install the dependencies and build the assets');
     }
     
 }

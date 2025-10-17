@@ -123,6 +123,8 @@ class UpdateCommand extends Command
         // Finish
         $version = Eventmie::getVersion();
         $this->info("Congrats! Eventmie Lite successfully updated to version $version! Make sure to check Eventmie Pro FullyLoaded on our website- https://classiebit.com/eventmie-pro-fullyloaded");
+
+        $this->info('!!! Final Important Step: Please run "npm install" and "npm run build" to install the dependencies and build the assets');
     }
     
 }
