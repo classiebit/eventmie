@@ -43,12 +43,12 @@ export default defineConfig({
             "vuex$": "vuex/dist/vuex.esm.js", 
             "MarkerClusterer": path.resolve(__dirname, "node_modules/@googlemaps/markerclusterer"),
             'vue': 'vue/dist/vue.esm.js', // ensures full build with template compiler
-            "vue-confirm-dialog": path.resolve(__dirname, "node_modules/vue-confirm-dialog"),
+            "vue-confirm-dialog": path.resolve(__dirname, "node_modules/vue-confirm-dialog/src/index.js"),
             'vue-match-heights': path.resolve(__dirname, 'node_modules/vue-match-heights/dist/vue-match-heights.js'),
         },
     },
     optimizeDeps: {
-        include: ["@googlemaps/markerclusterer", "vue"],
+        include: ["@googlemaps/markerclusterer", "vue", "vue-confirm-dialog"],
     },
      // If needed, adjust commonjsOptions
     commonjsOptions: {

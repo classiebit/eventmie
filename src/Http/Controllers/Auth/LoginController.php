@@ -3,7 +3,7 @@
 namespace Classiebit\Eventmie\Http\Controllers\Auth;
 use Facades\Classiebit\Eventmie\Eventmie;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Classiebit\Eventmie\Models\User;
 use Illuminate\Http\Request;

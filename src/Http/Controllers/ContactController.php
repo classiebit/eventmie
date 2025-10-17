@@ -3,7 +3,7 @@
 namespace Classiebit\Eventmie\Http\Controllers;
 use Facades\Classiebit\Eventmie\Eventmie;
 
-use App\Http\Controllers\Controller; 
+use Illuminate\Routing\Controller; 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 

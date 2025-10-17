@@ -54,6 +54,7 @@ class UpdateCommand extends Command
         return 'composer';
     }
 
+
     public function fire(Filesystem $filesystem)
     {
         return $this->handle($filesystem);
@@ -98,17 +99,22 @@ class UpdateCommand extends Command
         $viteConfigSrc  = $dir.'publishable/assets/vite.config.js';
         $viteConfigDest = base_path('vite.config.js');
         if (file_exists($viteConfigSrc)) {
-            if (!file_exists($viteConfigDest) || $this->option('force')) {
-                File::copy($viteConfigSrc, $viteConfigDest);
+            if (!file_exists($viteConfigDest)) {
                 $this->info('Copied vite.config.js to application root');
             } else {
-                $this->warn('vite.config.js already exists at application root (use --force to overwrite)');
+                $this->warn('vite.config.js already exists at application root, overriding the existing vite.config.js');
             }
+            File::copy($viteConfigSrc, $viteConfigDest);
         }
         
         
-        // 3. Run cache clear commands
-        $this->info('3. Clearing application cache');
+        // 3. Merge npm dependencies
+        $this->info('3. Merging npm dependencies into package.json');
+        $this->mergePackageJson();
+        $this->info('Please run "npm install" to update the dependencies');
+        
+        // 4. Run cache clear commands
+        $this->info('4. Clearing application cache');
         $this->call('config:clear');
         $this->call('route:clear');
         $this->call('view:clear');

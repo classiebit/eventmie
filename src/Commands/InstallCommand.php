@@ -54,6 +54,86 @@ class InstallCommand extends Command
         return 'composer';
     }
 
+
+    /**
+     * Merge Eventmie package.json dependencies with host application's package.json
+     *
+     * @return void
+     */
+    protected function mergePackageJson()
+    {
+        $hostPackageJsonPath = base_path('package.json');
+        $eventmiePackageJsonPath = __DIR__.'/../../package.json';
+        
+        if (!file_exists($eventmiePackageJsonPath)) {
+            $this->warn('Eventmie package.json not found, skipping npm dependencies merge');
+            return;
+        }
+        
+        // Read Eventmie package.json
+        $eventmiePackageJson = json_decode(file_get_contents($eventmiePackageJsonPath), true);
+        
+        if (!$eventmiePackageJson) {
+            $this->warn('Invalid Eventmie package.json, skipping npm dependencies merge');
+            return;
+        }
+        
+        // Read or create host package.json
+        $hostPackageJson = [];
+        if (file_exists($hostPackageJsonPath)) {
+            $hostPackageJson = json_decode(file_get_contents($hostPackageJsonPath), true) ?: [];
+        }
+        
+        // Initialize required sections
+        if (!isset($hostPackageJson['dependencies'])) {
+            $hostPackageJson['dependencies'] = [];
+        }
+        if (!isset($hostPackageJson['devDependencies'])) {
+            $hostPackageJson['devDependencies'] = [];
+        }
+        if (!isset($hostPackageJson['scripts'])) {
+            $hostPackageJson['scripts'] = [];
+        }
+        
+        // Merge dependencies
+        $merged = false;
+        
+        // Merge devDependencies
+        if (isset($eventmiePackageJson['devDependencies'])) {
+            foreach ($eventmiePackageJson['devDependencies'] as $package => $version) {
+                if (!isset($hostPackageJson['devDependencies'][$package])) {
+                    $hostPackageJson['devDependencies'][$package] = $version;
+                    $merged = true;
+                }
+            }
+        }
+        
+        // Merge dependencies
+        if (isset($eventmiePackageJson['dependencies'])) {
+            foreach ($eventmiePackageJson['dependencies'] as $package => $version) {
+                if (!isset($hostPackageJson['dependencies'][$package])) {
+                    $hostPackageJson['dependencies'][$package] = $version;
+                    $merged = true;
+                }
+            }
+        }
+        
+        // Merge scripts (only add if they don't exist)
+        if (isset($eventmiePackageJson['scripts'])) {
+            foreach ($eventmiePackageJson['scripts'] as $script => $command) {
+                if (!isset($hostPackageJson['scripts'][$script])) {
+                    $hostPackageJson['scripts'][$script] = $command;
+                }
+            }
+        }
+        
+        // Write updated package.json
+        if ($merged) {
+            file_put_contents($hostPackageJsonPath, json_encode($hostPackageJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+            $this->info('Merged Eventmie npm dependencies into host package.json');
+        }
+    }
+
     public function fire(Filesystem $filesystem)
     {
         return $this->handle($filesystem);
@@ -130,18 +210,22 @@ class InstallCommand extends Command
         $viteConfigSrc  = $dir.'publishable/assets/vite.config.js';
         $viteConfigDest = base_path('vite.config.js');
         if (file_exists($viteConfigSrc)) {
-            if (!file_exists($viteConfigDest) || $this->option('force')) {
-                File::copy($viteConfigSrc, $viteConfigDest);
+            if (!file_exists($viteConfigDest)) {
                 $this->info('Copied vite.config.js to application root');
             } else {
-                $this->warn('vite.config.js already exists at application root (use --force to overwrite)');
+                $this->warn('vite.config.js already exists at application root, overriding the existing vite.config.js');
             }
+            File::copy($viteConfigSrc, $viteConfigDest);
         }
         File::copyDirectory($dir.'publishable/dummy_content/', storage_path('app/public/'));
         
+        // 7. Merge npm dependencies
+        $this->info('7. Merging npm dependencies into package.json');
+        $this->mergePackageJson();
+        $this->info('Please run "npm install" to install the dependencies');
 
-        // 7. Add storage symlink
-        $this->info('7. Adding the storage symlink to your public folder');
+        // 8. Add storage symlink
+        $this->info('8. Adding the storage symlink to your public folder');
         $this->call('storage:link');
         
         $version = Eventmie::getVersion();

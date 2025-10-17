@@ -25,7 +25,7 @@ class SettingsTableSeeder extends Seeder
         
         $setting=$this->findSetting("site.site_footer");
         if (!$setting->exists) {
-            $setting->fill(["display_name"=> "Extra Footer Credits", "value"=> "Eventmie Lite <strong>v2.0<strong>. Product by <a href='https://www.classiebit.com' target='_blank'>Classiebit</a>", "details"=> null, "type"=> "text", "order"=> "2", "group"=> "Site", ])->save();
+            $setting->fill(["display_name"=> "Extra Footer Credits", "value"=> "Eventmie Lite <strong>v3.0</strong>. Product by <a href='https://www.classiebit.com' target='_blank'>Classiebit</a>", "details"=> null, "type"=> "text", "order"=> "2", "group"=> "Site", ])->save();
         }
 
         $setting=$this->findSetting("site.logo");

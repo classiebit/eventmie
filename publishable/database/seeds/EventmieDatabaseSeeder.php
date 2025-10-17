@@ -27,8 +27,8 @@ class EventmieDatabaseSeeder extends Seeder
         $this->seed('PagesTableSeeder');
         
         // voyager tables
-        $this->seed('UsersTableSeeder');
         $this->seed('RolesTableSeeder');
+        $this->seed('UsersTableSeeder');
         $this->seed('DataTypesTableSeeder');
         $this->seed('DataRowsTableSeeder');
         $this->seed('MenusTableSeeder');
