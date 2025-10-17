@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid my-2">
+<div class="container-fluid my-2 mt-10">
     <div class="row">
         <div class="col-xl-12 col-md-12 col-12">
             <div class="card shadow-sm border-0">
@@ -54,5 +54,5 @@
 <script>
     var is_event_id = {!! !empty($event) ? $event->id : 0 !!};
 </script>
-<script type="text/javascript" src="{{ eventmie_asset('js/events_manage.js') }}"></script>
+@vite(['vendor/classiebit/eventmie/resources/js/events_manage/index.js'])
 @stop

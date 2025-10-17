@@ -21,7 +21,11 @@
                     <i v-if="!event.publish" class="fas fa-eye"></i> 
                     <i v-if="event.publish" class="fas fa-eye-slash"></i> 
                     {{ event.publish == 1 ? trans('em.unpublish_event') : trans('em.publish_event')}}
-                </button>
+                </button>&nbsp;
+
+                <a :href="slugUrl()" target="_blank" class="btn btn-success btn-lg text-white" v-if="event.publish == 1">
+                    <i class="fas fa-eye"></i> {{ trans('em.view_event') }}
+                </a>
             </div>
         </div>
 
@@ -84,6 +88,9 @@ export default {
             });
         },
 
+        slugUrl(){
+            return route('eventmie.events_index')+'/'+this.event.slug;
+        },
     },
     
     mounted(){

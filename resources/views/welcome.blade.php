@@ -1,90 +1,91 @@
 @extends('eventmie::layouts.app')
 
-@section('title') @lang('eventmie::em.home') @endsection
+@section('title', setting('seo.meta_title'))
+@section('meta_description', setting('seo.meta_description'))
 
 @section('content')
     @php
         $perPage = 3;
     @endphp
     <!--Banner slider start-->
-    <section>
+    <section class="bg-dark mt-8">
         <div class="col-sm-12">
-            @guest
-                <banner-slider :banners="{{ json_encode($banners, JSON_HEX_APOS) }}" :is_logged="{{ 0 }}"
-                    :is_customer="{{ 0 }}" :is_admin="{{ 0 }}"
-                    :demo_mode="{{ config('voyager.demo_mode') }}"
-                    ></banner-slider>
-            @else
-                <banner-slider :banners="{{ json_encode($banners, JSON_HEX_APOS) }}" :is_logged="{{ 1 }}"
-                    :is_customer="{{ Auth::user()->hasRole('customer') ? 1 : 0 }}"
-                    :is_admin="{{ Auth::user()->hasRole('admin') ? 1 : 0 }}"
-                    :demo_mode="{{ config('voyager.demo_mode') }}"
-                    ></banner-slider>
-            @endguest
+            <banner-slider 
+                :banners="{{ json_encode($banners, JSON_HEX_APOS) }}" 
+                :demo_mode="{{ config('voyager.demo_mode') }}"
+            ></banner-slider>
+            
         </div>
     </section>
     <!--Banner slider end-->
 
-    {{-- Filter --}}
+    {{-- Modern Search Form --}}
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card border-0 p-2 search-form rounded-md-pill smooth-shadow-md mt-n5">
-                    <form type="GET" action="{{ route('eventmie.events_index') }}">
-                        <div class="row align-items-center">
-                            <div class="col-sm">
-                                <div class="form-floating">
-                                    <select
-                                        class="form-select border-bottom border-bottom-md-0 rounded-0 border-0 form-focus-none bg-transparent"
-                                        id="city" name="city">
-                                        <option value="All">@lang('eventmie::em.all')</option>
-                                        @foreach ($cities as $val)
-                                            <option value="{{ $val['city'] }}">{{ $val['city'] }}, {{ $val['state'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <label for="city_select">{{ __('eventmie::em.city') }}</label>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <div class="search-form-container mt-n5 position-relative">
+                    <div class="search-form-card bg-white rounded-4 shadow-lg border-0 overflow-hidden">
+                        <form method="GET" action="{{ route('eventmie.events_index') }}" class="search-form">
+                            <div class="row g-0">
+                                <!-- City Filter -->
+                                <div class="col-md-4 col-12">
+                                    <div class="search-field position-relative">
+                                        <div class="field-icon">
+                                            <i class="fas fa-map-marker-alt text-muted"></i>
+                                        </div>
+                                        <select class="form-select modern-select" id="city" name="city" aria-label="{{ __('eventmie::em.city') }}">
+                                            <option value="All">@lang('eventmie::em.all')</option>
+                                            @foreach ($cities as $val)
+                                                <option value="{{ $val['city'] }}">{{ $val['city'] }}, {{ $val['state'] }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="city" class="field-label">{{ __('eventmie::em.city') }}</label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Category Filter -->
+                                <div class="col-md-4 col-12">
+                                    <div class="search-field position-relative">
+                                        <div class="field-icon">
+                                            <i class="fas fa-tags text-muted"></i>
+                                        </div>
+                                        <select class="form-select modern-select" id="category" name="category" aria-label="{{ __('eventmie::em.category') }}">
+                                            <option value="All">@lang('eventmie::em.all')</option>
+                                            @foreach ($categories as $val)
+                                                <option value="{{ $val['name'] }}">{{ $val['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="category" class="field-label">{{ __('eventmie::em.category') }}</label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Search Button -->
+                                <div class="col-md-4 col-12">
+                                    <div class="search-button-container">
+                                        <button type="submit" class="btn btn-primary search-btn w-100 h-100 d-flex align-items-center justify-content-center">
+                                            <i class="fas fa-search me-2"></i>
+                                            <span class="d-none d-md-inline">@lang('eventmie::em.search')</span>
+                                            <span class="d-md-none">@lang('eventmie::em.search')</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-floating">
-                                    <select
-                                        class="form-select  border-bottom border-bottom-md-0 rounded-0 border-0 form-focus-none bg-transparent"
-                                        id="category" name="category">
-                                        <option value="All">@lang('eventmie::em.all')</option>
-                                        @foreach ($categories as $val)
-                                            <option value="{{ $val['name'] }}">{{ $val['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="category">{{ __('eventmie::em.category') }}</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="d-md-flex justify-content-end ms-md-n3 ms-lg-0 text-end  d-none d-md-block">
-                                    <button type="submit" class="btn btn-primary rounded-circle btn-icon btn-icon-lg">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                                <div class="d-md-flex justify-content-end ms-md-n3 ms-lg-0  d-block d-md-none">
-                                    <button type="submit"
-                                        class="btn btn-primary d-grid gap-2 col-12 mx-auto">@lang('eventmie::em.search')</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 
+
     <!-- New Themes Top-selling Start-->
     @if ($top_selling_events->isNotEmpty())
-        <div class="py-5">
+        <div class="py-3">
             <div class="container">
                 <div class="row">
                     <div class="col-8">
-                        <h3>@lang('eventmie::em.top_selling_events')</h3>
+                        <h3 class="h5">@lang('eventmie::em.top_selling_events')</h3>
                     </div>
                     <div class="col-4">
                         <a class="btn btn-sm text-primary mt-lg-2 {{ App::isLocale('ar') ? 'float-start' : 'float-end' }}"
@@ -94,7 +95,7 @@
                 </div>
 
                 <event-listing :events="{{ json_encode($top_selling_events, JSON_HEX_APOS) }}"
-                 :item_count="{{ 3 }}"
+                    :item_count="{{ 4 }}"
                     :date_format="{{ json_encode(
                         [
                             'vue_date_format' => format_js_date(),
@@ -112,11 +113,11 @@
 
     <!-- New Themes Event Upcoming Start-->
     @if ($upcomming_events->isNotEmpty())
-        <div class="py-5">
+        <div class="py-3">
             <div class="container">
                 <div class="row">
                     <div class="col-8">
-                        <h3>@lang('eventmie::em.upcoming_events')</h3>
+                        <h3 class="h5">@lang('eventmie::em.upcoming_events')</h3>
                     </div>
                     <div class="col-4">
                         <a class="btn btn-sm text-primary mt-lg-2 {{ App::isLocale('ar') ? 'float-start' : 'float-end' }}"
@@ -126,7 +127,7 @@
                 </div>
 
                 <event-listing :events="{{ json_encode($upcomming_events, JSON_HEX_APOS) }}"
-                 :item_count="{{ 3 }}"
+                 :item_count="{{ 4 }}"
                     :date_format="{{ json_encode(
                         [
                             'vue_date_format' => format_js_date(),
@@ -142,90 +143,113 @@
 
     <!-- New Themes Categories START-->
     @if (!empty($categories))
-        <div class="py-5 bg-gradient">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h3 class="text-white">@lang('eventmie::em.event_categories')</h3>
+        <div class="pt-5 pb-7 bg-gradient-primary position-relative overflow-hidden">
+            <div class="container position-relative">
+                <div class="row mb-3">
+                    <div class="col-lg-8 col-md-10 col-12">
+                        <h3 class="h5 text-white fw-bold mb-0">@lang('eventmie::em.event_categories')</h3>
+                        <p class="text-white-50  mb-0 small fw-bold">@lang('eventmie::em.explore_categories')</p>
                     </div>
                 </div>
-                <div class="row">
-                    @php $i = 0; @endphp
+                
+                <div class="row g-4">
                     @foreach ($categories as $key => $item)
-                        @php $i++; @endphp
-                        <div class="d-flex align-items-lg-stretch col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12' }}">
-                            <div class="card w-100 border-0 overlay-bg img-hover mb-3"
-                                @php $bgimg =  asset('/storage/'.$item['thumb']); @endphp
-                                style="background-image: url({{ $bgimg }}); background-size: cover;">
-
-                                <span class="single-name"></span>
-                                <div class="pt-4 ps-4 pb-18 z-1">
-                                    <h3 class="text-white mb-0">{{ $item['name'] }}</h3>
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <a href="{{ route('eventmie.events_index', ['category' => urlencode($item['name'])]) }}">
+                                <div class="category-card position-relative rounded-4 overflow-hidden shadow-lg h-100 transform-hover">
+                                    @php $bgimg = $item['thumb']; @endphp
+                                    <div class="category-background position-absolute top-0 start-0 w-100 h-100" 
+                                        style="background-image: url({{ getStorageImage($bgimg) }}); background-size: cover; background-position: center;">
+                                    </div>
+                                    
+                                    <!-- Category Content -->
+                                    <div class="category-content position-relative d-flex flex-column justify-content-end h-100 p-4">
+                                        <div class="category-info">
+                                            <h2 class="h3 text-white fw-bold mb-2 fs-4">{{ $item['name'] }}</h2>
+                                            
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <a class="stretched-link"
-                                    href="{{ route('eventmie.events_index', ['category' => urlencode($item['name'])]) }}"></a>
-                            </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>
             </div>
         </div>
     @endif
-    <!-- New Themes Categories END -->
+    <!-- New Themes Categories END-->
 
-    <!-- New Themes TRAVEL INFO Start -->
-    <div class="py-7 bg-light">
+    <!-- How it works-->
+    <div class="home-main-how-it-work bg-white py-5">
         <div class="container">
-            <div class="row ">
-                <div class="col-12">
-                    <div class="text-center mb-10">
-                        <p class="mb-0">@lang('eventmie::em.how_it_works') </p>
-                        <h2 class="mb-1">@lang('eventmie::em.for_customers')</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-md-4 col-12">
-                    <div class="step text-center mb-6 mb-lg-0">
-                        <div
-                            class="border border-primary border-3 icon-xxxl icon-shape rounded-circle bg-white mb-lg-7 mb-3">
-                            <div class="icon-shape icon-xl bg-white shadow rounded-circle ">
-                                <i class="fas fa-calendar-alt fa-1x text-primary"></i>
-                            </div>
-                        </div>
-                        <h3 class="mb-3">1. @lang('eventmie::em.customer_1')</h3>
-                        <p class="mb-0 px-lg-3">@lang('eventmie::em.customer_1_info') </p>
-                    </div>
+            <!-- Section title -->
+            <h2 class="mb-2">
+                <span class="font-weight-light">@lang('eventmie::em.how_it_works')</span>
+            </h2>
 
-                </div>
-                <div class="col-md-4 col-12">
-                    <div class="step text-center mb-6 mb-lg-0">
-                        <div class="border border-info border-3 icon-xxxl icon-shape rounded-circle bg-white mb-lg-7 mb-3">
-                            <div class="icon-shape icon-xl bg-white shadow rounded-circle ">
-                                <i class="fas fa-ticket-alt fa-1x text-primary"></i>
+            <!-- CSS-only tabs -->
+            <div class="howit-tabs mb-3">
+                
+                <input type="radio" name="howit" id="tab-customer" checked>
+                <label for="tab-customer" class="tab-label">
+                    @lang('eventmie::em.for_customers')
+                </label>
+
+                <!-- Tab panels -->
+                <div class="tab-content">
+                    <!-- Customer flow -->
+                    <div class="tab-panel customer mt-4">
+                        <div class="row">
+                            <div class="col-md-4 mb-5">
+                                <div class="step position-relative ps-5">
+                                    <div class="step-icon mb-3">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <h5 class="fw-semibold mb-2">
+                                        @lang('eventmie::em.customer_1')
+                                    </h5>
+                                    <p class="text-muted">
+                                        @lang('eventmie::em.customer_1_info')
+                                    </p>
+                                    <span class="step-number">1</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-5">
+                                <div class="step position-relative ps-5">
+                                    <div class="step-icon mb-3">
+                                        <i class="fas fa-ticket"></i>
+                                    </div>
+                                    <h5 class="fw-semibold mb-2">
+                                        @lang('eventmie::em.customer_2')
+                                    </h5>
+                                    <p class="text-muted">
+                                        @lang('eventmie::em.customer_2_info')
+                                    </p>
+                                    <span class="step-number">2</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-5">
+                                <div class="step position-relative ps-5">
+                                    <div class="step-icon mb-3">
+                                        <i class="fas fa-walking"></i>
+                                    </div>
+                                    <h5 class="fw-semibold mb-2">
+                                        @lang('eventmie::em.customer_3')
+                                    </h5>
+                                    <p class="text-muted">
+                                        @lang('eventmie::em.customer_3_info')
+                                    </p>
+                                    <span class="step-number">3</span>
+                                </div>
                             </div>
                         </div>
-                        <h3 class="mb-3">2. @lang('eventmie::em.customer_2')</h3>
-                        <p class="mb-0 px-lg-3">@lang('eventmie::em.customer_2_info')</p>
                     </div>
-                </div>
-                <div class="col-md-4 col-12">
-                    <div class="text-center mb-6 mb-lg-0">
-                        <div
-                            class="border border-success border-3 icon-xxxl icon-shape rounded-circle bg-white mb-lg-7 mb-3">
-                            <div class="icon-shape icon-xl bg-white shadow rounded-circle ">
-                                <i class="fas fa-walking fa-1x text-primary"></i>
-                            </div>
-                        </div>
-                        <h3 class="mb-3">3. @lang('eventmie::em.customer_3')</h3>
-                        <p class="mb-0 px-lg-3">@lang('eventmie::em.customer_3_info') </p>
-                    </div>
-                </div>
-            </div>
+                </div><!-- /.tab-content -->
+            </div><!-- /.howit-tabs -->
+
+
         </div>
     </div>
-    <!-- New Themes TRAVEL INFO End -->
 
 @endsection
 
@@ -233,5 +257,6 @@
 <script type="text/javascript">
     var events_slider = true;
 </script>
-<script type="text/javascript" src="{{ eventmie_asset('js/welcome.js') }}"></script>
+
+@vite(['vendor/classiebit/eventmie/resources/js/welcome/index.js'])
 @stop

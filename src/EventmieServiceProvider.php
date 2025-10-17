@@ -6,18 +6,20 @@ use Illuminate\Foundation\AliasLoader;
 use Classiebit\Eventmie\Facades\Eventmie as EventmieFacade;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Log;
 
-// Voyager serviceProvider
+/* Laravel packages start*/ 
 use TCG\Voyager\VoyagerServiceProvider as VoyagerServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Models\Setting;
 
-// Ziggy service provider
-use Tightenco\Ziggy\ZiggyServiceProvider as ZiggyServiceProvider;
 use View;
 use Config;
 
+use Devrabiul\CookieConsent\CookieConsentServiceProvider as CookieConsentServiceProvider;
 
+
+/* Console commands */
 use  Classiebit\Eventmie\Commands\InstallCommand;
 use  Classiebit\Eventmie\Commands\UpdateCommand;
 
@@ -85,6 +87,9 @@ class EventmieServiceProvider extends ServiceProvider
                 
                 // setup regional settings
                 $this->setRegional(setting('regional'));
+                
+                // setup storage 
+                $this->configureStorage();
             }
         }
         
@@ -102,7 +107,52 @@ class EventmieServiceProvider extends ServiceProvider
         if($this->app->version() >= 8) {
             Paginator::useBootstrap();
         }
+    }
 
+    private function configureStorage()
+    {
+        if (function_exists('setting')) {
+            $disk = setting('storage.filesystem_disk', 'local');
+
+            // If S3 is selected, validate required variables
+            if ($disk === 's3') {
+                $requiredS3Settings = [
+                    'aws_access_key_id' => setting('storage.aws_access_key_id'),
+                    'aws_secret_access_key' => setting('storage.aws_secret_access_key'),
+                    'aws_default_region' => setting('storage.aws_default_region'),
+                    'aws_bucket' => setting('storage.aws_bucket'),
+                    'aws_url' => setting('storage.aws_url'),
+                ];
+
+                // Check if any required setting is null or empty
+                $missingSettings = array_filter($requiredS3Settings, fn($value) => is_null($value) || $value === '');
+
+                if (empty($missingSettings)) {
+                    // All required settings are present, configure S3
+                    Config::set('filesystems.disks.s3', [
+                        'driver' => 's3',
+                        'key' => $requiredS3Settings['aws_access_key_id'],
+                        'secret' => $requiredS3Settings['aws_secret_access_key'],
+                        'region' => $requiredS3Settings['aws_default_region'],
+                        'bucket' => $requiredS3Settings['aws_bucket'],
+                        'url' => $requiredS3Settings['aws_url'],
+                        'endpoint' => setting('storage.aws_endpoint', env('AWS_ENDPOINT', null)),
+                        'use_path_style_endpoint' => setting('storage.aws_use_path_style_endpoint', env('AWS_USE_PATH_STYLE_ENDPOINT', false)),
+                    ]);
+                    Config::set('filesystems.default', 's3');
+                    Config::set('eventmie.admin_storage', 's3');
+                    Config::set('voyager.storage.disk', 's3');
+                } else {
+                    // Missing required settings, fall back to local disk
+                    Log::warning('S3 configuration failed due to missing settings: ' . implode(', ', array_keys($missingSettings)));
+                    Config::set('filesystems.default', 'local');
+                }
+            } else {
+                // Non-S3 disk selected, use the specified disk
+                Config::set('filesystems.default', $disk);
+                Config::set('voyager.storage.disk', 'public');
+            }
+        }
     }
 
     /**
@@ -113,8 +163,9 @@ class EventmieServiceProvider extends ServiceProvider
         // voyager serviceProvider
         $this->app->register(VoyagerServiceProvider::class);
         
-        // ziggy serviceProvider
-        $this->app->register(ZiggyServiceProvider::class);
+        // cookie consent
+        $this->app->register(CookieConsentServiceProvider::class);
+        
     }
 
     /**
@@ -146,21 +197,24 @@ class EventmieServiceProvider extends ServiceProvider
     private function registerPublishableResources()
     {
         $publishablePath    = dirname(__DIR__).'/publishable';
+
         $publishable        = [
             'config' => [
-                "{$publishablePath}/config/eventmie.php" => config_path('eventmie.php')
+                "{$publishablePath}/config/eventmie.php" => config_path('eventmie.php'),
+                "{$publishablePath}/config/laravel-cookie-consent.php" => config_path('laravel-cookie-consent.php'),
             ],
             'resources' => [
                 "{$publishablePath}/lang" => resource_path('lang/vendor/eventmie')
             ],
             'storage' => [
                 "{$publishablePath}/dummy_content/" => storage_path('app/public')
-            ],
+            ]
         ];
         
         foreach ($publishable as $group => $paths) {
             $this->publishes($paths, $group);
         }
+
     }
 
     /**
@@ -171,12 +225,16 @@ class EventmieServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             dirname(__DIR__).'/publishable/config/eventmie.php', 'eventmie'
         );
-
-        /* ===== OVERRIDE VOYAGER CONFIG WITHOUT PUBLISHING voyager.php TO LARAVEL APP ===== */
-        // merge new config with voyager original config
+        
+        // Cookie Consent config
+        $this->mergeConfigFrom(
+            dirname(__DIR__).'/publishable/config/laravel-cookie-consent.php', 'laravel-cookie-consent'
+        );
+        
+        // twice because of auto-generating locales
+        // voyager
         $voyager_config = dirname(__DIR__).'/publishable/config/voyager.php';
         $this->app['config']->set('voyager', require $voyager_config);
-        /* ================================================================================= */
     }
 
     /**
@@ -203,14 +261,14 @@ class EventmieServiceProvider extends ServiceProvider
     private function mailConfiguration($mail = [])
     {
         // defaults
-        $MAIL_MAILER        = 'smtp';
-        $MAIL_HOST          = 'smtp.mailtrap.io';
-        $MAIL_PORT          = '2525';
-        $MAIL_USERNAME      = '666ec0af4b63db';
-        $MAIL_PASSWORD      = '1a2b9dd547ac7f';
-        $MAIL_ENCRYPTION    = 'tls';
-        $MAIL_FROM_ADDRESS  = 'no-reply@classiebit.com';
-        $MAIL_FROM_NAME     = "EventmiePro@classiebit";
+        $MAIL_MAILER        = 'log';
+        $MAIL_HOST          = null;
+        $MAIL_PORT          = null;
+        $MAIL_USERNAME      = null;
+        $MAIL_PASSWORD      = null;
+        $MAIL_ENCRYPTION    = null;
+        $MAIL_FROM_ADDRESS  = null;
+        $MAIL_FROM_NAME     = null;
         if(
             !empty($mail['mail_host']) && 
             !empty($mail['mail_port']) && 

@@ -52,7 +52,7 @@ class ContactController extends Controller
         ];
         
         $contact     = $this->contact->store_contact($data);
-        
+
         if(empty($contact))
         {
             return redirect()->back()->with('msg', __('eventmie::em.message_sent_fail')); 

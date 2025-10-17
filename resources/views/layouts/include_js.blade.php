@@ -1,6 +1,3 @@
-{{-- Load third party plugins in seperate file (node modules) --}}
-<script type="text/javascript" src="{{ eventmie_asset('js/manifest.js') }}"></script>
-
 {{-- localization --}}
 <script type="text/javascript" src="{{ route('eventmie.eventmie_lang') }}"></script>
 
@@ -90,7 +87,7 @@
         document.execCommand('copy');
         document.body.removeChild(dummy);
 
-        alert('Event URL Copied!')
+        alert(trans('em.url_copied'));
     }
 
 
@@ -102,7 +99,8 @@
         fetch(local_timezone, {
                 method: 'POST',
                 headers: {
-                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     local_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone

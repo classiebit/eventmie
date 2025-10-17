@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row py-5">
             <div class="col-md-12">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 mh-v100">
                     <div class="card-header p-4 bg-white border-bottom-0"></div>
                     <div class="table-responsive">
                         <table class="table text-wrap table-hover">
@@ -20,7 +20,7 @@
                                     <td :data-title="trans('em.event')">
                                         <div class="d-flex align-items-center">
                                             <a :href="eventSlug(booking.event_slug)"> 
-                                                <img :src="'/storage/'+booking.event_thumbnail" :alt="booking.event_title" class="rounded img-4by3-md ">
+                                                <img :src="getImageUrl(booking.event_thumbnail)" :alt="booking.event_title" class="rounded img-4by3-md ">
                                             </a>
                                             <div class="ms-3 lh-1">
                                                 <h5 class="mb-1"> 
@@ -67,7 +67,7 @@
                     </div>
                     <div class="px-4 pb-4" v-if="bookings.length > 0">
                 
-                        <pagination-component v-if="pagination.last_page > 1" :pagination="pagination" :offset="pagination.total" :path="'/mybookings'" @paginate="getMyBookings()">
+                        <pagination-component v-if="pagination.last_page > 1" :pagination="pagination" :offset="pagination.total"  @paginate="getMyBookings()">
                         </pagination-component>
             
                     </div>
@@ -80,7 +80,7 @@
 
 <script>
 
-import PaginationComponent from '../../common_components/Pagination'
+import PaginationComponent from '../../common_components/Pagination.vue'
 import mixinsFilters from '../../mixins.js';
 
 export default {
@@ -132,7 +132,8 @@ export default {
                     'current_page' : res.data.bookings.current_page,
                     'last_page' : res.data.bookings.last_page,
                     'from' : res.data.bookings.from,
-                    'to' : res.data.bookings.to
+                    'to' : res.data.bookings.to,
+                    'links' : res.data.bookings.links
                 };
             })
             .catch(error => {

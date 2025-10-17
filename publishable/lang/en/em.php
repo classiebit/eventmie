@@ -732,7 +732,7 @@ return [
     'add_repetitive_schedules_ie'       => 'Make this a repetitive/recurring event',
     'organisation_logo'                 => 'Organisation Logo',
     'facebook'                          => 'Facebook',
-    'twitter'                           => 'Twitter',
+    'twitter'                           => 'X',
     'instagram'                         => 'Instagram',
     'linkedin'                          => 'Linkedin',
     'ticket_scan_error'                 => 'Cannot Scan Ticket Before event started',
@@ -744,6 +744,7 @@ return [
     'show_tax_info'                     => 'Show Tax Info',
     'hide_tax_info'                     => 'Hide Tax Info',
     'one_t_event'                       => 'Onetime',
+    'explore_categories'                => 'Explore Your Favorite Event Categories',
     
     
 ];

@@ -4,16 +4,26 @@
 //
 // Example of a variable override to change Geeks primary color
 // Remove the "//" to comment it in and see it in action!
-$primary: #2176FF;
-$secondary: #212425;
-$success: #38c172;
-$info: #0dcaf0;
-$warning: #ffc107;
-$danger: #e3342f;
-$light: #e9ecef;
-$dark: #212529;
-$pink: #d63384;
+$primary: #2276FF;
+$secondary: #161920;
+$dark: #0d0e12;
 
-$border-radius: .75rem;
-$border-radius-sm: 0.5rem;
+$success: #22C55E;
+$info: #06B6D4;
+$warning: #F59E0B;
+$danger: #EF4444;
+$light: #fafafa;
+$pink: #EC4899;
+
+$border-radius: .7rem;
+$border-radius-sm: 0.35rem;
 $border-radius-lg: 1rem;
+
+// Override Bootstrap container max-widths (without !default to force override)
+$container-max-widths: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  xxl: 1536px
+);

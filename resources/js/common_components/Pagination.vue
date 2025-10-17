@@ -1,31 +1,37 @@
 <template>
-    <ul class="pagination d-flex flex-wrap justify-content-end mb-0">
-        <!-- First & Previous Page -->
-        <li class="page-item">
-            <router-link :class="'page-link pagination-previous'" :to="{ path: path, query: query({ page: 1 })}" v-if="pagination.current_page > 1"><span>{{ trans('em.first') }}</span></router-link>
-        </li>
-        <li class="page-item">
-            <router-link :class="'page-link  pagination-previous'" :to="{ path: path, query: query({ page: pagination.current_page - 1 })}" v-if="pagination.current_page > 1"><span>{{ trans('em.previous') }}</span></router-link>
-        </li>
+<div class="mt-6 d-flex flex-wrap justify-content-between">
+    <ul class="pagination">
 
-        <li class="page-item"
-            v-for="(p_page, index) in pages"
-            v-bind:item="p_page"
-            v-bind:index="index"
-            v-bind:key="index"
-        >
-            <router-link :class="(isCurrentPage(p_page) ? 'page-link active' : 'page-link')" :to="{ path: path, query: query({ page: p_page })}">{{ p_page }}</router-link>
-        </li>
+            <!-- First & Previous Page -->
+            <li class="page-item">
+                <router-link :class="'page-link pagination-previous'" :to="{ path: path, query: query({ page: 1 })}" v-if="pagination.current_page > 1"><span aria-hidden="true"><i class="fa-solid fa-angles-left"></i> {{ trans('em.first') }}</span></router-link>
+            </li>
+            <li class="page-item">
+                <router-link :class="'page-link  pagination-previous'" :to="{ path: path, query: query({ page: pagination.current_page - 1 })}" v-if="pagination.current_page > 1"><span aria-hidden="true"><i class="fa-solid fa-angle-left"></i> {{ trans('em.previous') }}</span></router-link>
+            </li>
 
+    </ul>
+
+    <ul class="pagination d-flex flex-wrap">
+        
+        <li class="page-item" v-for="(page, index) in pagination.links" :key="index" >
+            <router-link v-if="!isNaN(page.label)" class="page-link" :class="{ 'active': page.active }" :to="{ path: path, query: query({ page: page.label })}" >{{ page.label }} </router-link>
+        </li>
+        
+    </ul>
+
+    <ul class="pagination">
+            
         <!-- Last & Next Page -->
         <li class="page-item">
-            <router-link :class="'page-link pagination-next'" :to="{ path: path, query: query({ page: pagination.current_page + 1 })}" v-if="pagination.current_page < pagination.last_page"><span>{{ trans('em.next') }}</span></router-link>
+            <router-link :class="'page-link pagination-next'" :to="{ path: path, query: query({ page: pagination.current_page + 1 })}" v-if="pagination.current_page < pagination.last_page"><span aria-hidden="true">{{ trans('em.next') }} <i class="fa-solid fa-angle-right"></i></span></router-link>
         </li>
         <li class="page-item">
-            <router-link :class="'page-link pagination-next'" :to="{ path: path, query: query({ page: pagination.last_page })}" v-if="pagination.current_page < pagination.last_page"><span>{{ trans('em.last') }}</span></router-link>
+            <router-link :class="'page-link pagination-next'" :to="{ path: path, query: query({ page: pagination.last_page })}" v-if="pagination.current_page < pagination.last_page"><span aria-hidden="true">{{ trans('em.last') }} <i class="fa-solid fa-angles-right"></i></span></router-link>
         </li>
 
     </ul>
+</div>
 </template>
 
 <style>

@@ -9,10 +9,10 @@
 }
 .custom-dashboard .panel.widget .dimmer {
     background: #fff;
-    border-top: 3px solid #2176FF;
+    border-top: 3px solid #2276FF;
 }   
 .custom-dashboard .panel.widget i {
-    background: #2176FF;
+    background: #2276FF;
 }
 .custom-dashboard .panel.widget p {
     font-size: 16px;
@@ -64,23 +64,23 @@
 }
 .panel.widget h4 {
     font-size: 18px;
-    color: #2176FF;
+    color: #2276FF;
     margin-top: 18px;
 }
 .voyager .side-menu.sidebar-inverse .navbar li>a {
     color: rgba(118, 131, 143, 0.78);
 }
 .voyager .side-menu.sidebar-inverse .navbar li.active>a {
-    color: #2176FF;
-    border-right: 3px solid #2176FF;
+    color: #2276FF;
+    border-right: 3px solid #2276FF;
 }
 .voyager .side-menu.sidebar-inverse .navbar li>a:hover {
-    color: #2176FF;
+    color: #2276FF;
     background: transparent;
-    border-right: 3px solid #2176FF;
+    border-right: 3px solid #2276FF;
 }
 .voyager .navbar.navbar-default .navbar-nav>li:hover>a, .voyager .navbar .navbar-nav>li:hover>a {
-    color: #2176FF;
+    color: #2276FF;
 }
 .voyager .side-menu.sidebar-inverse .navbar li.dropdown>.panel-collapse {
     background-color: #f3f3f3;
@@ -102,7 +102,7 @@
     transform: translateY(-1px);
 }
 .btn.btn-primary {
-    background: #2176FF;
+    background: #2276FF;
 }
 
 /* Images */
@@ -134,7 +134,7 @@ form.form-edit-add select[name=locale] + span.select2
     color: #FFF;
 }
 .statistics .box {
-    background-color: #2176FF;
+    background-color: #2276FF;
     padding: 1rem;
     overflow: hidden;
     border-radius: 20px;

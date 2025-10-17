@@ -26,7 +26,7 @@
         var path = {!! json_encode($path, JSON_HEX_TAG) !!};
         var events_slider = false;
     </script>
-    <script type="text/javascript" src="{{ eventmie_asset('js/events_listing.js') }}"></script>
+    @vite(['vendor/classiebit/eventmie/resources/js/events_listing/index.js'])
 
 
 @stop

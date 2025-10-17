@@ -1,0 +1,206 @@
+/* Enhanced Event Categories Section Styles */
+.bg-gradient-primary {
+    background: $primary;
+}
+
+.category-card {
+    min-height: 280px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+}
+
+.category-background {
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .category-background {
+    transform: scale(1.05);
+}
+
+.category-icon-bg {
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.category-card:hover .category-icon-bg {
+    background: rgba(255,255,255,0.3) !important;
+    transform: scale(1.1);
+}
+
+.category-content {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+}
+
+.transform-hover {
+    transition: all 0.3s ease;
+}
+
+.transform-hover:hover {
+    transform: translateY(-2px);
+}
+
+/* Button hover effects */
+.btn-outline-light:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .category-card {
+        min-height: 240px;
+    }
+    
+    .display-6 {
+        font-size: 2rem;
+    }
+    
+    .py-8 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .category-card {
+        min-height: 220px;
+    }
+    
+    .category-content {
+        padding: 1rem !important;
+    }
+    
+    .category-stats {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .category-stats span {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+.category-card * {
+    transition: all 0.3s ease;
+}
+
+/* Enhanced typography */
+.fw-semibold {
+    font-weight: 600 !important;
+}
+
+.fs-4 {
+    font-size: 1.5rem !important;
+}
+
+.fs-5 {
+    font-size: 1.25rem !important;
+}
+
+/* Badge styling */
+.badge.bg-white.bg-opacity-20 {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Animation for category cards on page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.category-card:nth-child(1) { animation-delay: 0.1s; }
+.category-card:nth-child(2) { animation-delay: 0.2s; }
+.category-card:nth-child(3) { animation-delay: 0.3s; }
+.category-card:nth-child(4) { animation-delay: 0.4s; }
+.category-card:nth-child(5) { animation-delay: 0.5s; }
+.category-card:nth-child(6) { animation-delay: 0.6s; }
+
+
+
+
+
+/* Homepage steps */
+/* Hide native radios */
+.howit-tabs input[type="radio"] {
+    display: none;
+}
+
+/* Tab labels */
+.howit-tabs .tab-label {
+    display: inline-block;
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+.howit-tabs .tab-label:hover {
+    color: #000;
+}
+
+/* Active tab underline */
+#tab-organiser:checked + label[for="tab-organiser"],
+#tab-customer:checked + label[for="tab-customer"] {
+    color: #000;
+    border-color: #000;
+}
+
+/* Hide all panels */
+.howit-tabs .tab-content .tab-panel {
+    display: none;
+}
+/* Show organiser panel */
+#tab-organiser:checked ~ .tab-content .tab-panel.organiser {
+    display: block;
+}
+/* Show customer panel */
+#tab-customer:checked ~ .tab-content .tab-panel.customer {
+    display: block;
+}
+
+/* Step styling */
+.step {
+    padding-left: 3rem;
+}
+.step-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 1.25rem;
+}
+.step-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.05);
+    line-height: 1;
+}
+.border-bottom {
+    border-bottom: 1px solid #dee2e6;
+    margin-top: 2rem;
+}

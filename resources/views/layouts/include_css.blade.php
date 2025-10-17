@@ -1,5 +1,5 @@
 <!-- Packages CSS -->
-<link rel="stylesheet" href="{{ eventmie_asset('css/vendor.css') }}">
+@Vite('vendor/classiebit/eventmie/resources/sass/vendor.scss')
 
 <!-- Bootstrap RTL CSS only if langauge is RTL -->
 @if (is_rtl())
@@ -7,5 +7,7 @@
 @endif
 
 <!-- New Themese Theme CSS -->
-<link rel="stylesheet" href="{{ eventmie_asset('css/theme.css') }}">
+@Vite('vendor/classiebit/eventmie/resources/sass/theme.scss')
+
+<!-- Custom CSS -->
 <link rel="stylesheet" href="{{ eventmie_asset('css/theme-custom.css') }}">

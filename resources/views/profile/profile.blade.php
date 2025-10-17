@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<section class="bg-light py-5">
+<section class="bg-light py-5 mt-8">
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-12">
@@ -42,8 +42,18 @@
 
 @section('javascript')
 <script type="text/javascript">
-    var user = {!! json_encode($user, JSON_HEX_APOS) !!};
-    var csrf_token = {!! json_encode(@csrf_token(), JSON_HEX_APOS) !!};
+    var user = {!! json_encode($user, JSON_UNESCAPED_SLASHES | JSON_HEX_APOS) !!};
+    var csrf_token = {!! json_encode(csrf_token(), JSON_UNESCAPED_SLASHES | JSON_HEX_APOS) !!};
+
+    // Get current storage disk from Laravel
+    var storageDisk = {!! json_encode(env('FILESYSTEM_DRIVER', 'local'), JSON_HEX_APOS) !!};
+
+    // Properly set user avatar URL
+    var avatarUrl = storageDisk === 's3' 
+        ? {!! json_encode(getFile($user->avatar), JSON_UNESCAPED_SLASHES | JSON_HEX_APOS) !!} 
+        : `storage/${user.avatar}`;
 </script>
-<script type="text/javascript" src="{{ eventmie_asset('js/profile.js') }}"></script>
+
+@vite(['vendor/classiebit/eventmie/resources/js/profile/index.js']) 
+
 @stop

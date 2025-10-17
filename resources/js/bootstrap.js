@@ -1,5 +1,7 @@
 
-window._ = require('lodash');
+import _ from 'lodash';
+window._ = _;
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -9,8 +11,11 @@ window._ = require('lodash');
 
 let base_url                    = document.head.querySelector('meta[name="base-url"]').content;
 window.timezone_default         = document.head.querySelector('meta[name="timezone_default"]').content;
+window.filesystem_driver        = document.head.querySelector('meta[name="filesystem_driver"]').content;
+window.aws_url                  = document.head.querySelector('meta[name="aws_url"]').content;
 
-window.axios                    = require('axios');
+import axios from 'axios';
+window.axios = axios;
 window.axios.defaults.baseURL   = base_url;
 window.base_url                 = base_url;
 window.axios.defaults.headers.common['X-Requested-With']    = 'XMLHttpRequest';

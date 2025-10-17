@@ -4,7 +4,7 @@
  */
 
 // include vue common libraries, plugins and components
-require('../vue_common.js');
+import "../vue_common.js";
 
 /**
  * Local Third-party Lib Imports
@@ -15,9 +15,9 @@ window.Vuex = Vuex;
 Vue.use(Vuex);
 
 
-import PersonalDetails from './components/PersonalDetails';
+import PersonalDetails from './components/PersonalDetails.vue';
 
-import Security from './components/Security';
+import Security from './components/Security.vue';
 import { mapState, mapMutations } from "vuex";
 
 import Croppa from 'vue-croppa';

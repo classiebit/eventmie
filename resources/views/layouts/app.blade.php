@@ -8,11 +8,13 @@
     @include('eventmie::layouts.favicon')
 
     @include('eventmie::layouts.include_css')
+    
+    {!! CookieConsent::styles() !!}
 
     @yield('stylesheet')
 </head>
 
-<body class="home" {!! is_rtl() ? 'dir="rtl"' : '' !!}>
+<body class="home @if(str_contains(request()->url(), 'dashboard')) dashboard-body-bg @else bg-white @endif" {!! is_rtl() ? 'dir="rtl"' : '' !!}>
 
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
@@ -29,15 +31,17 @@
 
         @php
             $no_breadcrumb = [
-                'eventmie.welcome', 
-                'eventmie.events_show', 
-                'eventmie.login', 
-                'eventmie.register', 
-                'eventmie.register_show', 
-                'eventmie.password.request', 
-                'eventmie.password.reset', 
-                'eventmie.myevents_index', 
-                'eventmie.myevents_form', 
+                'eventmie.welcome',
+                'eventmie.events_index',
+                'eventmie.events_show',
+                'eventmie.login',
+                'eventmie.register',
+                'eventmie.register_show',
+                'eventmie.password.request',
+                'eventmie.password.reset',
+                'eventmie.myevents_index',
+                'eventmie.myevents_form',
+                'eventmie.profile',
             ];
         @endphp
         @if (!in_array(Route::currentRouteName(), $no_breadcrumb))
@@ -53,15 +57,20 @@
             <vue-progress-bar></vue-progress-bar>
         </section>
 
-        @include('eventmie::layouts.footer')
+        @if(!str_contains(request()->url(), 'dashboard'))
+            @include('eventmie::layouts.footer')
+        @endif
 
     </div>
     <!--Main wrapper end-->
 
     @include('eventmie::layouts.include_js')
 
+    {!! CookieConsent::scripts() !!}
+
     {{-- Page specific javascript --}}
     @yield('javascript')
+    @stack('scriptsDashboard')
 
 </body>
 

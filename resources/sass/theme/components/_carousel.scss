@@ -38,24 +38,96 @@
 .banner-slider-form {
   position: absolute;
   z-index: 99999;
-  top: 55%;
-  left: 0;
-  right: 0;
+  top: 20%;
+  left: 18%;
+  width: 30%;
   margin: auto;
-  text-align: center;
+  text-align: left;
 }
 
-// Mobile
+// Mobile XS
 @include media-breakpoint-only(xs) { 
   .banner-slider-form {
-    top: 33%;
-
+    position: absolute;
+    left: 15%;
+    bottom: 5%;
+    top: 10%;
+    width: 60%;
 
     h1 {
-      font-size: 1.1rem ;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
     }
     p {
-      font-size: .7rem ;
+      font-size: 0.7rem;
+      margin-bottom: 0.4rem;
     }
+    .btn {
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem !important;
+    }
+    
+  }
+}
+
+// Mobile SM-MD
+@include media-breakpoint-between(sm, md) { 
+  .banner-slider-form {
+    position: absolute;
+    left: 15%;
+    bottom: 5%;
+    top: 10%;
+    width: 60%;
+
+    h1 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    p {
+      font-size: 0.7rem;
+      margin-bottom: 0.4rem;
+    }
+    .btn {
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem !important;
+    }
+  }
+}
+@include media-breakpoint-only(md) { 
+  .banner-slider-form {
+    top: 15%;
+    width: 50%;
+
+    h1 {
+      font-size: 1.5rem ;
+    }
+    p {
+      font-size: 1rem ;
+    }
+  }
+}
+
+.slick-prev, .slick-next {
+  z-index: 99999;
+  top: 40% !important;
+
+  &:before {
+    opacity: .6 !important;
+    font-size: 3rem !important;
+  }
+
+}
+.slick-prev {
+  left: 3% !important;
+  &:before {
+    content: "‹" !important;
+  }
+
+}
+.slick-next {
+  right: 4% !important;
+
+  &:before {
+    content: "›" !important;
   }
 }

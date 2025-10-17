@@ -107,6 +107,9 @@ Route::group([
         // API
         Route::get('/api/get_events', "$controller@events")->name('events');
         Route::get('/api/categories', "$controller@categories")->name('myevents_categories');
+
+        Route::get('/api/search-events', "$controller@searchEvents")->name('search_events');
+
     });
     
     /* Bookings */
@@ -145,6 +148,7 @@ Route::group([
         Route::get('/api/get_myevents', "$controller@get_myevents")->name('myevents'); 
         Route::get('/api/get_all_myevents', "$controller@get_all_myevents")->name('all_myevents');
         Route::post('/api/store', "$controller@store")->name('myevents_store');
+        Route::post('/api/store_detail_media', "$controller@storeDetailEditorMedia")->name('myevents_detail_media');
         Route::post('/api/store_media', "$controller@store_media")->name('myevents_store_media');
         Route::post('/api/store_location', "$controller@store_location")->name('myevents_store_location');
         Route::post('/api/store_timing', "$controller@store_timing")->name('myevents_store_timing');
@@ -211,9 +215,12 @@ Route::group([
         Route::post('/save', "$controller@store_contact")->name('store_contact');
     });
 
+
+    /* ============================= ALL OTHER ROUTES ABOVE ============================= */
+    /* Wildcard routes (add all other routes above) */
     /* Static Pages */
     Route::get('pages/{page}', $namespace."\PagesController@view")->name('page'); 
-    
+    /* ============================= NO ROUTES BELOW THIS ============================= */
 });
 
 // Voyager Routes -----------------------------------------------------------------

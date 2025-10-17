@@ -16,20 +16,26 @@ class EventmieDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /* ========== ORDER IS IMPORTANT ========== */
+        /* ========== KEEP THE ORDER SAME ========== */
+        
+        // eventmie tables
         $this->seed('BannersTableSeeder');
         $this->seed('CategoriesTableSeeder');
         $this->seed('CountriesTableSeeder');
-        $this->seed('DataTypesTableSeeder');
-        $this->seed('DataRowsTableSeeder');
         $this->seed('EventsTableSeeder');
         $this->seed('PagesTableSeeder');
-        $this->seed('SettingsTableSeeder');
+        
+        // voyager tables
+        $this->seed('UsersTableSeeder');
+        $this->seed('RolesTableSeeder');
+        $this->seed('DataTypesTableSeeder');
+        $this->seed('DataRowsTableSeeder');
         $this->seed('MenusTableSeeder');
         $this->seed('MenuItemsTableSeeder');
-        $this->seed('TranslationsTableSeeder');
         $this->seed('PermissionsTableSeeder');
-        $this->seed('RolesTableSeeder');
         $this->seed('PermissionRoleTableSeeder');
-        $this->seed('UsersTableSeeder');
+        $this->seed('TranslationsTableSeeder');
+        $this->seed('SettingsTableSeeder');
     }
 }

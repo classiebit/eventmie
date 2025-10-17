@@ -308,7 +308,7 @@
                                         <div id="{{ $setting->key }}" data-theme="{{ @$options->theme }}" data-language="{{ @$options->language }}" class="ace_editor min_height_400" name="{{ $setting->key }}">{{ $setting->value ?? '' }}</div>
                                         <textarea name="{{ $setting->key }}" id="{{ $setting->key }}_textarea" class="hidden">{{ $setting->value ?? '' }}</textarea>
                                     @elseif($setting->type == "image" || $setting->type == "file")
-                                        @if(isset( $setting->value ) && !empty( $setting->value ) && Storage::disk(config('voyager.storage.disk'))->exists($setting->value))
+                                        @if(isset( $setting->value ) && !empty( $setting->value ))
                                             <div class="img_settings_container">
                                                 @if (config('voyager.pkg_dev_mode')) 
                                                 <a href="{{ route('voyager.settings.delete_value', $setting->id) }}" class="voyager-x delete_value"></a>

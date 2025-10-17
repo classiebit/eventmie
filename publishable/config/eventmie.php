@@ -3,13 +3,13 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Route config   
+    | Route Prefix
     |--------------------------------------------------------------------------
     |
     | Here you can specify package route Eventmie site and admin panel url prefix
     |
     | prefix : null
-    | If prefix is null, then Eventmie base url will be example.com
+    | If prefix is null, then Eventmie site url will be example.com
     |
     | prefix : 'events' -> example.com/events
     | Eventmie site url will be example.com/events
@@ -70,6 +70,30 @@ return [
         'ml' // malayalam
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Controllers config
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify eventmie controller settings
+    |
+    */
+
+    'controllers' => [
+        'namespace' => NULL,
+    ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Storage
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify admin panel storage
+    |
+    */
+
+    'admin_storage' => 'public',
 
 
 ];

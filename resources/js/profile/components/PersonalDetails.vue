@@ -9,7 +9,7 @@
                             <input type="hidden" name="_token" id="csrf-token" :value="csrf_token" />
                             
                             <div class="col-md-12 mb-5 text-center">
-                                <img id="preview-image-before-upload" :src="'storage/'+ user.avatar"
+                                <img id="preview-image-before-upload" :src="avatarUrl"
                                     alt="profile-pic" style="max-height: 128px;border-radius: 50%;">
                             </div>
 
@@ -71,6 +71,7 @@ export default {
             name: null,
             email: null,
             avatar : null,
+            avatarUrl : null,
         };
     },
 
@@ -78,8 +79,8 @@ export default {
         // ...mapMutations(["add"]),
 
         editProfile() {
-            this.name = this.user.name;
-            this.email = this.user.email;
+            this.name = this.user.name,
+            this.email = this.user.email
         },
 
         // validate data on form submit
@@ -113,13 +114,23 @@ export default {
             const file = e.target.files[0];
             let url = URL.createObjectURL(file);
 
-            $('#preview-image-before-upload').attr('src', url); 
+            // Use vanilla JavaScript instead of jQuery
+            const previewImage = document.getElementById('preview-image-before-upload');
+            if (previewImage) {
+                previewImage.src = url;
+            }
            
+        },
+
+        storageDisk(){
+            this.avatarUrl = this.getImageUrl(this.user.avatar);
+            
         }
 
     },
     mounted() {
         this.editProfile();
+        this.storageDisk();
     }
 };
 </script>

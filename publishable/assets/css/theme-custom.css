@@ -1,1 +1,183 @@
 /* Custom css */
+
+/* Modern Search Form Styles */
+.search-form-container {
+    z-index: 10;
+}
+
+.search-form-card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-form {
+    padding: .5rem;
+}
+
+.search-field {
+    height: 60px;
+    border-right: 1px solid #e9ecef;
+    position: relative;
+}
+
+.search-field:last-of-type {
+    border-right: none;
+}
+
+.field-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    font-size: 0.9rem;
+}
+
+.modern-select {
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding: 1rem 1rem 1rem 2.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #495057;
+    appearance: none;
+    background-position: right 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.modern-select:focus {
+    outline: none;
+    background-color: rgba(13, 110, 253, 0.05);
+    box-shadow: inset 0 0 0 2px rgba(13, 110, 253, 0.1);
+}
+
+.modern-select:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.field-label {
+    position: absolute;
+    left: 2.5rem;
+    top: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.search-button-container {
+    height: 60px;
+    padding: 0.5rem;
+}
+
+.search-btn {
+    height: 100%;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: linear-gradient(135deg, #2276FF 0%, #161920 100%);
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #2276FF 100%, #161920 0%);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .search-form {
+        padding: .5rem;
+    }
+    
+    .search-field {
+        height: 55px;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 0.5rem;
+    }
+    
+    .search-field:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    
+    .search-button-container {
+        height: 55px;
+        padding: 0.25rem;
+    }
+    
+    .modern-select {
+        padding: 0.75rem 0.75rem 0.75rem 2.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .field-icon {
+        left: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .field-label {
+        left: 2.25rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .search-form-card {
+        background: rgba(33, 37, 41, 0.95) !important;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .modern-select {
+        color: #e9ecef;
+    }
+    
+    .modern-select:focus {
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+    
+    .modern-select:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .field-label {
+        color: #adb5bd;
+    }
+    
+    .field-icon {
+        color: #adb5bd;
+    }
+}
+
+/* Animation for form appearance */
+.search-form-card {
+    animation: slideUpFade 0.6s ease-out;
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

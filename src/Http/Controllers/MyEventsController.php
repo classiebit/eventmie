@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Throwable;
 use DB;
+use Illuminate\Support\Facades\Storage;
+
 class MyEventsController extends Controller
 {
         /**
@@ -168,14 +170,12 @@ class MyEventsController extends Controller
     public function store_media(Request $request)
     {
         $images    = [];
-        $poster    = null;
         $thumbnail = null;
 
         // 1. validate data
         $request->validate([
             'event_id'      => 'required|numeric|min:1|regex:^[1-9][0-9]*$^',
             'thumbnail'     => 'required',
-            'poster'        => 'required',
         ]);
 
         $result              = [];
@@ -189,6 +189,7 @@ class MyEventsController extends Controller
     
         // for multiple image
         $path = 'events/'.Carbon::now()->format('FY').'/';
+        $storageDisk = getDisk(); // Get current storage disk
 
         // for thumbnail
         if(!empty($_REQUEST['thumbnail'])) 
@@ -196,22 +197,10 @@ class MyEventsController extends Controller
             $params  = [
                 'image'  => $_REQUEST['thumbnail'],
                 'path'   => 'events',
-                'width'  => 854,
-                'height' => 480,  
+                'width'  => 512,
+                'height' => 512,  
             ];
-            $thumbnail   = $this->upload_base64_image($params);
-        }
-
-        if(!empty($_REQUEST['poster'])) 
-        {
-            $params  = [
-                'image'  => $_REQUEST['poster'],
-                'path'   => 'events',
-                'width'  => 1280,
-                'height' => 720,  
-            ];
-
-            $poster   = $this->upload_base64_image($params);
+            $thumbnail   = $this->upload_base64_image($params, $storageDisk);
         }
     
         // for image
@@ -233,20 +222,27 @@ class MyEventsController extends Controller
                 $image_resize    = Image::make($file)->encode('webp', 90)->resize(854, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
-            
-                // if directory not exist then create directiory
-                if (! File::exists(storage_path('/app/public/').$path)) {
-                    File::makeDirectory(storage_path('/app/public/').$path, 0775, true);
-                }
+
+
+                if ($storageDisk == 's3') {
+                    
+                    // Store directly in S3
+                    Storage::disk('s3')->put($path.$image[$key], $image_resize);
+
+                } else {
+                    // if directory not exist then create directiory
+                    if (! File::exists(storage_path('/app/public/').$path)) {
+                        File::makeDirectory(storage_path('/app/public/').$path, 0775, true);
+                    }
                 
-                $image_resize->save(storage_path('/app/public/'.$path.$image[$key]));
+                    $image_resize->save(storage_path('/app/public/'.$path.$image[$key]));
+                }
                 $images[$key]    = $path.$image[$key];
             }
         }
         
         $params = [
             "thumbnail"     => !empty($thumbnail) ? $path.$thumbnail : null ,
-            "poster"        => !empty($poster) ? $path.$poster : null,
         ];  
 
         // if images uploaded
@@ -534,13 +530,12 @@ class MyEventsController extends Controller
         
     }
 
-
     /* ==================== Private fucntions ==================== */
     
     /**
      *  Upload base64 image 
      */
-    protected function upload_base64_image($params = [])
+    protected function upload_base64_image($params = [], $storageDisk)
     {
         if(!empty($params['image'])) 
         { 
@@ -554,14 +549,27 @@ class MyEventsController extends Controller
                 $filename        = time().str_random(10).'.'.'webp';
             
             $path            = '/storage/'.$params['path'].'/'.Carbon::now()->format('FY').'/';
+
+
             $image_resize    = Image::make(base64_decode($image))->encode('webp', 90)->resize($params['width'], $params['height']);
 
-            // first check if directory exists or not
-            if (! File::exists(public_path().$path)) {
-                File::makeDirectory(public_path().$path, 0775, true);
+
+            if ($storageDisk == 's3') {
+
+                $path            = $params['path'].'/'.Carbon::now()->format('FY').'/';
+
+                // Store directly in S3
+                Storage::disk('s3')->put($path.$filename, $image_resize);
+
+            } else {
+
+                // first check if directory exists or not
+                if (! File::exists(public_path().$path)) {
+                    File::makeDirectory(public_path().$path, 0775, true);
+                }
+        
+                $image_resize->save(public_path($path . $filename));
             }
-    
-            $image_resize->save(public_path($path . $filename));
             
             return  $filename;
         }
@@ -683,5 +691,36 @@ class MyEventsController extends Controller
 
         return $text;
     }
+
+
+    public function storeDetailEditorMedia(Request $request)
+    {
+        try {
+            // Validate the request
+            $request->validate([
+                'image' => 'required|file|mimes:jpg,jpeg,png,webp|max:2048', // Limit file size to 2MB
+                'field' => 'required|string|in:faq,description', // Validate the field parameter
+            ]);
+
+            $params = [
+                'file' => $request->file('image'),
+                'path' => "editor_images/events/{$request->input('field')}/" . now()->format('F_Y'), // Dynamic path
+            ];
+
+            $mediaUrl = vueEditorMedia($params);
+
+            if ($mediaUrl) {
+                return response()->json(['url' => $mediaUrl], 200);
+            }
+
+            return response()->json(['error' => 'Unable to process the image.'], 500);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Image upload failed: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
 
 }

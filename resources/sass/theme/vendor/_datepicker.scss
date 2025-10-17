@@ -12,9 +12,43 @@
         }
     }
 }
-.mx-datepicker-sidebar {
-    width: 15rem;
+
+.mx-datepicker-popup {
+    display: flex;
+    justify-content: start;
+
+    .mx-btn-shortcut{
+        width:100%;
+    }
+
+    .mx-datepicker-sidebar{
+        padding: 15px 0px;
+    }
+
+    .mx-datepicker-sidebar + .mx-datepicker-content {
+        margin-left: 0rem;
+    }
+
+    .mx-btn-shortcut {
+        padding: 3px 6px;
+        font-size: 0.8rem;
+        border-bottom: 1px solid #eeeded;
+        border-radius: 0px;
+    }
 }
-.mx-datepicker-sidebar+.mx-datepicker-content {
-    margin-left: 15rem;
+
+/* mobile */
+@media screen and (max-width: 768px) {
+    .mx-datepicker-sidebar {
+        float: inline-start;
+        width: 7rem;
+    }
+}
+
+/* desktop */
+@media screen and (min-width: 768px) {
+    .mx-datepicker-sidebar {
+        float: inline-start;
+        width: 8rem;
+    }
 }

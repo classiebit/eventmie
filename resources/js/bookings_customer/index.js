@@ -4,7 +4,7 @@
  */
 
 // include vue common libraries, plugins and components
-require('../vue_common');
+import "../vue_common.js"
 
 /**
  * Local Imports
@@ -13,7 +13,7 @@ require('../vue_common');
 /**
  * Local Components 
  */
-import MyBooking from './components/MyBooking';
+import MyBooking from './components/MyBooking.vue';
 
 
 /**

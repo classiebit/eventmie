@@ -72,18 +72,18 @@
 
             </div>
 
-            <div class="alert alert-danger" v-if="moment(start_date).format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD') ||
-                moment(start_date).format('YYYY-MM-DD') > moment(end_date).format('YYYY-MM-DD') "
-                >
+            <div class="alert alert-danger" v-if="editDateValidation()">
                 <span class="text-danger"> {{ trans('em.date_info') }}</span>
             </div>
 
             <div class="row">
-                <div class="col-md-12" 
+                <div class="col-12" 
                     v-if="check_date(start_date) && check_date(end_date) && check_time(start_time) && check_time(end_time)"
                 >
                     <div class="alert alert-primary">
-                        <p class="text-primary fw-bold">{{ trans('em.start') }} {{ changeDateFormat(start_date, "YYYY-MM-DD") }} {{ trans('em.till') }} {{ changeDateFormat(end_date, "YYYY-MM-DD") }}</p>
+                        <p class="text-primary fw-bold">
+                            {{ trans('em.start') }}: {{ changeDateFormat(start_date, "YYYY-MM-DD") }} &nbsp;|&nbsp; {{ trans('em.end') }}: {{ changeDateFormat(end_date, "YYYY-MM-DD") }}
+                        </p>
                         <hr>
                         <!-- In case of simple : total hours (from start date to end date) -->
                         <p class="mb-0">
@@ -226,6 +226,31 @@ export default {
         },
 
         // check valid date 
+
+
+        // edit date validation
+        editDateValidation(){
+
+            if(this.userTimezone(this.event.start_date+' '+this.event.start_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD') != moment(this.start_date).format('YYYY-MM-DD')) {
+                if(
+                    moment(this.start_date).format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD') ||
+                    moment(this.start_date).format('YYYY-MM-DD') > moment(this.end_date).format('YYYY-MM-DD') 
+                ) {
+                    
+                    return true;
+                    
+
+                }
+                else {
+                
+                    return false;
+                }
+            } else {
+
+                return false;
+            }
+        },
+
         isDirty() {
             this.add({is_dirty: true});
         },

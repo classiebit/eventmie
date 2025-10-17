@@ -4,7 +4,7 @@
  */
 
 // include vue common libraries, plugins and components
-require('../vue_common');
+import "../vue_common.js"
 
 /**
  * Local Third-party Lib Imports
@@ -15,32 +15,35 @@ window.Vuex = Vuex;
 Vue.use(Vuex);
 
 /* Components */
-Vue.component('v-select', require('vue-select').default);
-Vue.component('Multiselect', require('vue-multiselect').default);
-Vue.component('DatePicker', require('vue2-datepicker').default);
 
-import VueConfirmDialog from 'vue-confirm-dialog'
-Vue.use(VueConfirmDialog)
+import vSelect from "vue-select";
+import Multiselect from "vue-multiselect";
+import DatePicker from "vue2-datepicker";
+
+// Register components globally
+Vue.component("v-select", vSelect);
+Vue.component("Multiselect", Multiselect);
+Vue.component("DatePicker", DatePicker);
+
+import VueConfirmDialog from 'vue-confirm-dialog';
+
+Vue.use(VueConfirmDialog);
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
 import Croppa from 'vue-croppa';
 Vue.use(Croppa)
 
-import CKEditor from 'ckeditor4-vue';
-window.ckeditor = CKEditor.component;
-Vue.component('ckeditor', window.ckeditor).default;
-
 
 /**
  * Local Components 
  */
-Vue.component('tabs-component', require('./components/Tabs.vue').default);
-import Detail from './components/Detail';
-import Media from './components/Media';
-import Location from './components/Location';
-import Timing from './components/Timing';
-import Poweredby from './components/Poweredby';
-import Seo from './components/Seo';
+import TabsComponent from './components/Tabs.vue';
+import Detail from './components/Detail.vue';
+import Media from './components/Media.vue';
+import Location from './components/Location.vue';
+import Timing from './components/Timing.vue';
+import Poweredby from './components/Poweredby.vue';
+import Seo from './components/Seo.vue';
 
 
 /**
@@ -197,6 +200,9 @@ function routeBeforeEnter(to, from, next) {
 window.app = new Vue({
     el: '#eventmie_app',
     store: store,
-    router: routes
+    router: routes,
+    components: {
+        TabsComponent,
+    },
 
 });

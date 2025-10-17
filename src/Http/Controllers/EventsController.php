@@ -150,6 +150,7 @@ class EventsController extends Controller
                 'per_page' => $event_pagination['per_page'],
                 'current_page' => $event_pagination['current_page'],
                 'last_page' => $event_pagination['last_page'],
+                'links' => $event_pagination['links'],
                 'from' => $event_pagination['from'],
                 'to' => $event_pagination['to'],
                 'countries' => $countries,
@@ -187,7 +188,7 @@ class EventsController extends Controller
         $ended  = false;
 
         // check event is ended or not
-        if(\Carbon\Carbon::now()->format('Y/m/d') > \Carbon\Carbon::createFromFormat('Y-m-d', $event['start_date'])->format('Y/m/d'))
+        if(\Carbon\Carbon::now()->format('Y/m/d') > \Carbon\Carbon::createFromFormat('Y-m-d', $event['end_date'])->format('Y/m/d'))
             $ended = true;    
         
         return Eventmie::view($view, compact(
@@ -220,5 +221,23 @@ class EventsController extends Controller
         }
         return response()->json(['status' => true, 'cities' => $cities ]);
     }   
+ 
 
+       /**
+     * searchEvents
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function searchEvents(Request $request) 
+    {
+        $event_title = $request->event_title;
+
+        if(!empty($event_title))
+            $options = Event::where('title', 'like', "%$event_title%")->where(['status' => 1])->inRandomOrder()->limit(10)->get();
+        else
+            $options = Event::where(['status' => 1])->inRandomOrder()->limit(10)->get();
+
+        return response()->json($options);
+    }
 }

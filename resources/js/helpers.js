@@ -1,5 +1,7 @@
 // VueSweetalert2
-window.Swal = require('sweetalert2');
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+
 
 // custom global helpers
 export default {
@@ -92,7 +94,7 @@ export default {
             toast: true,
             position: 'top-right',
             showConfirmButton: false,
-            timer: 4000,
+            timer: 5000,
             customClass: {
                 container: 'custom-swal-container',
                 popup: 'custom-swal-popup custom-swal-popup-'+type,
@@ -108,9 +110,20 @@ export default {
                 footer: 'custom-swal-footer'
             }
         });
+        
+        // Dynamically set the icon based on the type
+        let iconClass = 'fa-check-circle';
+        if(type === 'error') {
+            iconClass = 'fa-times-circle';
+        } else if (type === 'warning') {
+            iconClass = 'fa-exclamation-triangle';
+        } else if (type === 'info') {
+            iconClass = 'fa-info-circle';
+        }
+
         Toast.fire({
             type: type,
-            html: message
+            html: `<i class="far ${iconClass} fs-5 me-1 icon-position"></i>${message}`
         })
     },
 

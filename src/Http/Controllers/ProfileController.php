@@ -15,6 +15,7 @@ use Classiebit\Eventmie\Notifications\MailNotification;
 use Intervention\Image\Facades\Image;
 use File;
 Use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {    
@@ -71,8 +72,9 @@ class ProfileController extends Controller
             return error_redirect('Demo mode');
         }
         
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required|string',
+            
             'email' => 'required|email|unique:users,email,'.Auth::id()
         ]);
         
@@ -134,7 +136,7 @@ class ProfileController extends Controller
         {
             return error_redirect('Demo mode');
         }
-        $this->validate($request, [
+        $request->validate([
             'current' => 'required',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
@@ -169,7 +171,7 @@ class ProfileController extends Controller
         if($request->hasfile('avatar')) 
         { 
             $request->validate([
-                'avatar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             
             ]); 
         
@@ -181,13 +183,19 @@ class ProfileController extends Controller
             $image_resize    = Image::make($file)->encode('webp', 90)->resize(512, 512, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            
-            // if directory not exist then create directiory
-            if (! File::exists(storage_path('/app/public/').$path)) {
-                File::makeDirectory(storage_path('/app/public/').$path, 0775, true);
+
+            if (getDisk() === 's3') {
+                // Store directly in S3
+                Storage::disk('s3')->put($path.$avatar, $image_resize);
+            } else {
+
+                // if directory not exist then create directiory
+                if (! File::exists(storage_path('/app/public/').$path)) {
+                    File::makeDirectory(storage_path('/app/public/').$path, 0775, true);
+                }
+
+                $image_resize->save(storage_path('/app/public/'.$path.$avatar));
             }
-            
-            $image_resize->save(storage_path('/app/public/'.$path.$avatar));
             
             $user->avatar    = $path.$avatar;
             
@@ -196,7 +204,7 @@ class ProfileController extends Controller
         if(empty($user->avatar) || $user->avatar == 'users/default.png')
         {
             $request->validate([
-                'avatar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             
             ]); 
         }

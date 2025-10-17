@@ -2,13 +2,18 @@
 .custom-swal {
     &-container {
         padding: 2rem 1rem 2rem 2rem !important;
-        z-index: 99999999 !important;
+        z-index: 2147483647 !important;
+        position: fixed !important;
+        top: 1rem;
+        right: 1rem;
     }
     &-popup {
+        position: relative !important;
         border-radius: 8px !important;
         border: 2px solid transparent !important;
         box-shadow: $box-shadow-smooth-md;
         padding: 0rem 0.7rem 0.7rem 0.2rem !important;
+        z-index: 2147483647 !important;
 
         .swal2-icon.swal2-error, 
         .swal2-icon.swal2-question,
@@ -117,4 +122,99 @@
     .swal2-loader {
         border-color: $success transparent $success transparent;
     }
+}
+
+.custom-swal-popup-loader{
+    background-color: #fff;
+    box-shadow: 0 9px 26px #00000030, 0 1.4932px 5.38611px #00000015, 0 .826568px 1.06088px #00000010;
+    border-radius: 20px!important;
+    border: 3px solid gray !important;
+    padding: 2.25rem 3rem 0rem 3rem !important;
+    z-index: 9999;
+    text-align: center;
+    position: relative;
+}
+.icon-position{
+    position: relative;
+    top: 0px;
+}
+.custom-swal-popup{
+    padding: 0.5rem .0rem 0.5rem .0rem !important;
+}
+
+.custom-swal-popup-success p, .custom-swal-popup-success .custom-swal-content {
+    padding: 8px 0 0 0 !important;
+}
+
+.custom-swal-popup-error p, .custom-swal-popup-error .custom-swal-content{
+    padding: 8px 0 0 0 !important;
+}
+
+.swal2-html-container {
+    display: flex !important;
+
+    p {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+/* New loader design (spinner + powered by) */
+@keyframes custom-swal-spin {
+    100% { transform: rotate(360deg); }
+}
+
+.custom-swal-popup-loader {
+    min-width: 320px;
+    max-width: 420px;
+}
+
+/* Hide default swal loader for this layout */
+.custom-swal-popup-loader .swal2-actions .swal2-loader { 
+    display: none !important; 
+}
+
+/* Circular spinner placed above the title */
+.custom-swal-popup-loader::before {
+    content: "";
+    display: block;
+    width: 92px;
+    height: 92px;
+    margin: 0 auto 0.75rem auto;
+    border-radius: 50%;
+    border: 8px solid $light-primary;
+    border-top-color: $primary;
+    animation: custom-swal-spin 1s linear infinite;
+}
+
+/* Title styling */
+.custom-swal-popup-loader .custom-swal-title {
+    font-size: 1rem !important; /* 30px */
+    font-weight: 600 !important;
+    color: #111827 !important; /* gray-900 */
+    margin: 0.25rem 0 1.25rem 0 !important;
+}
+
+/* Footer area with dynamic brand (logo + name) */
+.custom-swal-popup-loader .custom-swal-footer {
+    display: block !important;
+    color: #6B7280 !important; /* gray-500 */
+    font-weight: 700 !important;
+    font-size: 0.7rem !important;
+    padding: 0.9rem 1.25rem 1.1rem 1.25rem !important;
+    margin-top: 1.25rem !important;
+    border-top: 1px solid #E5E7EB !important; /* gray-200 */
+    border-radius: 0 0 8px 8px !important;
+}
+
+.custom-swal-popup-loader .custom-swal-footer .brand-footer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-swal-popup-loader .custom-swal-footer .brand-logo {
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
 }

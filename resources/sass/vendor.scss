@@ -5,16 +5,16 @@
 // All third-party CSS packages
 
 // Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap.scss";
 
-// Fortawesome
-$fa-font-path:        "frontend-assets?path=webfonts";
-@import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
-@import "node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
+// Font Awesome
+$fa-font-path: "./../../webfonts"; 
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/brands.scss";
 
 // Vue Select
-@import "node_modules/vue-select/src/scss/vue-select.scss";
+@import "vue-select/src/scss/vue-select.scss";
 
 // Vue2 Datepicker
-@import 'node_modules/vue2-datepicker/scss/index.scss';
+@import 'vue2-datepicker/scss/index.scss';

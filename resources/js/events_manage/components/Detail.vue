@@ -25,17 +25,25 @@
                 <p><a target="_blank" :href="slugUrl()">{{ slugUrl() }}</a></p>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 text-wrap">
                 <label class="form-label">{{ trans('em.description') }}</label>
                 <textarea class="form-control"  rows="3" name="description" :value="description" v-validate="'required'" style="display:none;"></textarea>
-                <ckeditor  v-model="description"></ckeditor>
+                <vue-editor
+                    v-model="description"
+                    useCustomImageHandler
+                    @image-added="(file, Editor, cursorLocation, resetUploader) => handleImageAdded(file, Editor, cursorLocation, resetUploader, 'description')"
+                ></vue-editor>
                 <span v-show="errors.has('description')" class="help text-danger">{{ errors.first('description') }}</span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 text-wrap">
                 <label class="form-label">{{ trans('em.more_event_info') }} </label>
                 <textarea class="form-control" rows="3" name="faq" :value="faq" style="display:none;"></textarea>
-                <ckeditor v-model="faq"></ckeditor>
+                <vue-editor
+                    v-model="faq"
+                    useCustomImageHandler
+                    @image-added="(file, Editor, cursorLocation, resetUploader) => handleImageAdded(file, Editor, cursorLocation, resetUploader, 'faq')"
+                ></vue-editor>
                 <span v-show="errors.has('faq')" class="help text-danger">{{ errors.first('faq') }}</span>
             </div>
 
@@ -191,6 +199,35 @@ export default {
         isDirtyReset() {
             this.add({is_dirty: false});
         },
+
+        handleImageAdded: function (file, Editor, cursorLocation, resetUploader, field) {
+            if (!file || !file.type.startsWith("image/")) {
+                this.showNotification("error", "Invalid file type. Please upload an image.");
+                resetUploader();
+                return;
+            }
+
+            let post_url = route('eventmie.myevents_detail_media'); // Same endpoint for all images
+            let formData = new FormData();
+            formData.append("image", file);
+            formData.append("field", field); // Pass the field parameter
+
+            axios.post(post_url, formData)
+                .then(result => {
+                    if (result.data && result.data.url) {
+                        const url = result.data.url;
+                        Editor.insertEmbed(cursorLocation, "image", url);
+
+                    } else {
+                        this.showNotification("error", "Image upload failed. Please try again.");
+                    }
+                    resetUploader();
+                })
+                .catch(err => {
+                    console.error(err);
+                    this.showNotification("error", "An error occurred during the upload.");
+                });
+        }
 
 
     },

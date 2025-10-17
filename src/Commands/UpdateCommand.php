@@ -93,6 +93,18 @@ class UpdateCommand extends Command
         // Copy missing extras folder's files to storage
         $dir = str_replace('src/Commands', '', __DIR__);
         File::copyDirectory($dir.'publishable/assets/ep_img/', public_path('/'));
+        File::copyDirectory($dir.'publishable/assets/webfonts/', public_path('/'));
+        // copy vite config
+        $viteConfigSrc  = $dir.'publishable/assets/vite.config.js';
+        $viteConfigDest = base_path('vite.config.js');
+        if (file_exists($viteConfigSrc)) {
+            if (!file_exists($viteConfigDest) || $this->option('force')) {
+                File::copy($viteConfigSrc, $viteConfigDest);
+                $this->info('Copied vite.config.js to application root');
+            } else {
+                $this->warn('vite.config.js already exists at application root (use --force to overwrite)');
+            }
+        }
         
         
         // 3. Run cache clear commands

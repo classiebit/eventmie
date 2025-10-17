@@ -125,6 +125,18 @@ class InstallCommand extends Command
         $this->info('6. Adding Placeholders');
         $dir = str_replace('src/Commands', '', __DIR__);
         File::copyDirectory($dir.'publishable/assets/ep_img/', public_path('/'));
+        File::copyDirectory($dir.'publishable/assets/webfonts/', public_path('/'));
+        // copy vite config
+        $viteConfigSrc  = $dir.'publishable/assets/vite.config.js';
+        $viteConfigDest = base_path('vite.config.js');
+        if (file_exists($viteConfigSrc)) {
+            if (!file_exists($viteConfigDest) || $this->option('force')) {
+                File::copy($viteConfigSrc, $viteConfigDest);
+                $this->info('Copied vite.config.js to application root');
+            } else {
+                $this->warn('vite.config.js already exists at application root (use --force to overwrite)');
+            }
+        }
         File::copyDirectory($dir.'publishable/dummy_content/', storage_path('app/public/'));
         
 
@@ -133,7 +145,7 @@ class InstallCommand extends Command
         $this->call('storage:link');
         
         $version = Eventmie::getVersion();
-        $this->info("Congrats! Eventmie Lite version $version installed successfully! Make sure to check Eventmie Pro FullyLoaded on our website- https://classiebit.com/eventmie-pro-fullyloaded");
+        $this->info("Congrats! Eventmie Lite version $version installed successfully! Best of Luck!");
     }
     
 }

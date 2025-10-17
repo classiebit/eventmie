@@ -250,7 +250,7 @@ export default{
                     cancelButtonText: trans('em.no'),
                     showCloseButton: true,
                     showLoaderOnConfirm: true,
-                    timer: 4000,
+                    timer: 5000,
                     customClass: {
                         container: 'custom-swal-container',
                         popup: 'custom-swal-popup custom-swal-popup-error',
@@ -282,7 +282,7 @@ export default{
                 toast: true,
                 position: 'top-right',
                 showConfirmButton: false,
-                timer: 4000,
+                timer: 5000,
                 customClass: {
                     container: 'custom-swal-container',
                     popup: 'custom-swal-popup custom-swal-popup-'+type,
@@ -298,23 +298,42 @@ export default{
                     footer: 'custom-swal-footer'
                 }
             });
+
+            // Dynamically set the icon based on the type
+            let iconClass = 'fa-check-circle';
+            if(type === 'error') {
+                iconClass = 'fa-times-circle';
+            } else if (type === 'warning') {
+                iconClass = 'fa-exclamation-triangle';
+            } else if (type === 'info') {
+                iconClass = 'fa-info-circle';
+            }
+
             Toast.fire({
                 type: type,
-                html: message
+                html: `<i class="far ${iconClass} fs-5 me-1 icon-position mt-0"></i>${message}`
             })
         },
 
         // show loader with notification
         showLoaderNotification(message) {
+            // Read brand info from header (dynamic from Blade settings)
+            const brandImgEl  = document.querySelector('.navbar-brand img');
+            const brandSpanEl = document.querySelector('.navbar-brand span');
+            const brandLogo   = brandImgEl ? brandImgEl.getAttribute('src') : null;
+            const brandName   = (brandSpanEl && brandSpanEl.textContent.trim()) || (brandImgEl ? brandImgEl.getAttribute('alt') : '');
+
+            const footerHtml = `<div class="brand-footer"><span> ${trans('em.powered_by')} ${brandLogo ? `<img src="${brandLogo}" class="brand-logo mb-1" alt="${brandName}">` : ''} ${brandName}</span></div>`;
             
             Swal.fire ({
                 title: message,
                 allowEscapeKey: false,
                 allowOutsideClick: false,
                 showConfirmButton: false,
+                footer: footerHtml,
                 customClass: {
                     container: 'custom-swal-container',
-                    popup: 'custom-swal-popup',
+                    popup: 'custom-swal-popup-loader',
                     header: 'custom-swal-header',
                     title: 'custom-swal-title',
                     closeButton: 'custom-swal-close-button',
@@ -427,7 +446,16 @@ export default{
 
         },
 
-        
+        getImageUrl(imagePath) {
+            const filesystemDriver = document.head.querySelector('meta[name="filesystem_driver"]').content;
+            const awsUrl = document.head.querySelector('meta[name="aws_url"]').content;
+            
+            if (!imagePath) return null;
+
+            return filesystemDriver == 's3' 
+                ? `${awsUrl}${imagePath}`
+                : `/storage/${imagePath}`;
+        },
 
     }
   }

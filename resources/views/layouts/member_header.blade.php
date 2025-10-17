@@ -4,7 +4,7 @@
         $data = notifications();
     @endphp
 
-    <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button" data-bs-toggle="dropdown"
+    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="blogDropdown" role="button" data-bs-toggle="dropdown"
         aria-expanded="false" v-pre>
         <span class="position-relative btn btn-sm btn-primary badge">
             <i class="fas fa-bell text-white"> </i>
@@ -41,8 +41,8 @@
 </li>
 
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button" data-bs-toggle="dropdown"
-        aria-expanded="false" v-pre>
+    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="blogDropdown" role="button"
+        data-bs-toggle="dropdown" aria-expanded="false" v-pre>
         @if (Auth::user()->hasRole('customer'))
             <i class="fas fa-user-circle"></i>
         @else

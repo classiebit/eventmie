@@ -6,8 +6,7 @@
                     <form ref="form" @submit.prevent="cropThumbnailPoster" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="event_id" v-model="event_id">
                         <input type="hidden" v-model="thumbnail" name="thumbnail">
-                        <input type="hidden" v-model="poster" name="poster">
-
+                        
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label class="form-label mb-0">{{ trans('em.thumbnail_image') }}</label>
@@ -18,9 +17,9 @@
                                     :placeholder-font-size="16"
                                     :placeholder-color="'#000'"
                                     :class="'croppa-thumbnail '"
-                                    :quality="1"
-                                    :width="854"
-                                    :height="480"
+                                    :quality="2"
+                                    :width="256"
+                                    :height="256"
 
                                     :prevent-white-space="true"
                                     :show-remove-button="true"
@@ -34,47 +33,11 @@
 
                                     @file-choose="isDirty()"
                                 >
-                                    <img crossOrigin="anonymous" :src="thumbnail_preview" slot="initial" :class="' p-2'">
+                                    <img crossOrigin="anonymous" :src="thumbnail_preview" slot="initial" :class="'p-2'">
                                 </croppa>
                                 <span v-show="errors.has('thumbnail')" class="help-block text-danger">{{ errors.first('thumbnail') }}</span>
 
                                 <p class="mb-0 text-muted">{{ trans('em.thumbnail_info') }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label class="form-label mb-0">{{ trans('em.poster_image') }}</label>
-
-                                <p class="mb-2 mt-0"><small class="text-muted">{{ trans('em.zoom_info') }} {{ trans('em.drag_info') }}</small></p>
-                                <croppa v-model="poster_croppa"
-                                    :placeholder="trans('em.drag_drop')+' '+trans('em.or')+' '+trans('em.browse')+' '+trans('em.poster')"
-                                    :placeholder-font-size="16"
-                                    :placeholder-color="'#000'"
-                                    :class="'croppa-cover  p-2'"
-
-                                    :quality="1"
-                                    :width="1280"
-                                    :height="720"
-
-                                    :prevent-white-space="true"
-                                    :show-remove-button="true"
-                                    :zoom-speed="1"
-                                    :file-size-limit="10485760" 
-                                    accept=".jpg,.jpeg,.png"
-                                    @file-type-mismatch="onFileTypeMismatch"
-                                    @file-size-exceed="onFileSizeExceed"
-
-                                    :initial-image="poster_preview"
-
-                                    @file-choose="isDirty()"
-                                >
-                                    <img crossOrigin="anonymous" :src="poster_preview"
-                                    slot="initial" :class="''">
-                                </croppa>
-                                <span v-show="errors.has('poster')" class="help text-danger">{{ errors.first('poster') }}</span>
-
-                                <p class="mb-0 text-muted">{{ trans('em.poster_info') }}</p>
                             </div>
                         </div>
 
@@ -94,7 +57,7 @@
                                         <button type="button" class="btn-sm btn-remove-image bg-light-danger text-danger" @click="deleteGalleryImages(image)">
                                             <i class="fas fa-times"></i>
                                         </button>
-                                        <img :src="'/storage/'+image" class="rounded img-fluid">
+                                        <img :src="getImageUrl(image)" class="rounded img-fluid" >
                                     </div>
                                 </div>
                             </div>
@@ -131,11 +94,6 @@ export default {
             thumbnail_preview   : '',
             thumbnail_croppa    : null,
 
-            // poster
-            poster              : null,
-            poster_preview      : '',
-            poster_croppa       : null,
-            
             images              : [],
             multiple_images     : [],
         }
@@ -184,13 +142,8 @@ export default {
                 Vue.helpers.showToast('error', trans('em.thumbnail')+' '+trans('em.image')+' '+trans('em.required'));
                 return false;
             }
-            if(this.thumbnail_poster === null) {
-                Vue.helpers.showToast('error', trans('em.poster')+' '+trans('em.image')+' '+trans('em.required'));
-                return false;
-            }
- 
+            
             this.thumbnail  = await this.thumbnail_croppa.generateDataUrl('image/jpeg');
-            this.poster     = await this.poster_croppa.generateDataUrl('image/jpeg');
             
             // once after we get cropped images
             // proceed to form submit
@@ -236,8 +189,7 @@ export default {
             
             if(Object.keys(this.event).length > 0)
             {
-                this.thumbnail_preview         = this.event.thumbnail ? ('/storage/'+this.event.thumbnail) : null;
-                this.poster_preview            = this.event.poster ? ('/storage/'+this.event.poster) : null;
+                this.thumbnail_preview         = this.getImageUrl(this.event.thumbnail);
                 this.multiple_images           = this.event.images ? JSON.parse(this.event.images) : [];
             }    
         },

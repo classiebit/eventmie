@@ -1,12 +1,12 @@
 // Extended from Bootstrap
 // Utilites
 
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/maps";
-@import "node_modules/bootstrap/scss/mixins";
-@import "node_modules/bootstrap/scss/utilities";
-@import "node_modules/bootstrap/scss/utilities/api";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/utilities/api";
 
 
 // flex
@@ -33,8 +33,6 @@ $utilities: map-merge(
           3:3,
           4:4,
           5:5,
-
-
           ),
     ),
     "width": (
@@ -137,7 +135,6 @@ $utilities: map-merge(
       values: map-merge(
         $theme-colors,
         (
-
         "gray-100": $gray-100,
         "gray-200": $gray-200,
         "gray-300": $gray-300,
@@ -200,14 +197,11 @@ $utilities: map-merge(
   )
 );
 
-
-
-
-// Utitlities classes
-
-@import "utilities/_overlay-bg.scss";
-@import "utilities/_text-size.scss";
-@import "utilities/_icon-shape.scss";
-@import "utilities/_img-hover.scss";
-@import "utilities/_color.scss";
-@import "utilities/_spacing.scss";
+// Utility imports
+@import "utilities/overlay-bg";
+@import "utilities/text-size";
+@import "utilities/icon-shape";
+@import "utilities/img-hover";
+@import "utilities/color";
+@import "utilities/spacing";
+@import "utilities/dark-utilities";

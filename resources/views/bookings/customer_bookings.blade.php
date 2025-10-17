@@ -17,5 +17,6 @@
 <script>
     var path = {!! json_encode($path, JSON_HEX_TAG) !!};
 </script>
-<script type="text/javascript" src="{{ eventmie_asset('js/bookings_customer.js') }}"></script>
+@vite(['vendor/classiebit/eventmie/resources/js/bookings_customer/index.js'])
+
 @stop

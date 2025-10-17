@@ -22,6 +22,7 @@ class EventmieDatabaseUpdateSeeder extends Seeder
         /* ===== ORDER IS IMPORTANT ===== */
         /* ===== KEEP THE ORDER SAME ===== */
         // update voyager tables
+        $this->seed('RolesTableSeeder');
         $this->seed('DataTypesTableSeeder');
         $this->seed('DataRowsTableSeeder');
         $this->seed('MenusTableSeeder');

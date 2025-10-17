@@ -4,24 +4,28 @@
  */
 
 // include vue common libraries, plugins and components
-require('../vue_common');
+import "../vue_common.js"
 
 /**
  * Local Third-party Lib Imports
 */
 /* Instances */
+
 import Vuex from 'vuex';
 window.Vuex = Vuex;
 Vue.use(Vuex);
 
-/* Components */
-Vue.component('v-select', require('vue-select').default);
 
-/**
- * Local Components 
- */
-Vue.component('select-dates', require('./components/SelectDates.vue').default);
-Vue.component('gallery-images', require('./components/GalleryImages.vue').default);
+/* Components */
+import vSelect from "vue-select";
+
+// Register `v-select` globally
+Vue.component("v-select", vSelect);
+
+
+// Import components using ES modules
+import SelectDates from "./components/SelectDates.vue";
+import GalleryImages from "./components/GalleryImages.vue";
 
 /**
  * Local Vuex Store 
@@ -62,4 +66,9 @@ const store = new Vuex.Store({
 window.app = new Vue({
     el: '#eventmie_app',
     store: store,
+
+    components: {
+        SelectDates,
+        GalleryImages
+    },
 });

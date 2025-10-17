@@ -55,7 +55,9 @@ class SettingsTableSeeder extends Seeder
 
         $setting=$this->findSetting("social.twitter");
         if (!$setting->exists) {
-            $setting->fill(["display_name"=> "Twitter Account Username", "value"=> "classiebit", "details"=> null, "type"=> "text", "order"=> "9", "group"=> "Social", ])->save();
+            $setting->fill(["display_name"=> "X Account Username", "value"=> "classiebit", "details"=> null, "type"=> "text", "order"=> "9", "group"=> "Social", ])->save();
+        } else {
+            $setting->fill(["display_name"=> "X Account Username"])->save();
         }
 
         $setting=$this->findSetting("social.instagram");
@@ -70,12 +72,12 @@ class SettingsTableSeeder extends Seeder
 
         $setting=$this->findSetting("contact.address");
         if (!$setting->exists) {
-            $setting->fill(["display_name"=> "Address", "value"=> "85 Golden Street, Darlinghurst ERP 2019, United States", "details"=> null, "type"=> "text_area", "order"=> "12", "group"=> "Contact", ])->save();
+            $setting->fill(["display_name"=> "Address", "value"=> "Company Address", "details"=> null, "type"=> "text_area", "order"=> "12", "group"=> "Contact", ])->save();
         }
 
         $setting=$this->findSetting("contact.phone");
         if (!$setting->exists) {
-            $setting->fill(["display_name"=> "Phone", "value"=> "1800-180-0808", "details"=> null, "type"=> "text", "order"=> "13", "group"=> "Contact", ])->save();
+            $setting->fill(["display_name"=> "Phone", "value"=> "1800-000-0000", "details"=> null, "type"=> "text", "order"=> "13", "group"=> "Contact", ])->save();
         }
 
         $setting=$this->findSetting("contact.email");
@@ -120,12 +122,12 @@ class SettingsTableSeeder extends Seeder
 
         $setting = $this->findSetting("admin.title");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Admin Title", "value" => "Eventmie Lite", "details"=> null, "type" => "text", "order" => "24", "group" => "Admin", ])->save();
+            $setting->fill(["display_name" => "Admin Title", "value" => "Events Pro", "details"=> null, "type" => "text", "order" => "24", "group" => "Admin", ])->save();
         }
 
         $setting = $this->findSetting("admin.description");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Admin Description", "value" => "Eventmie Lite Admin Panel", "details"=> null, "type" => "text", "order" => "25", "group" => "Admin", ])->save();
+            $setting->fill(["display_name" => "Admin Description", "value" => "Events Pro Admin Panel", "details"=> null, "type" => "text", "order" => "25", "group" => "Admin", ])->save();
         }
 
         $setting = $this->findSetting("admin.loader");
@@ -140,7 +142,7 @@ class SettingsTableSeeder extends Seeder
 
         $setting = $this->findSetting("mail.mail_driver");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Mail Driver", "value" => "", "details"=> null, "type" => "text", "order" => "36", "group" => "Mail", ])->save();
+            $setting->fill(["display_name" => "Mail Driver", "value" => "log", "details"=> null, "type" => "text", "order" => "36", "group" => "Mail", ])->save();
         }
 
         $setting = $this->findSetting("mail.mail_host");
@@ -160,7 +162,7 @@ class SettingsTableSeeder extends Seeder
 
         $setting = $this->findSetting("mail.mail_password");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Mail Password", "value" => "", "details"=> null, "type" => "password", "order" => "40", "group" => "Mail", ])->save();
+            $setting->fill(["display_name" => "Mail Password", "value" => "", "details"=> null, "type" => "text", "order" => "40", "group" => "Mail", ])->save();
         }
 
         $setting = $this->findSetting("mail.mail_encryption");
@@ -177,18 +179,18 @@ class SettingsTableSeeder extends Seeder
 
         $setting = $this->findSetting("mail.mail_sender_email");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Mail Sender Email", "value" => "eventmie@classiebit.com", "details"=> null, "type" => "text", "order" => "42", "group" => "Mail", ])->save();
+            $setting->fill(["display_name" => "Mail Sender Email", "value" => "", "details"=> null, "type" => "text", "order" => "42", "group" => "Mail", ])->save();
         }
 
         $setting = $this->findSetting("mail.mail_sender_name");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Mail Sender Name", "value" => "Eventmie Pro", "details"=> null, "type" => "text", "order" => "43", "group" => "Mail", ])->save();
+            $setting->fill(["display_name" => "Mail Sender Name", "value" => "", "details"=> null, "type" => "text", "order" => "43", "group" => "Mail", ])->save();
         }
         
         $setting = $this->findSetting("regional.timezone_default");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Timezone", "value" => "Asia/Kolkata", "details" => json_encode([
-                "default" => "Asia/Kolkata",
+            $setting->fill(["display_name" => "Timezone", "value" => "Europe/London", "details" => json_encode([
+                "default" => "Europe/London",
                 "options" => [
                     "Africa/Abidjan" => "Africa/Abidjan",
                     "Africa/Accra" => "Africa/Accra",
@@ -584,14 +586,161 @@ class SettingsTableSeeder extends Seeder
 
         $setting = $this->findSetting("regional.timezone_conversion");
         if (!$setting->exists) {
-            $setting->fill(["display_name" => "Timezone Conversion", "value" => "1", "details" => json_encode([
+            $setting->fill(["display_name" => "Timezone Conversion", "value" => "0", "details" => json_encode([
                 "validation" => [
                     "rule" => "in:0,1,on,off"
                 ]
             ]), "type" => "checkbox", "order" => "47", "group" => "Regional", ])->save();
         }
 
-       
+        // Filesystem Disk
+        $setting = $this->findSetting("storage.filesystem_disk");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "Filesystem Disk",
+                "value" => "local",
+                "details" => json_encode([
+                    "default" => "local",
+                    "options" => [
+                        "local" => "Local",
+                        "s3" => "AWS S3",
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ],
+                    "description" => "BEFORE CHANGING Please read instructions here- https://eventmie-pro-docs.classiebit.com/docs/3.0/admin/settings#Storage"
+                ]),
+                "type" => "select_dropdown",
+                "order" => "1",
+                "group" => "Storage",
+            ])->save();
+        }
+
+        // AWS Access Key ID
+        $setting = $this->findSetting("storage.aws_access_key_id");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "AWS Access Key ID",
+                "value" => "",
+                "details" => json_encode([
+                    "depends_on" => [
+                        "key" => "storage.filesystem_disk",
+                        "value" => "s3"
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ]
+                ]),
+                "type" => "text",
+                "order" => "53",
+                "group" => "Storage",
+            ])->save();
+        }
+
+        // AWS Secret Access Key
+        $setting = $this->findSetting("storage.aws_secret_access_key");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "AWS Secret Access Key",
+                "value" => "",
+                "details" => json_encode([
+                    "depends_on" => [
+                        "key" => "storage.filesystem_disk",
+                        "value" => "s3"
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ]
+                ]),
+                "type" => "text",
+                "order" => "54",
+                "group" => "Storage",
+            ])->save();
+        }
+
+        // AWS Default Region
+        $setting = $this->findSetting("storage.aws_default_region");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "AWS Default Region",
+                "value" => "",
+                "details" => json_encode([
+                    "depends_on" => [
+                        "key" => "storage.filesystem_disk",
+                        "value" => "s3"
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ]
+                ]),
+                "type" => "text",
+                "order" => "55",
+                "group" => "Storage",
+            ])->save();
+        }
+
+        // AWS Bucket
+        $setting = $this->findSetting("storage.aws_bucket");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "AWS Bucket",
+                "value" => "",
+                "details" => json_encode([
+                    "depends_on" => [
+                        "key" => "storage.filesystem_disk",
+                        "value" => "s3"
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ]
+                ]),
+                "type" => "text",
+                "order" => "56",
+                "group" => "Storage",
+            ])->save();
+        }
+
+        // AWS URL
+        $setting = $this->findSetting("storage.aws_url");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "AWS URL",
+                "value" => "",
+                "details" => json_encode([
+                    "depends_on" => [
+                        "key" => "storage.filesystem_disk",
+                        "value" => "s3"
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ]
+                ]),
+                "type" => "text",
+                "order" => "57",
+                "group" => "Storage",
+            ])->save();
+        }
+
+        $setting = $this->findSetting("storage.aws_endpoint");
+        if (!$setting->exists) {
+            $setting->fill([
+                "display_name" => "AWS Endpoint",
+                "value" => "",
+                "details" => json_encode([
+                    "depends_on" => [
+                        "key" => "storage.filesystem_disk",
+                        "value" => "s3"
+                    ],
+                    "validation" => [
+                        "rule" => "required"
+                    ]
+                ]),
+                "type" => "text",
+                "order" => "58",
+                "group" => "Storage",
+            ])->save();
+        }
+
     }
 
     /**

@@ -1,0 +1,10 @@
+// Dark mode utility placeholders and minimal classes
+// This file was added to satisfy the import from theme/_utilities.scss
+
+@media (prefers-color-scheme: dark) {
+  .dark-bg { background-color: #0b0f19 !important; }
+  .dark-text { color: #e5e7eb !important; }
+  .dark-border { border-color: rgba(255, 255, 255, 0.2) !important; }
+}
+
+

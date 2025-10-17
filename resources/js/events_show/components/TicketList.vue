@@ -1,39 +1,10 @@
 <template>
-<div>
-    <!-- Button trigger modal -->
-    <div class="d-grid">
-        <button class="btn btn-primary btn-lg" type="button" @click="openModal = true"><i class="fas fa-ticket-alt"></i> {{ trans('em.get_tickets') }}</button>
-    </div>
-    <div class="custom_model">
-        <div class="modal show" v-if="openModal">
-            <div class="modal-dialog modal-xl model-extra-large">
-                
-                <div class="modal-content">
-                    <div class="modal-header text-center border-0">
-                        <div class="modal-title w-100">
-                            <div>
-                                <h5 class="mb-0 h3">{{ event.title }}</h5>
-
-                                <ul class="list-group list-group-horizontal list-group-flush justify-content-center">
-                                    <li class="list-group-item text-sm border-0 px-0 pe-sm-3">
-                                        <small><i class="fas fa-location-dot text-primary"></i> {{ event.venue }}</small>
-                                        &nbsp;
-                                    </li>
-                                    <li class="list-group-item text-sm border-0 px-0 pe-sm-3">
-                                        <small><i class="fas fa-calendar-day text-primary"></i> {{ serverTimezone(moment(booking_date).format('dddd LL')+' '+start_time, 'dddd LL HH:mm a').locale('en').format('Y-MM-DD') }}</small>
-                                        &nbsp;
-                                    </li>
-                                    <li class="list-group-item text-sm border-0 px-0 pe-sm-3">
-                                        <small><i class="fas fa-clock text-primary"></i> {{ changeTimeFormat(start_time) }} {{ showTimezone() }}</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close" @click="close()"></button>
-                    </div>
+    <div class="mt-3">
+        <div v-if="openModal" ref="modal_custom" :class="{ 'overflow-hidden': overflowHidden  }">
+            <div>
+                <div>
+                    <div>
                     
-                    <div class="modal-body">
                         <form ref="form" @submit.prevent="validateForm" method="POST" >
                             
                             <input type="hidden" class="form-control" name="event_id" :value="event.id" >
@@ -120,7 +91,6 @@
         </div>
 
     </div>
-</div>
 </template>
 
 <script>
@@ -149,7 +119,10 @@ export default {
             moment              : moment,
             quantity            : 0,
             customer_id         : 0,
+            // customers options
             options             : [],
+            //selected customer
+            customer            : null,
         }
     },
 
@@ -157,7 +130,7 @@ export default {
         // get global variables
         ...mapState( ['booking_date', 'start_time', 'end_time']),
     },
-
+   
     methods: {
         // reset form and close modal
         close: function () {    
@@ -322,6 +295,10 @@ export default {
             this.customer_id = this.customer != null ?  this.customer.id : null;
         },
     
+    },
+
+    mounted() {
+        this.openModal = true;
     },
 }
 </script>

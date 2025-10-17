@@ -1,35 +1,36 @@
 <template>
     <div>
         <div class="row" v-if="events_slider == true">
-            <carousel 
+            <VueSlickCarousel
                 :autoplay="true"
-                :autoplayTimeout="3000"
-                :scrollPerPage="false"
+                :autoplaySpeed="3000"
+                :arrows="false" 
+                :dots="false"
+                :infinite="true"
                 :paginationEnabled="false"
-                :autoplayHoverPause="true"
-                :perPage="local_item_count"
                 :rtl="dir"
                 :class="'custom-carousel px-1'"
+                v-bind="settings"
             >
-                <slide
+                <div
                     v-match-heights="{
-                        el: ['h5.sub-title'],  // Array of selectors to fix
+                        el: ['h5.sub-title', 'div.thumb-img-bg'],  // Array of selectors to fix
                     }"
                     v-for="(event, index) in events" 
                     :key="index"
-                    :class="'col-md-6 col-lg-4 col-12'"
+                    :class="'col-sm-4 col-md-3 col-lg-3 col-12'"
                 >
                     <Event :event="event" :currency='currency' :date_format='date_format'/>
 
-                </slide>
-            </carousel>
+                </div>
+            </VueSlickCarousel>
         </div>
          
         <div class="row" v-else>
             <div 
-                class="col-md-4 col-12 mb-4 px-0"
+                class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-6 mb-2 px-0"
                     v-match-heights="{
-                        el: ['h5.sub-title'],  // Array of selectors to fix
+                        el: ['h5.sub-title', 'div.thumb-img-bg'],  // Array of selectors to fix
                     }"
                     v-for="(event, index) in events" 
                     :key="index"
@@ -51,7 +52,10 @@
 
 import mixinsFilters from '../mixins.js';
 
-import { Carousel, Slide } from 'vue-carousel';
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import Event from './Event.vue';
 
@@ -60,8 +64,7 @@ export default {
     props: ['events', 'date_format', 'item_count'],
 
     components: {
-        Carousel,
-        Slide,
+        VueSlickCarousel,
         Event
     },
 
@@ -75,6 +78,37 @@ export default {
             events_slider   : events_slider,
             dir         : false,
             local_item_count  : this.item_count,
+            settings: {
+                "dots": true,
+                "infinite": false,
+                "speed": 500,
+                "slidesToShow": 4,
+                "slidesToScroll": 4,
+                "initialSlide": 0,
+                "autoplay": true,
+                "autoplaySpeed": 3000,
+                "arrows": false,
+                "responsive": [
+                    {
+                        "breakpoint": 1300,
+                        "settings": {
+                            "slidesToShow": 3,
+                            "slidesToScroll": 3,
+                            "infinite": true,
+                            "dots": false
+                        }
+                    },
+                    {
+                        "breakpoint": 1024,
+                        "settings": {
+                            "slidesToShow": 2,
+                            "slidesToScroll": 2,
+                            "infinite": true,
+                            "dots": false
+                        }
+                    },
+                ]
+            }
         }
     },
 

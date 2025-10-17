@@ -2,12 +2,15 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:300,400,500,600,700');
 
 // Bootstrap functions
-@import 'node_modules/bootstrap/scss/bootstrap-grid';
-@import "node_modules/bootstrap/scss/functions";
-// User Variables
+@import "bootstrap/scss/functions";
+
+// User Variables (define primary colors first)
 @import "user-variables";
+
 // theme variablestheme
 @import "theme/variables";
+
+@import "bootstrap/scss/bootstrap-grid";
 //utilities
 @import "theme/utilities";
 

@@ -4,19 +4,23 @@
  */
 
 // include vue common libraries, plugins and components
-require('../vue_common');
+import "../vue_common.js"
 
 /**
  * Local Imports
 */
-Vue.component('DatePicker', require('vue2-datepicker').default);
-Vue.component('VueMatchHeights', require('vue-match-heights').default);
+
+import VueMatchHeights from 'vue-match-heights';
+
+Vue.use(VueMatchHeights);
 
 
+import DatePicker from 'vue2-datepicker';
+Vue.use(DatePicker);
 /**
  * Local Components 
  */
-import Events from './components/Events';
+import Events from './components/Events.vue';
 
 
 /**

@@ -22,7 +22,7 @@ class EventsTableSeeder extends Seeder
             $event->fill([
                 'title' => 'Digital Marketing Seminar',
                 'description' => 'Resolution diminution conviction so mr at unpleasing simplicity',
-                'thumbnail' => 'events/November2023/1701172867248.webp',
+                'thumbnail' => 'events/May2025/1568624877YMeQtcWsib.webp',
                 'poster' => 'events/November2023/1701172867AxxY4MHTU5.webp',
                 'images' => '["events\\/November2023\\/1701172867248.webp","events\\/November2023\\/1701172867248.webp","events\\/November2023\\/1701172867248.webp","events\\/November2023\\/1701172867248.webp","events\\/November2023\\/1701172867248.webp","events\\/November2023\\/1701172867248.webp"]',
                 'venue' => 'History Museum',

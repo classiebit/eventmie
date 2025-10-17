@@ -205,6 +205,7 @@ if (!function_exists('lang_selector'))
     } 
 }
 
+
 /**
  *  eloquent data to array
  */
@@ -285,7 +286,11 @@ if (!function_exists('userTimezone'))
 {
     function userTimezone($date = null, $from_format = null, $to_formate = null)
     {
-        return \Carbon\Carbon::createFromFormat($from_format, $date, setting('regional.timezone_default') )->setTimezone(session('local_timezone'))->translatedFormat($to_formate);
+        if (!session()->has('local_timezone')) {
+            session(['local_timezone' => 'UTC']);
+        }
+        
+        return \Carbon\Carbon::createFromFormat($from_format, $date, setting('regional.timezone_default') )->setTimezone(session('local_timezone', 'UTC'))->translatedFormat($to_formate);
     }
 }
 
@@ -330,5 +335,92 @@ if (!function_exists('checkPrefix'))
 
 
         return false;
+    }
+}
+
+if (!function_exists('vueEditorMedia')) 
+{
+    function vueEditorMedia($params = null)
+    {
+        try {
+            if (!empty($params)) {
+                
+                $storageDisk = getDisk(); // Get the current storage disk
+
+                // Use Laravel's Storage facade for cleaner handling
+                $storagePath = storage_path('app/public/' . $params['path']);
+
+                $imageName = time() . rand(1, 999) . '.webp';
+                // Process and resize the image
+                $image = Image::make($params['file'])
+                    ->encode('webp', 90)
+                    ->resize(1280, 720, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+
+                if ($storageDisk === 's3') {
+
+                    // Convert image to string and store it in S3
+                    Storage::disk('s3')->put($params['path'].'/'.$imageName, $image);
+
+                    // Return the public URL
+                    $publicUrl = Storage::disk('s3')->url($params['path'] . '/' . $imageName);
+
+                } else{
+                    // Create the directory if it doesn't exist
+                    if (!File::exists($storagePath)) {
+                        File::makeDirectory($storagePath, 0755, true);
+                    }
+               
+                    // Save the image
+                    $image->save($storagePath . '/' . $imageName);
+
+                    // Return the public URL
+                    $publicUrl = asset('storage/' . $params['path'] . '/' . $imageName);
+                    
+                }
+
+                return $publicUrl;
+
+                
+                
+            }
+            return null;
+
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Media upload failed: ' . $e->getMessage());
+            return null;
+        }
+    }
+}
+
+if (!function_exists('getFile')) {
+
+    // Get file from Disk
+	function getFile($path, $storage = '')
+	{
+        return Storage::disk(config('filesystems')['default'])->url($storage.$path);
+	}
+
+}
+
+if (!function_exists('getDisk')) {
+    function getDisk()
+    {
+        return config('filesystems')['default'];
+    }
+}
+
+if (!function_exists('getStorageImage')) {
+    function getStorageImage($imagePath)
+    {
+        $storageDisk = config('filesystems.default'); // Get default storage disk
+        
+        if ($storageDisk === 's3') {
+            return getFile($imagePath); // Assuming getFile() handles S3 retrieval
+        } else {
+            return asset('/storage/' . $imagePath);
+        }
     }
 }

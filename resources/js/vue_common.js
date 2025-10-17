@@ -10,12 +10,13 @@
  * declared here except auth
  */
 
-require('./bootstrap');
+import './bootstrap';
+
 
 /**
  * Vue Instance 
  */
-import Vue from 'vue/dist/vue';
+import Vue from "vue";
 window.Vue = Vue;
 
 /**
@@ -95,15 +96,15 @@ Vue.use(VeeValidate);
  * Axios Interceptors 
  * custom global config
  */
- require('./interceptors');
+ import './interceptors';
+
 
 /**
  * Global Components 
  */
-Vue.component('cookie-law', require('vue-cookie-law').default);
-Vue.component('gdpr-message', require('./common_components/GdprComponent.vue').default);
-Vue.component('alert-message', require('./common_components/AlertComponent.vue').default);
+import AlertComponent from './common_components/AlertComponent.vue';
 
+Vue.component('alert-message', AlertComponent);
 /**
  * Global Vue Config 
  */
@@ -123,3 +124,8 @@ const plugin = {
     }
 }
 Vue.use(plugin);
+
+// Basic Use - Covers most scenarios
+import { VueEditor } from 'vue2-editor';
+// Register VueEditor globally
+Vue.component('VueEditor', VueEditor);
