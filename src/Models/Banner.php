@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banner extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function get_banners()
     {

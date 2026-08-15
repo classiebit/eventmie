@@ -7,7 +7,7 @@
                 <p class="small opacity-75">{{ setting('site.site_slogan') }}</p>
                 
                 <p class="small mb-0 text-gray-500">&copy; {{ date('Y') }} <a class="footer-link fw-bold" href="{{ eventmie_url() }}">{{ setting('site.site_name') ?? config('app.name') }}</a></p>
-                <p>@if (!empty(setting('site.site_footer'))) {!! setting('site.site_footer') !!}@endif</p>
+                <p>@if (!empty(setting('site.site_footer'))) {!! sanitize_html(setting('site.site_footer')) !!}@endif</p>
             </div>
             <div class="col-md-8 d-flex flex-wrap justify-content-between">
                 <div class="footer-column text-start">

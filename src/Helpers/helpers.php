@@ -345,9 +345,11 @@ if (!function_exists('vueEditorMedia'))
         try {
             if (!empty($params)) {
                 
-                $storageDisk = getDisk(); // Get the current storage disk
+                $storageDisk = getDisk();
 
-                // Use Laravel's Storage facade for cleaner handling
+                $safePath = \Classiebit\Eventmie\Support\SecureUpload::sanitizePath($params['path']);
+                $params['path'] = $safePath;
+
                 $storagePath = storage_path('app/public/' . $params['path']);
 
                 $imageName = time() . rand(1, 999) . '.webp';

@@ -7,7 +7,7 @@ use DB;
 
 class Country extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
     
     public function get_countries($is_array = true)
     {   

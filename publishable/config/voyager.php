@@ -229,7 +229,7 @@ return [
     ],
 
     // Activate compass when environment is NOT local
-    'compass_in_production' => env('EVENTMIE_PKG_DEV', false),
+    'compass_in_production' => false,
 
     'media' => [
         // The allowed mimetypes to be uploaded through the media-manager.
@@ -237,10 +237,10 @@ return [
         
         'allowed_mimetypes' => [
             'image/jpeg',
-            'image/jp',
             'image/png',
             'image/gif',
             'image/bmp',
+            'image/webp',
             'video/mp4',
         ],
        

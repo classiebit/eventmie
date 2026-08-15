@@ -89,6 +89,7 @@ class LoginController extends Controller
         
         if ($flag) 
         {
+            $request->session()->regenerate();
             $redirect = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
             return redirect($redirect);
         } 

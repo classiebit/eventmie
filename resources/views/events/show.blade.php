@@ -150,7 +150,7 @@
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-body p-4">
                                 <h4>@lang('eventmie::em.overview')</h4>
-                                <p>{!! $event['description'] !!}</p>
+                                <p>{!! sanitize_html($event['description']) !!}</p>
                             </div>
                         </div>
 
@@ -161,7 +161,7 @@
                             <div class="card border-0 shadow-sm mb-4">
                                 <div class="card-body p-4">
                                     <h4 class=" text-left">@lang('eventmie::em.event_info')</h4>
-                                    <p>{!! $event['faq'] !!}</p>
+                                    <p>{!! sanitize_html($event['faq']) !!}</p>
                                 </div>
                             </div>
                         @endif

@@ -42,15 +42,15 @@
 
 @section('javascript')
 <script type="text/javascript">
-    var user = {!! json_encode($user, JSON_UNESCAPED_SLASHES | JSON_HEX_APOS) !!};
-    var csrf_token = {!! json_encode(csrf_token(), JSON_UNESCAPED_SLASHES | JSON_HEX_APOS) !!};
+    var user = {!! json_encode($user, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) !!};
+    var csrf_token = {!! json_encode(csrf_token(), JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) !!};
 
     // Get current storage disk from Laravel
-    var storageDisk = {!! json_encode(env('FILESYSTEM_DRIVER', 'local'), JSON_HEX_APOS) !!};
+    var storageDisk = {!! json_encode(getDisk(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) !!};
 
     // Properly set user avatar URL
     var avatarUrl = storageDisk === 's3' 
-        ? {!! json_encode(getFile($user->avatar), JSON_UNESCAPED_SLASHES | JSON_HEX_APOS) !!} 
+        ? {!! json_encode(getFile($user->avatar), JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) !!} 
         : `storage/${user.avatar}`;
 </script>
 

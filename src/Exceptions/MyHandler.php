@@ -2,11 +2,14 @@
 
 namespace Classiebit\Eventmie\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
+
 class MyHandler extends ExceptionHandler
 {
     /**
@@ -26,12 +29,17 @@ class MyHandler extends ExceptionHandler
     protected $dontFlash = [
         'password',
         'password_confirmation',
+        'current',
+        'current_password',
+        'mail_password',
+        'mail_mail_password',
+        'aws_secret_access_key',
+        'aws_access_key_id',
     ];
 
     /**
      * Report or log an exception.
      *
-     * @param  \Throwable  $exception
      * @return void
      *
      * @throws \Exception
@@ -44,27 +52,24 @@ class MyHandler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  Request  $request
+     * @return Response
      *
-     * @throws \Throwable
-    */
+     * @throws Throwable
+     */
     public function render($request, Throwable $exception)
     {
-        
+
         if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
-            
-            if(request()->wantsJson())
-            {
+
+            if (request()->wantsJson()) {
                 return response()->json(['message' => 'Not Found!'], 404);
-            }
-            else
-            {
+            } else {
                 return response()->view('eventmie::errors.404');
             }
-            
+
         }
+
         return parent::render($request, $exception);
     }
 

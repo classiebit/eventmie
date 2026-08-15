@@ -47,15 +47,6 @@ class UsersTableSeeder extends Seeder
 
             User::insert($users);
             
-        } else {
-
-            // if user exist then make first user admin
-            $user = User::firstOrNew(['id' => 1]);
-            if ($user->exists) {
-                $user->fill([
-                    'role_id'        => 1,
-                ])->save();
-            }
         }
         
     }

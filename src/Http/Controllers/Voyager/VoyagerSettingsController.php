@@ -1,38 +1,24 @@
 <?php
 
 namespace Classiebit\Eventmie\Http\Controllers\Voyager;
-use Facades\Classiebit\Eventmie\Eventmie;
 
+use Facades\Classiebit\Eventmie\Eventmie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use TCG\Voyager\Facades\Voyager;
-use Illuminate\Http\RedirectResponse;
-
 use TCG\Voyager\Http\Controllers\VoyagerSettingsController as BaseVoyagerSettingsController;
 
 class VoyagerSettingsController extends BaseVoyagerSettingsController
 {
-    
-    public function __construct()
+    public function callAction($method, $parameters)
     {
-        // disable modification functions if not in package dev mode
-        $route_name     = "voyager.settings";
-        $enable_routes = [
-            "$route_name.index", 
-            "$route_name.update",
-        ];
-
-        if (!config('voyager.pkg_dev_mode')) 
-        {
-            if(! in_array(\Route::current()->getName(), $enable_routes))
-            {
-                dd('Access Denied!');
-            }
+        $allowed = ['index', 'update'];
+        if (! config('voyager.pkg_dev_mode') && ! in_array($method, $allowed, true)) {
+            abort(403);
         }
-        // ---------------------------------------------------------------------
-    }
 
+        return parent::callAction($method, $parameters);
+    }
 
     public function index()
     {
@@ -68,19 +54,17 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
 
         return Eventmie::view($view, compact('settings', 'groups', 'active'));
     }
-    
-    
+
     public function update(Request $request)
     {
         // demo mode restrictions
-        if(config('voyager.demo_mode'))
-        {
+        if (config('voyager.demo_mode')) {
             return back()->with([
-                'message'    => 'Demo Mode',
+                'message' => 'Demo Mode',
                 'alert-type' => 'info',
             ]);
         }
-        
+
         // Check permission
         $this->authorize('edit', Voyager::model('Setting'));
 
@@ -88,9 +72,9 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
 
         foreach ($settings as $setting) {
             $content = $this->getContentBasedOnType($request, 'settings', (object) [
-                'type'    => $setting->type,
-                'field'   => str_replace('.', '_', $setting->key),
-                'group'   => $setting->group,
+                'type' => $setting->type,
+                'field' => str_replace('.', '_', $setting->key),
+                'group' => $setting->group,
             ], $setting->details);
 
             if ($setting->type == 'image' && $content == null) {
@@ -102,7 +86,11 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
             }
 
             if ($setting->type == 'password') {
-                $content = $request->mail_mail_password;
+                $passwordField = str_replace('.', '_', $setting->key);
+                $content = $request->input($passwordField);
+                if (! is_string($content) || $content === '') {
+                    continue;
+                }
             }
 
             $key = preg_replace('/^'.Str::slug($setting->group).'./i', '', $setting->key);
@@ -116,7 +104,7 @@ class VoyagerSettingsController extends BaseVoyagerSettingsController
         request()->flashOnly('setting_tab');
 
         return back()->with([
-            'message'    => __('voyager::settings.successfully_saved'),
+            'message' => __('voyager::settings.successfully_saved'),
             'alert-type' => 'success',
         ]);
     }

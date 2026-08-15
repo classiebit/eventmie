@@ -9,12 +9,12 @@ class CommonMiddleware {
     public function handle($request, Closure $next)
     {
         // if user lang
-        if(session('my_lang'))
+        $lang = session('my_lang');
+        if ($lang && is_string($lang) && preg_match('/^[a-zA-Z]{2}(_[a-zA-Z]{2})?$/', $lang))
         {
-            \App::setLocale(session('my_lang'));
+            \App::setLocale($lang);
             
-            Carbon::setLocale(session('my_lang'));
-
+            Carbon::setLocale($lang);
         }    
 
         return $next($request);

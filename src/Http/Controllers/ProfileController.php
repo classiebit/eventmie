@@ -138,7 +138,7 @@ class ProfileController extends Controller
         }
         $request->validate([
             'current' => 'required',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
             'password_confirmation' => 'required'
         ]);
 
@@ -171,11 +171,12 @@ class ProfileController extends Controller
         if($request->hasfile('avatar')) 
         { 
             $request->validate([
-                'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'avatar' => 'image|mimes:jpg,png,jpeg,gif,webp|max:2048',
             
             ]); 
         
             $file = $request->file('avatar');
+            \Classiebit\Eventmie\Support\SecureUpload::assertSafeUploadedFile($file);
     
             $extension       = $file->getClientOriginalExtension(); // getting image extension
             $avatar          = time().rand(1,988).'.'.'webp';
@@ -204,7 +205,7 @@ class ProfileController extends Controller
         if(empty($user->avatar) || $user->avatar == 'users/default.png')
         {
             $request->validate([
-                'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'avatar' => 'image|mimes:jpg,png,jpeg,gif,webp|max:2048',
             
             ]); 
         }

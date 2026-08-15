@@ -23,9 +23,11 @@ class EventmieController extends Controller
         $this->middleware('common');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         
         $redirect = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
         return redirect($redirect);
@@ -33,10 +35,17 @@ class EventmieController extends Controller
 
     public function assets(Request $request)
     {
-        if(class_exists('\Str'))
-            $path = \Str::start(str_replace(['../', './'], '', urldecode($request->path)), DIRECTORY_SEPARATOR);
-        else
-            $path = str_start(str_replace(['../', './'], '', urldecode($request->path)), DIRECTORY_SEPARATOR);
+        $raw = urldecode((string) $request->path);
+        $raw = str_replace(['../', '..\\', './', '.\\'], '', $raw);
+        $raw = ltrim($raw, '/\\');
+
+        if ($raw === '' || strpos($raw, "\0") !== false) {
+            return response('', 404);
+        }
+
+        if (!preg_match('/\.(css|js|map|woff2?|ttf|eot|png|jpe?g|gif|svg|ico|webp)$/i', $raw)) {
+            return response('', 404);
+        }
         
         // detect package development mode
         // if in package development mode then base will be package else vendor
@@ -44,7 +53,17 @@ class EventmieController extends Controller
         if(config('voyager.pkg_dev_mode') || config('voyager.demo_mode'))
             $base = '..'.DIRECTORY_SEPARATOR;
         
-        $path = base_path($base.'eventmie'.DIRECTORY_SEPARATOR.'publishable'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.$path);
+        $assetsRoot = realpath(base_path($base.'eventmie'.DIRECTORY_SEPARATOR.'publishable'.DIRECTORY_SEPARATOR.'assets'));
+        if ($assetsRoot === false) {
+            return response('', 404);
+        }
+
+        $path = realpath($assetsRoot.DIRECTORY_SEPARATOR.str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $raw));
+        $root = rtrim($assetsRoot, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+
+        if ($path === false || (strpos($path, $root) !== 0 && $path !== $assetsRoot) || !is_file($path)) {
+            return response('', 404);
+        }
 
         if (File::exists($path)) {
             $mime = '';
@@ -84,9 +103,22 @@ class EventmieController extends Controller
 
     public function change_lang($lang = null)
     {
+        $allowed = lang_selector();
+        if (!in_array($lang, $allowed, true)) {
+            $lang = config('eventmie.default_lang', config('app.locale'));
+        }
+
         \Session::put('my_lang', $lang);
 
-        return redirect($_SERVER['HTTP_REFERER']);
+        $referer = request()->headers->get('referer');
+        if ($referer) {
+            $refererHost = parse_url($referer, PHP_URL_HOST);
+            if ($refererHost && $refererHost === request()->getHost()) {
+                return redirect($referer);
+            }
+        }
+
+        return redirect()->route('eventmie.welcome');
     }        
     
      

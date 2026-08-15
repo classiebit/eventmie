@@ -231,13 +231,20 @@ class EventsController extends Controller
      */
     public function searchEvents(Request $request) 
     {
+        $request->validate([
+            'event_title' => 'nullable|string|max:256',
+        ]);
+
         $event_title = $request->event_title;
 
-        if(!empty($event_title))
-            $options = Event::where('title', 'like', "%$event_title%")->where(['status' => 1])->inRandomOrder()->limit(10)->get();
-        else
-            $options = Event::where(['status' => 1])->inRandomOrder()->limit(10)->get();
+        $query = Event::query()
+            ->select(['id', 'title', 'slug', 'thumbnail', 'start_date', 'venue', 'city'])
+            ->where(['status' => 1, 'publish' => 1]);
 
-        return response()->json($options);
+        if(!empty($event_title)) {
+            $query->where('title', 'like', '%'.$event_title.'%');
+        }
+
+        return response()->json($query->inRandomOrder()->limit(10)->get());
     }
 }

@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <!-- Vue Alert message -->
                 @if ($errors->any())
-                    <alert-message :errors="{{ json_encode($errors->all(), JSON_HEX_APOS) }}"></alert-message>
+                    <alert-message :errors="{{ json_encode($errors->all(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) }}"></alert-message>
                 @endif
 
                 @if (session('status'))

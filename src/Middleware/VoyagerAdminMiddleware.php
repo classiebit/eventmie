@@ -22,11 +22,16 @@ class VoyagerAdminMiddleware
         if (!Auth::guest()) {
             $user = Auth::user();
             
-             // if user lang
-            if(session('my_lang'))
-                \App::setLocale(session('my_lang'));
+            $lang = session('my_lang');
+            if ($lang && is_string($lang) && preg_match('/^[a-zA-Z]{2}(_[a-zA-Z]{2})?$/', $lang)) {
+                \App::setLocale($lang);
+            }
 
-            return $user->hasPermission('browse_admin') ? $next($request) : redirect('/');
+            if (!$user->hasPermission('browse_admin')) {
+                return redirect('/');
+            }
+
+            return app(SanitizeVoyagerUploads::class)->handle($request, $next);
         }
 
         $urlLogin = route('voyager.login');

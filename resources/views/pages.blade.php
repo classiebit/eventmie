@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-md-12  col-12">
                                 <p>
-                                    {!! $page->body !!}
+                                    {!! sanitize_html($page->body) !!}
                                 </p>
 
                             </div>

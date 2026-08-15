@@ -4,14 +4,14 @@
 
 {{-- VueJs Global Constants --}}
 <script type="text/javascript">
-    const my_lang = {!! json_encode(session('my_lang', \Config::get('app.locale'))) !!};
-    const timezone_conversion = {!! json_encode(!empty(setting('regional.timezone_conversion')) ? 1 : 0) !!};
-    const timezone_default = {!! json_encode(setting('regional.timezone_default')) !!};
+    const my_lang = {!! json_encode(session('my_lang', \Config::get('app.locale')), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!};
+    const timezone_conversion = {!! json_encode(!empty(setting('regional.timezone_conversion')) ? 1 : 0, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!};
+    const timezone_default = {!! json_encode(setting('regional.timezone_default'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!};
 
 
     const date_format = {
-        vue_date_format: '{!! format_js_date() !!}',
-        vue_time_format: '{!! format_js_time() !!}'
+        vue_date_format: {!! json_encode(format_js_date(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) !!},
+        vue_time_format: {!! json_encode(format_js_time(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) !!}
     };
 </script>
 
@@ -92,7 +92,7 @@
 
 
     // set local timezone 
-    var local_timezone = {!! json_encode(route('eventmie.local_timezone')) !!};
+    var local_timezone = {!! json_encode(route('eventmie.local_timezone'), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!};
 
     function setLocalTimezone() {
         // Making our request

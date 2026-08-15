@@ -254,7 +254,7 @@
                                                             <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower($dataType->display_name_singular) }}?</h4>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form action="{{ route('eventmie.delete_event',[$data->slug]) }}" id="delete_form" method="GET">
+                                                            <form action="{{ route('eventmie.delete_event',[$data->slug]) }}" id="delete_form" method="POST">
                                                                 {{ csrf_field() }}
                                                                 <input type="submit" class="btn btn-danger pull-right delete-confirm" value="{{ __('voyager::generic.delete_confirm') }}">
                                                             </form>

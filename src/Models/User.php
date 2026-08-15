@@ -19,7 +19,10 @@ class User extends \TCG\Voyager\Models\User
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = ['id', 'remember_token', 'email_verified_at'];
+    protected $fillable = [
+        'name', 'email', 'password', 'role_id', 'avatar', 'settings',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.

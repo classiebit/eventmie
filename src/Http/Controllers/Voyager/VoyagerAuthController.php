@@ -6,5 +6,8 @@ use TCG\Voyager\Http\Controllers\VoyagerAuthController as BaseVoyagerAuthControl
 
 class VoyagerAuthController extends BaseVoyagerAuthController
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('throttle:5,1')->only('postLogin');
+    }
 }

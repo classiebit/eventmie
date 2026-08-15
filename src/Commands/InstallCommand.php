@@ -10,6 +10,9 @@ use Classiebit\Eventmie\Traits\Seedable;
 
 use Classiebit\Eventmie\EventmieServiceProvider;
 use Facades\Classiebit\Eventmie\Eventmie;
+use Classiebit\Eventmie\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 use File;
 
@@ -200,12 +203,14 @@ class InstallCommand extends Command
         // 5. Run database seeder
         $this->info('5. Running Eventmie database seeders');
         $this->seed('EventmieDatabaseSeeder');
+        $this->rotateDefaultAdminPassword();
+        \Classiebit\Eventmie\Support\SecureUpload::protectUploadDirectories();
         
         // 6. Copy missing extras folder's files to storage
         $this->info('6. Adding Placeholders');
         $dir = str_replace('src/Commands', '', __DIR__);
-        File::copyDirectory($dir.'publishable/assets/ep_img/', public_path('/'));
-        File::copyDirectory($dir.'publishable/assets/webfonts/', public_path('/'));
+        \Classiebit\Eventmie\Support\SecureUpload::copyPublicAssets($dir.'publishable/assets/ep_img/', public_path('/'));
+        \Classiebit\Eventmie\Support\SecureUpload::copyPublicAssets($dir.'publishable/assets/webfonts/', public_path('/'));
         // copy vite config
         $viteConfigSrc  = $dir.'publishable/assets/vite.config.js';
         $viteConfigDest = base_path('vite.config.js');
@@ -226,11 +231,41 @@ class InstallCommand extends Command
         // 8. Add storage symlink
         $this->info('8. Adding the storage symlink to your public folder');
         $this->call('storage:link');
+        \Classiebit\Eventmie\Support\SecureUpload::protectUploadDirectories();
         
         $version = Eventmie::getVersion();
         $this->info("Congrats! Eventmie Lite successfully updated to version $version! Make sure to check Eventmie Pro FullyLoaded on our website- https://classiebit.com/eventmie-pro-fullyloaded");
 
         $this->info('!!! Final Important Step: Please run "npm install" and "npm run build" to install the dependencies and build the assets');
+    }
+
+    /**
+     * Replace the seeded default password so new installs do not ship
+     * with admin@admin.com / password.
+     */
+    protected function rotateDefaultAdminPassword()
+    {
+        if (config('voyager.demo_mode')) {
+            $this->warn('Demo mode: admin login is admin@admin.com / password — change this in production.');
+            return;
+        }
+
+        $admin = User::where('email', 'admin@admin.com')->first();
+        if ($admin) {
+            $password = Str::random(20);
+            $admin->password = Hash::make($password);
+            $admin->save();
+
+            $this->warn('Admin email:    admin@admin.com');
+            $this->warn('Admin password: '.$password);
+            $this->warn('Save this password now. Change it after first login.');
+        }
+
+        $demo = User::where('email', 'davidlane@mail.com')->first();
+        if ($demo) {
+            $demo->password = Hash::make(Str::random(32));
+            $demo->save();
+        }
     }
     
 }

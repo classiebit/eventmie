@@ -92,6 +92,13 @@ class EventmieServiceProvider extends ServiceProvider
                 $this->configureStorage();
             }
         }
+
+        \Classiebit\Eventmie\Support\SecureUpload::protectUploadDirectories();
+        \Classiebit\Eventmie\Support\SafeMail::boot();
+
+        if ($this->app->environment('production')) {
+            Config::set('session.secure', true);
+        }
         
         // load eventmie resources.views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'eventmie');
@@ -136,8 +143,8 @@ class EventmieServiceProvider extends ServiceProvider
                         'region' => $requiredS3Settings['aws_default_region'],
                         'bucket' => $requiredS3Settings['aws_bucket'],
                         'url' => $requiredS3Settings['aws_url'],
-                        'endpoint' => setting('storage.aws_endpoint', env('AWS_ENDPOINT', null)),
-                        'use_path_style_endpoint' => setting('storage.aws_use_path_style_endpoint', env('AWS_USE_PATH_STYLE_ENDPOINT', false)),
+                        'endpoint' => setting('storage.aws_endpoint', config('filesystems.disks.s3.endpoint')),
+                        'use_path_style_endpoint' => setting('storage.aws_use_path_style_endpoint', config('filesystems.disks.s3.use_path_style_endpoint', false)),
                     ]);
                     Config::set('filesystems.default', 's3');
                     Config::set('eventmie.admin_storage', 's3');

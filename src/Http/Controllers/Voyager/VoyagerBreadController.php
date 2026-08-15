@@ -6,19 +6,12 @@ use TCG\Voyager\Http\Controllers\VoyagerBreadController as BaseVoyagerBreadContr
 
 class VoyagerBreadController extends BaseVoyagerBreadController
 {
-    public function __construct()
+    public function callAction($method, $parameters)
     {
-        // disable modification when not in package development mode
-        if (!config('voyager.pkg_dev_mode')) 
-        {
-            return redirect()
-            ->route("voyager.events.index")
-            ->with([
-                'message'    => 'Only available in developer mode',
-                'alert-type' => 'info',
-            ])
-            ->send();
+        if (!config('voyager.pkg_dev_mode')) {
+            abort(403, 'Only available in developer mode');
         }
-        // ---------------------------------------------------------------------
+
+        return parent::callAction($method, $parameters);
     }
 }

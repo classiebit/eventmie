@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
+    protected $fillable = [
+        'name', 'email', 'title', 'message',
+    ];
 
     // save contact details
     public function store_contact($data = [])

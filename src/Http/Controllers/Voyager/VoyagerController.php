@@ -17,6 +17,8 @@ class VoyagerController extends BaseVoyagerController
     public function logout()
     {
         Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
         return redirect(config('eventmie.route.prefix').'/'.config('eventmie.route.admin_prefix'));
     }

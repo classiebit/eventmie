@@ -1,0 +1,21 @@
+# Eventmie: do not execute scripts in uploaded files
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(?i:php[0-9]?|phtml|pht|phar|cgi|pl|py|jsp|asp|aspx|sh|shtml)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(?i:php[0-9]?|phtml|pht|phar|cgi|pl|py|jsp|asp|aspx|sh|shtml)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>

@@ -25,7 +25,7 @@ class Page extends Model
      */
     public static $statuses = [self::STATUS_ACTIVE, self::STATUS_INACTIVE];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function save(array $options = [])
     {
